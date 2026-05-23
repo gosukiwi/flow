@@ -14,11 +14,11 @@ Task tool (generalPurpose):
 
     ## Context
 
-    [Scene-setting: where this fits, dependencies, branch name, architectural context]
+    [Scene-setting: where this fits, dependencies, branch name (user-confirmed), architectural context]
 
     ## TDD (Required)
 
-    Read and follow flow-shared references/tdd-red-green.md principles.
+    Read and follow `flow-shared/references/tdd-red-green.md` (resolve via path resolver in `flow/SKILL.md`).
 
     RED → verify fail → GREEN → verify pass → REFACTOR (stay green).
 
@@ -34,7 +34,7 @@ Task tool (generalPurpose):
     1. Implement exactly what the task specifies
     2. Follow TDD (RED-GREEN-REFACTOR)
     3. Run verification commands; capture output
-    4. Commit on the feature branch (never main/master without explicit approval)
+    4. Commit on the user-confirmed feature branch (never main/master; do not create or switch branches — orchestrator handles that)
     5. Self-review
     6. Report back
 

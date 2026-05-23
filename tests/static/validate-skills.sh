@@ -73,7 +73,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(tdd-red-green verification-gate)
+REFS=(tdd-red-green verification-gate branch-gate)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then

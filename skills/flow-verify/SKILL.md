@@ -11,13 +11,13 @@ metadata:
 
 **Triggered by:** `/flow-verify`
 
-Evidence before assertions. **Read and follow** `flow-shared/references/verification-gate.md` (resolve path via `flow/SKILL.md` path resolver).
+Evidence before assertions. **Read and follow** `flow-shared/references/verification-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
 Tests + spec checklist — not a substitute for per-task reviews during `/flow-execute` or `/flow-patch`.
 
 ## Process
 
-1. Read `verification-gate.md` — follow the gate for all completion claims
+1. Read `flow-shared/references/verification-gate.md` (resolve via path resolver in `flow/SKILL.md`) — follow the gate for all completion claims
 2. Run the **full** test suite (or project-standard equivalent); read complete output
 3. Requirements checklist against spec, plan, or micro-spec — verify each requirement line by line:
 

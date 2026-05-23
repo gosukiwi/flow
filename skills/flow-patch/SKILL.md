@@ -23,7 +23,7 @@ For **single bounded changes** — too small for a full spec doc. Implement **in
 
 ## Branch rule
 
-Same as flow-execute: feature branch; never commit on main/master without explicit approval.
+**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Confirm branch with the user before the first commit.
 
 ## Process
 
@@ -58,13 +58,15 @@ Review the micro-spec critically before starting — raise concerns with the use
 
 **Stop until approved.**
 
+Confirm branch per `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) before implementation — propose a name or ask where to work.
+
 Update `docs/flow/STATE.md`: `phase: patch`.
 
 ### 3. Inline execution (per task)
 
 **Implement in this session** — do not dispatch an implementer subagent. User should see edits and test runs live.
 
-Read `flow-shared/references/tdd-red-green.md` (resolve via `flow/SKILL.md` path resolver).
+Read `flow-shared/references/tdd-red-green.md` (resolve via path resolver in `flow/SKILL.md`).
 
 For each task:
 
@@ -77,8 +79,8 @@ For each task:
    - TDD cycle followed (watched test fail before implementing)
    - Names clear; files focused
 
-4. Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md`; paste full task text + micro-spec context. Loop: fix inline → re-review until ✅
-5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **code quality reviewer** — read `flow-shared/prompts/code-quality-reviewer.md`. Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
+4. Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md` (resolve via path resolver in `flow/SKILL.md`); paste full task text + micro-spec context. Loop: fix inline → re-review until ✅
+5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **code quality reviewer** — read `flow-shared/prompts/code-quality-reviewer.md` (resolve via path resolver in `flow/SKILL.md`). Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
    - **Block or Fix present:** fix inline → re-review
    - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
    Reviewers do not edit code.

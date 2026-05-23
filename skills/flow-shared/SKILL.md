@@ -19,6 +19,7 @@ metadata:
 - `flow-shared/prompts/code-quality-reviewer.md`
 - `flow-shared/references/tdd-red-green.md`
 - `flow-shared/references/verification-gate.md`
+- `flow-shared/references/branch-gate.md`
 
 ## Usage
 

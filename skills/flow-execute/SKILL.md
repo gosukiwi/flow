@@ -21,13 +21,17 @@ Execute an approved plan using **subagents only** — never implement tasks inli
 
 ## Branch rule
 
-- Work on a **feature branch** (create one if needed)
-- **Never commit on `main`/`master`** without explicit user approval
-- Git worktrees: out of scope for v1 (may be added later)
+**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+
+Before the first commit: confirm branch with the user — propose a name or ask where to work; never create or switch branches without approval.
+
+Git worktrees: out of scope for v1 (may be added later).
 
 ## Process
 
 ### 1. Load plan
+
+Confirm branch per `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) before starting Task 1.
 
 Read plan once. Extract every task with full text. Create TodoWrite per task.
 
@@ -52,11 +56,11 @@ Only then start Task N+1 step 1.
 
 **Forbidden:** Starting Task N+1 while Task N is still in spec or code quality review — even if the implementer already finished. Reviews are blocking gates, not background work.
 
-**Before each dispatch:** Read prompt templates from `flow-shared/prompts/`:
+**Before each dispatch:** Read prompt templates (resolve via path resolver in `flow/SKILL.md`):
 
-- `implementer.md`
-- `spec-reviewer.md`
-- `code-quality-reviewer.md`
+- `flow-shared/prompts/implementer.md`
+- `flow-shared/prompts/spec-reviewer.md`
+- `flow-shared/prompts/code-quality-reviewer.md`
 
 Paste **full task text** into subagent prompts. Subagents must not read plan files themselves.
 

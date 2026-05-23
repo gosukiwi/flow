@@ -110,8 +110,8 @@ Per-task reviews run during execute and patch. For an extra whole-change pass, r
 
 ## Branch rules
 
-- Feature branch for all implementation
-- Never commit on `main`/`master` without explicit approval
+- Feature branch for all implementation; never commit on `main`/`master` without explicit approval
+- **Ask before creating or switching branches** — propose a name or wait for the user to say where to work
 
 ## Testing this repo
 

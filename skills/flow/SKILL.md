@@ -74,6 +74,8 @@ updated: YYYY-MM-DD
 
 Do not invoke `flow-shared` directly — resolve it via the path resolver above for prompts and references.
 
+Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) — ask before creating or switching branches.
+
 ## How to Start
 
 Read the skill matching the user's command:
