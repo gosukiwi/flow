@@ -1,0 +1,12 @@
+{
+  "name": "@gosukiwi/flow-skills",
+  "version": "0.1.0",
+  "description": "Explicit spec-driven development workflow skills for Cursor and compatible agents",
+  "files": ["skills", "README.md"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gosukiwi/flow-skillset"
+  },
+  "keywords": ["cursor", "agent-skills", "skills", "tdd", "workflow"]
+}
