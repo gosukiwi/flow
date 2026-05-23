@@ -6,13 +6,15 @@ A solid, explicit, and minimal development workflow for Cursor and compatible ag
 
 ## TLDR
 
-Start your session with `/flow-brainstorm`. Eg:
+**New feature?** Start with `/flow-brainstorm`. Eg:
 
 ```
 /flow-brainstorm let's implement this new feature
 ```
 
-The agents will guide you from there. See below for detailed information all the included workflows.
+**Not sure?** Start with `/flow` — it routes you to the right step.
+
+The agents will guide you from there. See below for detailed information on all included workflows.
 
 ## Commands
 
@@ -76,6 +78,7 @@ Live in `skills/flow-shared/prompts/`:
 - `implementer.md`
 - `spec-reviewer.md`
 - `code-quality-reviewer.md`
+- `final-reviewer.md`
 
 Orchestrator skills resolve paths via the resolver in `flow/SKILL.md`:
 

@@ -11,29 +11,15 @@ metadata:
 
 **Triggered by:** `/flow-verify`
 
-Evidence before assertions. Read `flow-shared/references/verification-gate.md`.
+Evidence before assertions. **Read and follow** `flow-shared/references/verification-gate.md` (resolve path via `flow/SKILL.md` path resolver).
 
 **Verify is not code review** — tests + spec checklist only. Code review is `/flow-review`.
 
-## Iron Law
-
-```
-NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
-```
-
 ## Process
 
-### 1. Identify proof commands
-
-Determine what commands prove: tests pass, build succeeds, spec requirements met.
-
-### 2. Run verification (fresh, this session)
-
-Run the **full** test suite (or project-standard equivalent). Read complete output.
-
-### 3. Requirements checklist
-
-Against spec, plan, or micro-spec — verify each requirement line by line:
+1. Read `verification-gate.md` — follow the gate for all completion claims
+2. Run the **full** test suite (or project-standard equivalent); read complete output
+3. Requirements checklist against spec, plan, or micro-spec — verify each requirement line by line:
 
 | Requirement | Evidence |
 |-------------|----------|
@@ -41,9 +27,7 @@ Against spec, plan, or micro-spec — verify each requirement line by line:
 
 List gaps explicitly. Do not claim complete with open gaps.
 
-### 4. Report
-
-Only after steps 2–3:
+4. Report only after steps 2–3:
 
 ```
 Verification complete:

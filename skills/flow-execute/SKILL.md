@@ -102,16 +102,14 @@ Update `docs/flow/STATE.md`: `phase: verify` when starting verify. Do not set `p
 - Skip subagents and implement inline
 - Skip spec or code quality review
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)
-- Dispatch two subagents at once for different tasks
-- Parallel implementer subagents (merge conflicts)
-- Make subagent read the plan file (provide full text)
+- Dispatch parallel subagents across tasks (different tasks or roles at once)
+- Make subagent read the plan file — provide full task text in prompts
 - Move to next task after implementer DONE but before both reviews ✅
-- Commit on main/master without approval
 
 ## Continuous execution
 
 Do not pause between **completed** tasks for progress check-ins.
 
-**Continuous ≠ parallel.** Finish the full gate for Task N (implement → spec ✅ → quality ✅) before dispatching anything for Task N+1.
+**Continuous ≠ parallel.** Finish the full gate for Task N before dispatching anything for Task N+1.
 
 Stop only when: blocked, ambiguous, or all tasks complete.
