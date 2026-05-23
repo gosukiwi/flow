@@ -9,6 +9,7 @@ Designed for Cursor CLI + Composer where ambient skill auto-trigger is unreliabl
 | Command | Purpose |
 |---------|---------|
 | `/flow` | Router and path resolver |
+| `/flow-brainstorm` | Explore ideas and design before formal spec |
 | `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
 | `/flow-execute` | Execute plan via subagents + two-stage review |
 | `/flow-patch` | Micro-spec + subagents for small changes |
@@ -46,6 +47,7 @@ Installs to `.agents/skills/` (project) or `~/.cursor/skills/` (global). Include
 ```
 skills/                    # installed into consumer project
   flow/
+  flow-brainstorm/
   flow-spec/
   flow-execute/
   flow-patch/
@@ -83,7 +85,7 @@ docs/flow/
 ## Workflow
 
 ```
-/flow-spec     → user approves spec → AI writes + self-reviews plan
+/flow-brainstorm → explore in chat → re-review summary → /flow-spec → user approves spec → AI self-reviews plan
 /flow-execute  → subagents (TDD → spec review → code quality review)
 /flow-verify   → run tests + requirements checklist
 ```

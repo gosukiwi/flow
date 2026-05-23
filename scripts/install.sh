@@ -35,8 +35,9 @@ fi
 cat <<'EOF'
 
 Installed skills:
-  /flow          — router
-  /flow-spec     — spec + plan
+  /flow            — router
+  /flow-brainstorm — explore before spec
+  /flow-spec       — spec + plan
   /flow-execute  — subagent execution
   /flow-patch    — small changes
   /flow-debug    — root cause first

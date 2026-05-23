@@ -13,11 +13,13 @@ metadata:
 
 Create a clear spec (user-approved) and implementation plan (AI self-reviewed). Do not write production code in this skill.
 
+If the user just finished `/flow-brainstorm`, carry forward the approved decisions summary from conversation. If requirements are still fuzzy, redirect to `/flow-brainstorm`.
+
 ## Phase A — Spec
 
 ### 1. Explore context
 
-Read relevant files, docs, recent commits. Understand existing patterns.
+Read relevant files, docs, recent commits. Understand existing patterns and any decisions from a prior brainstorm in this session.
 
 ### 2. Clarify (one question at a time)
 
@@ -29,7 +31,9 @@ Ask until there are **zero open questions** about:
 
 Prefer multiple-choice when possible. One question per message.
 
-If the request spans multiple independent subsystems, stop and help decompose. Spec one sub-project at a time.
+When offering A/B/C/D options, mark exactly one with **`(Recommended)`** and add one sentence why. See `flow-brainstorm` for format.
+
+If requirements are still fuzzy after a few questions, redirect to `/flow-brainstorm`.
 
 ### 3. Propose design
 

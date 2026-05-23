@@ -18,6 +18,7 @@ Explicit workflow for spec-driven development with TDD, subagents, and verificat
 
 | Command | When to use |
 |---------|-------------|
+| `/flow-brainstorm` | Fuzzy idea — explore options and design before spec |
 | `/flow-spec` | New feature or multi-step change — needs spec + plan |
 | `/flow-execute` | Approved spec exists; run the plan with subagents |
 | `/flow-patch` | Single bounded change (≤3 files, one concern) |
@@ -30,8 +31,9 @@ Explicit workflow for spec-driven development with TDD, subagents, and verificat
 New work?
 ├─ Bug or test failure? → /flow-debug
 ├─ Small bounded change? → /flow-patch
-├─ Multi-step or ambiguous? → /flow-spec
-└─ Plan already approved? → /flow-execute
+├─ Idea fuzzy or needs exploration? → /flow-brainstorm
+├─ Direction clear, ready to lock requirements? → /flow-spec
+└─ Plan already written? → /flow-execute
 
 Implementation done?
 └─ /flow-verify (then external code review skillset if you use one)
@@ -80,6 +82,7 @@ Install includes `flow-shared` (internal bundle with prompts). Do not invoke `fl
 
 Read the skill matching the user's command:
 
+- `/flow-brainstorm` → read `flow-brainstorm/SKILL.md`
 - `/flow-spec` → read `flow-spec/SKILL.md`
 - `/flow-execute` → read `flow-execute/SKILL.md`
 - `/flow-patch` → read `flow-patch/SKILL.md`

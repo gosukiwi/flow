@@ -12,6 +12,7 @@ echo "=== validate-skills ==="
 
 REQUIRED_SKILLS=(
   flow
+  flow-brainstorm
   flow-spec
   flow-execute
   flow-patch
