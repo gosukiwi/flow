@@ -93,9 +93,9 @@ Mark Task N completed in TodoWrite. **Then** begin Task N+1 step 1.
 
 ### 3. After all tasks
 
-Run `/flow-verify` against spec + plan.
+Run `/flow-verify` against spec + plan, then `/flow-review`.
 
-Update `docs/flow/STATE.md`: `phase: verify`.
+Update `docs/flow/STATE.md`: `phase: verify` when starting verify. Do not set `phase: done` — review and user choice come next.
 
 ## Red flags — never
 

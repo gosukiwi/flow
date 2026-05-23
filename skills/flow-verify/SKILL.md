@@ -13,6 +13,8 @@ metadata:
 
 Evidence before assertions. Read `flow-shared/references/verification-gate.md`.
 
+**Verify is not code review** — tests + spec checklist only. Code review is `/flow-review`.
+
 ## Iron Law
 
 ```
@@ -47,13 +49,13 @@ Only after steps 2–3:
 Verification complete:
 - Tests: [command] → [result with counts]
 - Requirements: [N/N met] or [gaps listed]
-- Ready for: [external code review / merge / user acceptance]
+- Ready for: /flow-review
 ```
 
 If anything fails, do **not** claim done. Route to `/flow-debug` or `/flow-patch`.
 
-Update `docs/flow/STATE.md`: `phase: done` only when verification passes.
+Update `docs/flow/STATE.md`: `phase: verify` when starting; after pass, hand off to `/flow-review` (do not set `phase: done` here).
 
 ## Handoff
 
-This skillset verifies spec/plan compliance and test evidence only. Invoke your **external code review skillset** after `/flow-verify` if your team uses one.
+> Verification complete. Run `/flow-review` for final code review.

@@ -16,7 +16,8 @@ Repo: [github.com/gosukiwi/flow](https://github.com/gosukiwi/flow)
 | `/flow-execute` | Execute plan via subagents + two-stage review |
 | `/flow-patch` | Micro-spec + subagents for small changes |
 | `/flow-debug` | Root cause investigation before fixes |
-| `/flow-verify` | Fresh verification before claiming done |
+| `/flow-verify` | Tests + spec checklist (not code review) |
+| `/flow-review` | Final code review after verify |
 
 ## Install
 
@@ -55,6 +56,7 @@ skills/                    # installed into consumer project
   flow-patch/
   flow-debug/
   flow-verify/
+  flow-review/
   flow-shared/             # internal — prompts + references
 tests/                     # maintainer only — not installed
 ```
@@ -89,13 +91,14 @@ docs/flow/
 
 ```
 /flow-brainstorm → explore (optional) → /flow-spec → user approves spec → AI self-reviews plan
-/flow-execute  → subagents (TDD → spec review → code quality review)
-/flow-verify   → run tests + requirements checklist
+/flow-execute    → subagents (TDD → spec review → code quality review per task)
+/flow-verify     → tests + requirements checklist
+/flow-review     → final review (Block / Fix / Suggest) → user decides next step
 ```
 
-Small changes: `/flow-patch`. Bugs: `/flow-debug` → `/flow-patch`.
+Small changes: `/flow-patch` → `/flow-verify` → `/flow-review`. Bugs: `/flow-debug` → `/flow-patch`.
 
-Code review for style/team standards is **out of scope** — use your external code review skillset after `/flow-verify`.
+After `/flow-review`, you may run project skills (e.g. `clean-code-reviewer`) for extra checks — optional, does not replace Flow review unless the user asks.
 
 ## Branch rules
 

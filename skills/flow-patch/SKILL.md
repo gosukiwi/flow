@@ -56,9 +56,9 @@ Read prompt templates from `flow-shared/prompts/` (resolve directory via `flow/S
 
 Never implement inline in the orchestrator session.
 
-### 4. Verify
+### 4. Verify and review
 
-Run `/flow-verify` against the micro-spec.
+Run `/flow-verify` against the micro-spec, then `/flow-review`.
 
 ## Redirect rules
 

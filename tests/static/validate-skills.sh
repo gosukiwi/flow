@@ -18,6 +18,7 @@ REQUIRED_SKILLS=(
   flow-patch
   flow-debug
   flow-verify
+  flow-review
   flow-shared
 )
 
@@ -62,7 +63,7 @@ for skill in "${REQUIRED_SKILLS[@]}"; do
 done
 
 # flow-shared prompts
-PROMPTS=(implementer spec-reviewer code-quality-reviewer)
+PROMPTS=(implementer spec-reviewer code-quality-reviewer final-reviewer)
 for prompt in "${PROMPTS[@]}"; do
   p="$SKILLS_DIR/flow-shared/prompts/${prompt}.md"
   if [[ -f "$p" ]]; then
@@ -86,16 +87,28 @@ done
 echo ""
 echo "=== validate-prompt-refs ==="
 
-ORCHESTRATORS=(flow-execute flow-patch)
+ORCHESTRATORS=(flow-execute flow-patch flow-review)
 for skill in "${ORCHESTRATORS[@]}"; do
   skill_file="$SKILLS_DIR/$skill/SKILL.md"
-  if grep -q 'flow-shared/prompts/' "$skill_file"; then
+  if [[ "$skill" == "flow-review" ]]; then
+    if grep -q 'final-reviewer.md' "$skill_file"; then
+      pass "$skill: references final-reviewer prompt"
+    else
+      fail "$skill: must reference flow-shared/prompts/final-reviewer.md"
+    fi
+  elif grep -q 'flow-shared/prompts/' "$skill_file"; then
     pass "$skill: references flow-shared prompts"
   else
     fail "$skill: must reference flow-shared/prompts/"
   fi
 
-  if grep -qi 'subagent' "$skill_file" && grep -qi 'never implement inline\|subagents only\|Never implement inline' "$skill_file"; then
+  if [[ "$skill" == "flow-review" ]]; then
+    if grep -qi 'Dispatch final review subagent\|dispatch.*subagent' "$skill_file"; then
+      pass "$skill: dispatches review subagent"
+    else
+      fail "$skill: must dispatch final review subagent"
+    fi
+  elif grep -qi 'subagent' "$skill_file" && grep -qi 'never implement inline\|subagents only\|Never implement inline' "$skill_file"; then
     pass "$skill: requires subagent execution"
   else
     fail "$skill: must forbid inline implementation"
