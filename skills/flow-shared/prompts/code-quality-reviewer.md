@@ -35,18 +35,43 @@ Task tool (generalPurpose):
     - No obvious bugs or security issues
     - Deviations from plan — intentional improvement or problem?
 
-    ## Output Format
+    ## Calibration
 
-    ### Strengths
-    [Specific positives]
+    Focus on correctness and real risk — not taste.
 
-    ### Issues
-    - **Critical:** [must fix]
-    - **Important:** [should fix]
-    - **Minor:** [nice to fix]
+    **Block:** bugs, security issues, broken backwards compatibility, data integrity
+    problems, or behavior that would fail in production.
 
-    ### Assessment
-    ✅ Approved | ❌ Needs changes
+    **Fix:** maintainability or test gaps that would likely cause bugs or painful
+    maintenance soon — including separation of concerns, error handling, and not
+    following established patterns when it hurts maintainability.
 
-    If ❌, implementer fixes and you re-review until ✅ Approved.
+    **Suggest:** style, optional refactors, minor improvements — never block approval.
+
+    Do not flag issues unless they would cause real problems in production or
+    maintenance.
+
+    ## Output Format (use exactly these headings)
+
+    ### Block
+    Must fix before approval. [file:line] — reason
+
+    ### Fix
+    Should fix; implementer must address before approval. [file:line] — reason
+
+    ### Suggest
+    Optional improvement; does not block approval. [file:line] — reason
+
+    Omit a section if empty. Do not use other severity labels.
+
+    End with one line:
+    Summary: N block(s), M fix(es), K suggest(s)
+
+    ## Approval
+
+    ✅ Approved — only when Block and Fix are both empty (after independent diff inspection).
+    ❌ Needs changes — any Block or Fix item present.
+
+    If ❌, the implementer must fix all Block and Fix items, then you re-review until ✅ Approved.
+    Do not edit code yourself — report issues only.
 ```

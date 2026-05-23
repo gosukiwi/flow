@@ -85,7 +85,12 @@ Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch code q
 
 **Do not mark the task complete or start the next task until reviewer returns ✅ Approved.**
 
-Loop: implementer fixes → re-review until ✅ Approved.
+Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
+
+- **Block or Fix present:** implementer (subagent) fixes all Block and Fix items → re-review
+- **Suggest only:** ✅ Approved — Suggest is advisory, do not block
+
+Reviewers do not edit code.
 
 #### Step 4 — Complete task
 

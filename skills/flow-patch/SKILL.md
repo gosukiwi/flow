@@ -78,7 +78,10 @@ For each task:
    - Names clear; files focused
 
 4. Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md`; paste full task text + micro-spec context. Loop: fix inline → re-review until ✅
-5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **code quality reviewer** — read `flow-shared/prompts/code-quality-reviewer.md`. Loop: fix inline → re-review until ✅ Approved
+5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **code quality reviewer** — read `flow-shared/prompts/code-quality-reviewer.md`. Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
+   - **Block or Fix present:** fix inline → re-review
+   - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
+   Reviewers do not edit code.
 6. Mark task completed in TodoWrite
 
 **One task at a time.** Do not start Task N+1 until Task N passes both reviews.
