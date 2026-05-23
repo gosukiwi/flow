@@ -17,6 +17,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-spec-skip-questions.md` | `/flow-spec` | Agent asks questions instead of jumping to code |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |
+| `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 
 ## RED → GREEN → REFACTOR for skills
