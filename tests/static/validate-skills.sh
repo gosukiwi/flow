@@ -18,7 +18,6 @@ REQUIRED_SKILLS=(
   flow-patch
   flow-debug
   flow-verify
-  flow-review
   flow-shared
 )
 
@@ -63,7 +62,7 @@ for skill in "${REQUIRED_SKILLS[@]}"; do
 done
 
 # flow-shared prompts
-PROMPTS=(implementer spec-reviewer code-quality-reviewer final-reviewer)
+PROMPTS=(implementer spec-reviewer code-quality-reviewer)
 for prompt in "${PROMPTS[@]}"; do
   p="$SKILLS_DIR/flow-shared/prompts/${prompt}.md"
   if [[ -f "$p" ]]; then
@@ -87,33 +86,31 @@ done
 echo ""
 echo "=== validate-prompt-refs ==="
 
-ORCHESTRATORS=(flow-execute flow-patch flow-review)
-for skill in "${ORCHESTRATORS[@]}"; do
-  skill_file="$SKILLS_DIR/$skill/SKILL.md"
-  if [[ "$skill" == "flow-review" ]]; then
-    if grep -q 'final-reviewer.md' "$skill_file"; then
-      pass "$skill: references final-reviewer prompt"
-    else
-      fail "$skill: must reference flow-shared/prompts/final-reviewer.md"
-    fi
-  elif grep -q 'flow-shared/prompts/' "$skill_file"; then
-    pass "$skill: references flow-shared prompts"
-  else
-    fail "$skill: must reference flow-shared/prompts/"
-  fi
+# flow-execute: subagents only, no inline implementation
+execute_file="$SKILLS_DIR/flow-execute/SKILL.md"
+if grep -q 'flow-shared/prompts/' "$execute_file"; then
+  pass "flow-execute: references flow-shared prompts"
+else
+  fail "flow-execute: must reference flow-shared/prompts/"
+fi
+if grep -qi 'subagent' "$execute_file" && grep -qi 'never implement inline\|subagents only' "$execute_file"; then
+  pass "flow-execute: requires subagent execution"
+else
+  fail "flow-execute: must forbid inline implementation"
+fi
 
-  if [[ "$skill" == "flow-review" ]]; then
-    if grep -qi 'Dispatch final review subagent\|dispatch.*subagent' "$skill_file"; then
-      pass "$skill: dispatches review subagent"
-    else
-      fail "$skill: must dispatch final review subagent"
-    fi
-  elif grep -qi 'subagent' "$skill_file" && grep -qi 'never implement inline\|subagents only\|Never implement inline' "$skill_file"; then
-    pass "$skill: requires subagent execution"
-  else
-    fail "$skill: must forbid inline implementation"
-  fi
-done
+# flow-patch: inline implementation + subagent review
+patch_file="$SKILLS_DIR/flow-patch/SKILL.md"
+if grep -q 'flow-shared/prompts/' "$patch_file"; then
+  pass "flow-patch: references flow-shared prompts"
+else
+  fail "flow-patch: must reference flow-shared/prompts/"
+fi
+if grep -qi 'inline' "$patch_file" && grep -qi 'spec-reviewer\|spec compliance reviewer' "$patch_file"; then
+  pass "flow-patch: inline execution with subagent review"
+else
+  fail "flow-patch: must require inline execution and subagent review"
+fi
 
 if grep -q 'path resolver' "$SKILLS_DIR/flow/SKILL.md"; then
   pass "flow: documents path resolver"

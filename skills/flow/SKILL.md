@@ -23,8 +23,7 @@ Explicit workflow for spec-driven development with TDD, subagents, and verificat
 | `/flow-execute` | Approved spec exists; run the plan with subagents |
 | `/flow-patch` | Single bounded change (≤3 files, one concern) |
 | `/flow-debug` | Bug, test failure, or unexpected behavior |
-| `/flow-verify` | Tests + spec checklist (not code review) |
-| `/flow-review` | Final code review after verify (Block / Fix / Suggest) |
+| `/flow-verify` | Tests + spec checklist; user menu when done |
 
 ## Decision Tree
 
@@ -37,8 +36,7 @@ New work?
 └─ Plan already written? → /flow-execute
 
 Implementation done?
-├─ /flow-verify
-└─ /flow-review → user: address (/flow-patch + TDD) / re-review / merge / pause
+└─ /flow-verify → merge / push / review / done
 ```
 
 ## path resolver
@@ -66,7 +64,7 @@ Update `docs/flow/STATE.md` when starting or finishing a phase:
 ```markdown
 # Flow State
 
-phase: brainstorm | spec | execute | patch | debug | verify | review | done
+phase: brainstorm | spec | execute | patch | debug | verify | done
 brainstorm: docs/flow/brainstorms/YYYY-MM-DD-topic.md
 spec: docs/flow/specs/YYYY-MM-DD-topic.md
 plan: docs/flow/plans/YYYY-MM-DD-topic.md
@@ -86,6 +84,5 @@ Read the skill matching the user's command:
 - `/flow-patch` → read `flow-patch/SKILL.md`
 - `/flow-debug` → read `flow-debug/SKILL.md`
 - `/flow-verify` → read `flow-verify/SKILL.md`
-- `/flow-review` → read `flow-review/SKILL.md`
 
 Follow that skill exactly. Do not skip gates.

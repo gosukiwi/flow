@@ -41,8 +41,7 @@ Installed skills:
   /flow-execute  — subagent execution
   /flow-patch    — small changes
   /flow-debug    — root cause first
-  /flow-verify   — tests + spec checklist
-  /flow-review   — final code review (Block / Fix / Suggest)
+  /flow-verify   — tests + spec checklist; user menu
 
 Project artifacts: docs/flow/{brainstorms,specs,plans,STATE.md}
 

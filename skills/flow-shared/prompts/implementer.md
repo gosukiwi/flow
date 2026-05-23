@@ -1,6 +1,6 @@
 # Implementer Subagent Prompt
 
-Use when dispatching an implementer subagent from `flow-execute` or `flow-patch`.
+Use when dispatching an implementer subagent from `flow-execute`.
 
 ```
 Task tool (generalPurpose):

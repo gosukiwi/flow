@@ -13,7 +13,7 @@ metadata:
 
 Evidence before assertions. **Read and follow** `flow-shared/references/verification-gate.md` (resolve path via `flow/SKILL.md` path resolver).
 
-**Verify is not code review** — tests + spec checklist only. Code review is `/flow-review`.
+Tests + spec checklist — not a substitute for per-task reviews during `/flow-execute` or `/flow-patch`.
 
 ## Process
 
@@ -27,19 +27,36 @@ Evidence before assertions. **Read and follow** `flow-shared/references/verifica
 
 List gaps explicitly. Do not claim complete with open gaps.
 
-4. Report only after steps 2–3:
+4. Report only after steps 2–3. If anything fails, do **not** claim done. Route to `/flow-debug` or `/flow-patch`.
+
+Update `docs/flow/STATE.md`: `phase: verify` when starting.
+
+## User menu
+
+After verification passes, present:
 
 ```
 Verification complete:
 - Tests: [command] → [result with counts]
 - Requirements: [N/N met] or [gaps listed]
-- Ready for: /flow-review
+
+What would you like to do?
+
+1. Merge locally — merge this branch into your base branch
+2. Push the branch — I'll push; you open the PR when ready
+3. Review the diff — on your own, or with another skill
+4. Done for now — I'll stop here; you take it from there
 ```
 
-If anything fails, do **not** claim done. Route to `/flow-debug` or `/flow-patch`.
+**Option actions:**
 
-Update `docs/flow/STATE.md`: `phase: verify` when starting; after pass, hand off to `/flow-review` (do not set `phase: done` here).
+| Option | Agent action |
+|--------|--------------|
+| 1 Merge locally | Confirm base branch; run merge if user confirms |
+| 2 Push branch | `git push -u origin HEAD`; do not create a PR |
+| 3 Review diff | Show diff or suggest project review skills; no git actions unless asked |
+| 4 Done for now | Stop; no git actions |
 
-## Handoff
+Set `docs/flow/STATE.md`: `phase: done` when the user chooses any option.
 
-> Verification complete. Run `/flow-review` for final code review.
+Flow does not run a final whole-change review. Per-task reviews already ran during implementation. Option 3 is for an extra pass before merge or push — manual review or any project skill (e.g. `clean-code-reviewer`).

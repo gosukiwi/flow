@@ -2,7 +2,7 @@
 
 **Enter flow state with your AI Agents.**
 
-A solid, explicit, and minimal development workflow for Cursor and compatible agents: explicit `/flow-*` commands, TDD, subagents, and code review.
+A solid, explicit, and minimal development workflow for Cursor and compatible agents: explicit `/flow-*` commands, TDD, subagents, and verification gates.
 
 ## TLDR
 
@@ -23,11 +23,10 @@ The agents will guide you from there. See below for detailed information on all 
 | `/flow` | Router and path resolver |
 | `/flow-brainstorm` | Explore ideas and design before formal spec |
 | `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
-| `/flow-execute` | Execute plan via subagents + two-stage review |
-| `/flow-patch` | Micro-spec + subagents for small changes |
+| `/flow-execute` | Execute plan via subagents + two-stage review per task |
+| `/flow-patch` | Micro-spec + inline TDD + per-task review |
 | `/flow-debug` | Root cause investigation before fixes |
-| `/flow-verify` | Tests + spec checklist (not code review) |
-| `/flow-review` | Final code review after verify |
+| `/flow-verify` | Tests + spec checklist; user menu when done |
 
 ## Install
 
@@ -66,7 +65,6 @@ skills/                    # installed into consumer project
   flow-patch/
   flow-debug/
   flow-verify/
-  flow-review/
   flow-shared/             # internal — prompts + references
 tests/                     # maintainer only — not installed
 ```
@@ -78,7 +76,6 @@ Live in `skills/flow-shared/prompts/`:
 - `implementer.md`
 - `spec-reviewer.md`
 - `code-quality-reviewer.md`
-- `final-reviewer.md`
 
 Orchestrator skills resolve paths via the resolver in `flow/SKILL.md`:
 
@@ -103,13 +100,13 @@ docs/flow/
 ```
 /flow-brainstorm → explore (optional) → /flow-spec → user approves spec → AI self-reviews plan
 /flow-execute    → subagents (TDD → spec review → code quality review per task)
-/flow-verify     → tests + requirements checklist
-/flow-review     → final review (Block / Fix / Suggest) → user decides next step
+/flow-patch      → inline TDD → self-review → spec + code quality review per task
+/flow-verify     → tests + requirements checklist → user menu (merge / push / review / done)
 ```
 
-Small changes: `/flow-patch` → `/flow-verify` → `/flow-review`. Bugs: `/flow-debug` → `/flow-patch`.
+Small changes: `/flow-patch` → `/flow-verify`. Bugs: `/flow-debug` → `/flow-patch`.
 
-After `/flow-review`, you may run project skills (e.g. `clean-code-reviewer`) for extra checks — optional, does not replace Flow review unless the user asks.
+Per-task reviews run during execute and patch. For an extra whole-change pass, review the diff yourself or invoke a project skill (e.g. `clean-code-reviewer`) — optional, via verify option 3.
 
 ## Branch rules
 
