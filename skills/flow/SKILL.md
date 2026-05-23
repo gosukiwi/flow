@@ -53,6 +53,7 @@ Project artifacts live in the **consumer project** (not in the skill package):
 
 ```
 docs/flow/
+  brainstorms/
   specs/
   plans/
   STATE.md
@@ -63,7 +64,8 @@ Update `docs/flow/STATE.md` when starting or finishing a phase:
 ```markdown
 # Flow State
 
-phase: spec | execute | patch | debug | verify | done
+phase: brainstorm | spec | execute | patch | debug | verify | done
+brainstorm: docs/flow/brainstorms/YYYY-MM-DD-topic.md
 spec: docs/flow/specs/YYYY-MM-DD-topic.md
 plan: docs/flow/plans/YYYY-MM-DD-topic.md
 branch: feature/topic

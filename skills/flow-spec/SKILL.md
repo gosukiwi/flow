@@ -13,13 +13,13 @@ metadata:
 
 Create a clear spec (user-approved) and implementation plan (AI self-reviewed). Do not write production code in this skill.
 
-If the user just finished `/flow-brainstorm`, carry forward the approved decisions summary from conversation. If requirements are still fuzzy, redirect to `/flow-brainstorm`.
+If a brainstorm brief exists at `docs/flow/brainstorms/`, read it first and carry forward agreed direction. If requirements are still fuzzy, redirect to `/flow-brainstorm`.
 
 ## Phase A — Spec
 
 ### 1. Explore context
 
-Read relevant files, docs, recent commits. Understand existing patterns and any decisions from a prior brainstorm in this session.
+Read relevant files, docs, recent commits, and any brainstorm brief. Understand existing patterns.
 
 ### 2. Clarify (one question at a time)
 

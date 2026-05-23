@@ -28,7 +28,7 @@ Use when the idea is fuzzy, large, or needs decomposing. When direction is clear
 
 ## Hard gate
 
-Do **not** write production code, scaffold features, create an implementation plan, or save files under `docs/flow/brainstorms/`.
+Do **not** write production code, scaffold features, or create an implementation plan in this skill.
 
 ## Process
 
@@ -76,47 +76,41 @@ Scale to complexity — a few sentences for simple topics, more for nuanced ones
 
 Get user approval on the design direction. Revise until aligned.
 
-### 5. Re-review before commit
+### 5. Write brainstorm brief
 
-**Do not save brainstorm sessions to disk.** Only specs and plans are persisted (`docs/flow/specs/`, `docs/flow/plans/`).
+Save to:
 
-Before handoff, present a **decisions summary** in chat and self-review:
-
-| Check | Question |
-|-------|----------|
-| Completeness | Every major decision captured? |
-| Consistency | Any contradictions between choices? |
-| Scope | Still MVP-sized? Anything to defer? |
-| Open questions | Anything unresolved? |
-
-Format:
-
-```markdown
-## Decisions summary
-- [decision] → [chosen option]
-...
-
-## MVP scope (in)
-...
-
-## Out of scope (for now)
-...
-
-## Open questions
-None | [list]
+```
+docs/flow/brainstorms/YYYY-MM-DD-<topic>.md
 ```
 
-Fix contradictions or gaps in the summary before asking for approval.
+```markdown
+# [Topic] — Brainstorm
 
-**User gate:** Ask user to confirm the summary. Stop until they approve.
+## Problem / Goal
+## Constraints
+## Decisions Made
+<!-- Each row: question → chosen answer -->
+## Approaches Considered
+## Recommended Direction
+## Design Summary
+## Out of Scope (for now)
+## Open Questions
+## Next Step
+→ Run `/flow-spec` to produce formal spec + plan
+```
+
+Self-review the brief before saving: no contradictions, open questions resolved or listed explicitly.
+
+Update `docs/flow/STATE.md`: `phase: brainstorm`, add brief path.
 
 ### 6. Handoff
 
-When user approves the re-review summary:
+When user approves the direction:
 
-> Direction agreed. Run `/flow-spec` to write the formal spec and plan.
+> Brainstorm saved to `docs/flow/brainstorms/...`. Run `/flow-spec` to lock requirements and generate the implementation plan.
 
-Do **not** auto-run `/flow-spec`. User invokes it explicitly. Carry decisions forward in conversation — `/flow-spec` does not depend on a brainstorm file.
+Do **not** auto-run `/flow-spec`. User invokes it explicitly.
 
 If scope shrinks to a small bounded change during brainstorm, redirect to `/flow-patch`.
 
@@ -126,5 +120,4 @@ If scope shrinks to a small bounded change during brainstorm, redirect to `/flow
 - One question at a time
 - Mark **`(Recommended)`** on multiple-choice options
 - Incremental validation — get approval before going deeper
-- Brainstorm explores in chat; spec commits to disk
-- No brainstorm files — re-review summary before handoff
+- Brainstorm explores; spec commits

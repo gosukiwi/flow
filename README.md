@@ -77,6 +77,7 @@ Created in the **consumer project**, not in the skill package:
 
 ```
 docs/flow/
+  brainstorms/
   specs/
   plans/
   STATE.md
@@ -85,7 +86,7 @@ docs/flow/
 ## Workflow
 
 ```
-/flow-brainstorm → explore in chat → re-review summary → /flow-spec → user approves spec → AI self-reviews plan
+/flow-brainstorm → explore (optional) → /flow-spec → user approves spec → AI self-reviews plan
 /flow-execute  → subagents (TDD → spec review → code quality review)
 /flow-verify   → run tests + requirements checklist
 ```
