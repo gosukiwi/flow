@@ -8,7 +8,7 @@ set -euo pipefail
 #   ./scripts/install.sh ./skills     # from local path
 #   ./scripts/install.sh -g           # global install
 
-REPO="${FLOW_SKILLS_REPO:-gosukiwi/flow-skillset}"
+REPO="${FLOW_SKILLS_REPO:-gosukiwi/flow}"
 SOURCE=""
 GLOBAL=""
 
@@ -43,6 +43,6 @@ Installed skills:
   /flow-debug    — root cause first
   /flow-verify   — evidence gate
 
-Project artifacts: docs/flow/{specs,plans,STATE.md}
+Project artifacts: docs/flow/{brainstorms,specs,plans,STATE.md}
 
 EOF

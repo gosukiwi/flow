@@ -75,7 +75,7 @@ updated: YYYY-MM-DD
 ## Install
 
 ```bash
-npx skills add <owner>/flow-skillset -a cursor --skill '*' -y
+npx skills add gosukiwi/flow -a cursor --skill '*' -y
 ```
 
 Install includes `flow-shared` (internal bundle with prompts). Do not invoke `flow-shared` directly.

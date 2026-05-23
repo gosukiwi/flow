@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
-echo "flow-skillset test runner"
+echo "Flow test runner"
 echo "========================="
 echo ""
 

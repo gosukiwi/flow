@@ -1,12 +1,13 @@
 {
-  "name": "@gosukiwi/flow-skills",
+  "name": "@gosukiwi/flow",
   "version": "0.1.0",
-  "description": "Explicit spec-driven development workflow skills for Cursor and compatible agents",
+  "description": "Enter flow state with your AI Agents — explicit spec-driven workflow skills for Cursor and compatible agents",
   "files": ["skills", "README.md"],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gosukiwi/flow-skillset"
+    "url": "https://github.com/gosukiwi/flow"
   },
-  "keywords": ["cursor", "agent-skills", "skills", "tdd", "workflow"]
+  "homepage": "https://github.com/gosukiwi/flow",
+  "keywords": ["cursor", "agent-skills", "skills", "tdd", "workflow", "flow"]
 }

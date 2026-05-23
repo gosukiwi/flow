@@ -1,8 +1,10 @@
-# Flow Skillset
+# Flow
 
-Minimal explicit workflow for spec-driven development with TDD, subagents, and verification gates.
+**Enter flow state with your AI Agents.**
 
-Designed for Cursor CLI + Composer where ambient skill auto-trigger is unreliable. Invoke phases explicitly with `/flow-*` commands.
+A solid yet simple development rhythm for Cursor and compatible agents: explicit `/flow-*` commands, TDD, subagents, and clear gates — without heavyweight process.
+
+Repo: [github.com/gosukiwi/flow](https://github.com/gosukiwi/flow)
 
 ## Commands
 
@@ -18,26 +20,26 @@ Designed for Cursor CLI + Composer where ambient skill auto-trigger is unreliabl
 
 ## Install
 
-From GitHub (once published):
+From GitHub:
 
 ```bash
-npx skills add <owner>/flow-skillset -a cursor --skill '*' -y
+npx skills add gosukiwi/flow -a cursor --skill '*' -y
 ```
 
-From this repo locally:
+From a local clone:
 
 ```bash
+git clone https://github.com/gosukiwi/flow.git
+cd flow
 npx skills add ./skills -a cursor --skill '*' -y
 # or
 make install
-# or
-FLOW_SKILLS_REPO=you/flow-skillset ./scripts/install.sh
 ```
 
 Global install:
 
 ```bash
-npx skills add <owner>/flow-skillset -a cursor --skill '*' -g -y
+npx skills add gosukiwi/flow -a cursor --skill '*' -g -y
 ```
 
 Installs to `.agents/skills/` (project) or `~/.cursor/skills/` (global). Includes `flow-shared` (prompts bundle).
@@ -99,7 +101,6 @@ Code review for style/team standards is **out of scope** — use your external c
 
 - Feature branch for all implementation
 - Never commit on `main`/`master` without explicit approval
-- Git worktrees: planned for a future version
 
 ## Testing this repo
 
