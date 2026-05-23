@@ -2,9 +2,17 @@
 
 **Enter flow state with your AI Agents.**
 
-A solid yet simple development rhythm for Cursor and compatible agents: explicit `/flow-*` commands, TDD, subagents, and clear gates — without heavyweight process.
+A solid, explicit, and minimal development workflow for Cursor and compatible agents: explicit `/flow-*` commands, TDD, subagents, and code review.
 
-Repo: [github.com/gosukiwi/flow](https://github.com/gosukiwi/flow)
+## TLDR
+
+Start your session with `/flow-brainstorm`. Eg:
+
+```
+/flow-brainstorm let's implement this new feature
+```
+
+The agents will guide you from there. See below for detailed information all the included workflows.
 
 ## Commands
 
