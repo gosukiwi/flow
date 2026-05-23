@@ -90,7 +90,13 @@ Update `docs/flow/STATE.md` with spec path and `phase: spec`.
 
 Runs automatically after spec approval.
 
-### 1. Write plan
+### 1. Scope check
+
+If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans — one per subsystem. Each plan should produce working, testable software on its own.
+
+If splitting is needed, stop and get user agreement on which subsystem this plan covers before writing tasks.
+
+### 2. Write plan
 
 Save to:
 
@@ -112,7 +118,18 @@ Header:
 ---
 ```
 
-### 2. Task structure
+### 3. File structure
+
+Before defining tasks, map out which files will be created or modified and what each one is responsible for. This is where decomposition decisions get locked in.
+
+- Design units with clear boundaries and well-defined interfaces. Each file should have one clear responsibility.
+- Prefer smaller, focused files over large ones that do too much.
+- Files that change together should live together. Split by responsibility, not by technical layer.
+- In existing codebases, follow established patterns. If the codebase uses large files, don't unilaterally restructure — but if a file you're modifying has grown unwieldy, including a split in the plan is reasonable.
+
+This structure informs the task decomposition. Each task should produce self-contained changes that make sense independently.
+
+### 4. Task structure
 
 Each task: exact file paths, complete code in steps, exact commands with expected output, TDD steps (write failing test → verify fail → implement → verify pass → commit).
 
@@ -123,8 +140,9 @@ Bite-sized steps (2–5 minutes each). Checkbox syntax: `- [ ]`.
 - TBD, TODO, "add tests", "handle edge cases"
 - "Similar to Task N" without repeating code
 - Steps without actual code or commands
+- References to types, functions, or methods not defined in any task
 
-### 3. Plan self-review loop
+### 5. Plan self-review loop
 
 Repeat until all pass:
 
@@ -133,6 +151,7 @@ Repeat until all pass:
 | Spec coverage | Every spec requirement maps to a task? |
 | Placeholders | Any vague steps? |
 | Consistency | Names/signatures match across tasks? |
+| Undefined references | Any type, function, or method used but not defined in an earlier task? |
 | TDD | Behavior changes have RED-GREEN steps? |
 | Granularity | Steps are 2–5 minute actions? |
 
@@ -140,7 +159,7 @@ Fix issues inline. **Do not ask user to approve the plan.**
 
 If a plan gap requires a spec decision, stop and ask the user to update the spec.
 
-### 4. Handoff
+### 6. Handoff
 
 When plan self-review passes:
 
