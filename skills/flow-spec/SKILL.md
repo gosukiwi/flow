@@ -69,16 +69,66 @@ Required sections:
 
 ### 5. Spec self-review
 
-Fix inline:
+Fix inline until all pass. **Do not proceed to §6 while any blocking check fails.**
+
+Record self-review output internally (review notes, not necessarily in the spec file):
+
+```
+Status: Ready | Blocked
+Blocking: [list, or none]
+Advisory: [list, or none]
+```
+
+**Calibration:** Contradictions, unmapped success criteria, and path mismatches are **blocking**. Wording polish and uneven section depth are **advisory** — note but do not block.
+
+**General**
 
 - No TBD/TODO/placeholder requirements
 - No internal contradictions
-- No ambiguous requirements (two interpretations)
+- No ambiguous requirements (two valid interpretations)
 - Focused enough for one plan
+- No unrequested scope beyond what the user approved in design (YAGNI)
+
+**Success criteria audit**
+
+- List every bullet under `## Success Criteria` as a numbered item
+- For each item, cite the spec section (heading + path/tree/table/command/paragraph) that satisfies it
+- If any success criterion has no supporting section, add one or remove the criterion
+
+**Structure & path consistency** (required when spec mentions trees, paths, moves, mirroring, or file layout)
+
+Render two columns using the **spec's documented convention** (colocated tests beside source, mirrored root such as `tests/` ↔ `src/`, hybrid, or N/A for the paired column if the spec defines none):
+
+| Source / runtime tree | Test / mirror tree (if applicable) |
+| --------------------- | ------------------------------------ |
+| `...`                 | `...`                                |
+
+Then verify:
+
+- Segment-for-segment alignment per the documented rule — file names may differ (`Foo.tsx` vs `Foo.test.tsx`; colocated tests share directory segments)
+- If success criteria or scope use **mirror**, **reflect**, or **match structure**, paired paths must preserve intermediate folders (`common/`, feature namespaces, private child folders) — not flatten them unless documented
+- Import conventions in Design must not contradict the tree when the spec mandates import style
+- Allowed skips must be named in Success Criteria or Design (e.g. "`index.ts` has no test counterpart")
+
+**Contradiction stop rule**
+
+If Success Criteria, Design tree, and Testing Approach disagree on paths or layout, **do not proceed to user gate**. Resolve by picking one rule and updating all sections, or ask the user one multiple-choice question:
+
+- A) Strict mirror (paired tree matches source tree segment-for-segment) **(Recommended for move/refactor specs)**
+- B) Flattened paired tree (document explicit exceptions in Success Criteria)
+- C) Other (user specifies)
+
+Document the chosen rule in Design or Testing Approach so the plan cannot interpret it two ways.
 
 ### 6. User gate (required)
 
-> Spec written to `docs/flow/specs/...`. Please review and approve before I write the plan.
+> Spec written to `docs/flow/specs/...`.
+>
+> Self-review: [N/N success criteria mapped] | Structure trees: [aligned / N/A]
+>
+> Please review and approve before I write the plan.
+
+Surface audit results only — do not ask the user to find internal contradictions.
 
 **Stop until user approves.** If they request changes, update spec and re-run self-review.
 
@@ -97,6 +147,8 @@ If the spec covers multiple independent subsystems, it should have been broken i
 If splitting is needed, stop and get user agreement on which subsystem this plan covers before writing tasks.
 
 ### 2. Write plan
+
+Write for an implementer with **zero codebase context** — exact paths, full code, exact commands, expected output. DRY. YAGNI. TDD. Frequent commits.
 
 Save to:
 
@@ -133,27 +185,78 @@ This structure informs the task decomposition. Each task should produce self-con
 
 Each task: exact file paths, complete code in steps, exact commands with expected output, TDD steps (write failing test → verify fail → implement → verify pass → commit).
 
-Bite-sized steps (2–5 minutes each). Checkbox syntax: `- [ ]`.
+Bite-sized steps (2–5 minutes each). Checkbox syntax: `- [ ]`. Each TDD step is its own checkbox — do not combine RED/GREEN into one step.
+
+Every task uses this shape:
+
+````markdown
+### Task N: [Component Name]
+
+**Files:**
+- Create: `exact/path/to/file`
+- Modify: `exact/path/to/existing`
+- Test: `exact/path/to/test`
+
+- [ ] **Step 1: Write the failing test**
+
+[complete test code]
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `[exact command]`
+Expected: FAIL — [reason]
+
+- [ ] **Step 3: Write minimal implementation**
+
+[complete code or precise edit instructions with code]
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `[exact command]`
+Expected: PASS
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add ...
+git commit -m "..."
+```
+````
 
 **Plan failures (never write these):**
 
-- TBD, TODO, "add tests", "handle edge cases"
+- TBD, TODO, "implement later", "fill in details"
+- "Add tests", "add appropriate error handling", "add validation", "handle edge cases"
+- "Write tests for the above" without actual test code
 - "Similar to Task N" without repeating code
+- Steps that describe what to do without showing how (code blocks required for code steps)
 - Steps without actual code or commands
 - References to types, functions, or methods not defined in any task
 
 ### 5. Plan self-review loop
 
-Repeat until all pass:
+Repeat until all pass. Record `Status: Ready | Blocked` with blocking vs advisory issues (same calibration as spec self-review).
 
 | Check | Question |
 |-------|----------|
 | Spec coverage | Every spec requirement maps to a task? |
+| Success criteria coverage | Every **Success Criteria** bullet maps to a specific task step with an **expected path or artifact** (not just "update tests")? |
+| Out-of-scope guard | Any task step touches files, systems, or behavior listed under **Out of Scope** (or beyond **Scope**)? |
+| Tree parity | If spec defines source + paired trees, plan task paths (moves, creates, deletes) match the spec trees segment-for-segment; flag any flatten/skip? |
+| Spec diagram authority | Plan paths match the spec's canonical tree. If the plan improves on the spec, **update the spec first** — plan must not silently diverge |
 | Placeholders | Any vague steps? |
 | Consistency | Names/signatures match across tasks? |
 | Undefined references | Any type, function, or method used but not defined in an earlier task? |
 | TDD | Behavior changes have RED-GREEN steps? |
 | Granularity | Steps are 2–5 minute actions? |
+
+**Structure refactor plans:** Before handoff, produce a short mapping table in the plan or review notes:
+
+| Success criterion | Plan task | Expected path(s) |
+| ----------------- | --------- | ---------------- |
+| ...               | Task N    | `exact/path/`    |
+
+If any row is missing or paths disagree across spec/plan, loop plan self-review again.
 
 Fix issues inline. **Do not ask user to approve the plan.**
 

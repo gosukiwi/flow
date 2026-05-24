@@ -25,6 +25,8 @@ Tests + spec checklist — not a substitute for per-task reviews during `/flow-e
 |-------------|----------|
 | ... | file/test/command reference |
 
+**Structure specs:** When the spec requires mirrored or matching paths (or documents explicit exceptions), verify segment-for-segment alignment between paired trees per that rule (e.g. `src/` ↔ `tests/`, or colocated `Foo.tsx` ↔ `Foo.test.tsx`). List any path pairs that diverge. Do not mark verify complete if Success Criteria claim mirror but trees differ.
+
 List gaps explicitly. Do not claim complete with open gaps.
 
 4. Report only after steps 2–3. If anything fails, do **not** claim done. Route to `/flow-debug` or `/flow-patch`.
