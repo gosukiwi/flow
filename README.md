@@ -114,12 +114,16 @@ Per-task reviews run during execute and patch. For an extra whole-change pass, r
 - Feature branch for all implementation; never commit on `main`/`master` without explicit approval
 - **Ask before creating or switching branches** — propose a name or wait for the user to say where to work
 
+**Planned:** Git worktree support — isolated checkout per feature without switching branches in the main workspace. Not in v1; branch gate + user confirmation is the current model.
+
 ## Testing this repo
 
 ```bash
 make test           # Layer 1 static validators
-make test-scenarios # Layer 2 manual (see tests/scenarios/)
+make test-scenarios # Layer 2 scenario list + manual agent runs
 ```
+
+Layer 2 uses RED→GREEN→REFACTOR for skill changes. See [`tests/writing-skills.md`](tests/writing-skills.md).
 
 ## Development
 
@@ -129,6 +133,8 @@ After editing skills:
 make test
 npx skills add ./skills -a cursor --skill '*' -y --copy
 ```
+
+**Hardening a discipline skill?** Follow [`tests/writing-skills.md`](tests/writing-skills.md) — write a pressure scenario, RED on old skill, GREEN after fix, log in [`tests/regression/`](tests/regression/).
 
 ## License
 

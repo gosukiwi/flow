@@ -13,4 +13,4 @@ echo ""
 python3 "$ROOT/tests/static/validate-artifacts.py"
 
 echo ""
-echo "Layer 2 (manual): see tests/scenarios/README.md"
+echo "Layer 2 (manual): make test-scenarios — see tests/writing-skills.md"

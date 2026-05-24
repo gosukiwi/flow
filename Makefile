@@ -8,7 +8,8 @@ test-static:
 	@python3 ./tests/static/validate-artifacts.py
 
 test-scenarios:
-	@echo "Manual scenario tests — see tests/scenarios/README.md"
+	@chmod +x ./tests/scenarios/run-scenarios.sh
+	@./tests/scenarios/run-scenarios.sh
 
 install:
 	@./scripts/install.sh

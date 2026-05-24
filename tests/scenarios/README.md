@@ -2,6 +2,8 @@
 
 Manual agent regression tests. Run before tagging a release.
 
+**Full process:** [`../writing-skills.md`](../writing-skills.md) — RED→GREEN→REFACTOR, scenario recipe, when to test.
+
 ## How to run
 
 1. Open a fresh Cursor agent session in a test project
@@ -24,8 +26,5 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 
-## RED → GREEN → REFACTOR for skills
+See also [`../writing-skills.md`](../writing-skills.md) for the RED→GREEN→REFACTOR cycle and when to add new scenarios.
 
-1. **RED:** Run scenario without skill loaded; capture failure in `tests/regression/`
-2. **GREEN:** Run with skill; agent should comply
-3. **REFACTOR:** New rationalization → update skill → re-run
