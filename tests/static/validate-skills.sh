@@ -112,6 +112,19 @@ else
   fail "flow-patch: must require inline execution and subagent review"
 fi
 
+spec_reviewer="$SKILLS_DIR/flow-shared/prompts/spec-reviewer.md"
+if grep -qi 'do not trust' "$spec_reviewer" && grep -q 'git diff' "$spec_reviewer"; then
+  pass "spec-reviewer: requires independent diff inspection"
+else
+  fail "spec-reviewer: must require Do not trust report and git diff inspection"
+fi
+
+if grep -q 'BASE_SHA' "$execute_file" && grep -qi 'spec compliance review' "$execute_file"; then
+  pass "flow-execute: passes BASE_SHA to spec compliance review"
+else
+  fail "flow-execute: must record BASE_SHA before spec compliance review"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then

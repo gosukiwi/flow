@@ -90,13 +90,15 @@ Dispatch with implementer prompt. Handle status:
 
 #### Step 2 — Spec compliance review
 
-Dispatch spec reviewer. Loop: implementer fixes → re-review until ✅.
+Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch spec reviewer with both SHAs in the prompt. Loop: implementer fixes → refresh `HEAD_SHA` → re-review until ✅.
 
 **Do not start step 3 or the next task until spec review is ✅.**
 
+**Forbidden:** Approving from the implementer report without an independent diff review. Passing tests do not replace spec review.
+
 #### Step 3 — Correctness review
 
-Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch correctness reviewer (task mode).
+Refresh `HEAD_SHA` if the implementer committed fixes after spec review. Reuse `BASE_SHA`. Dispatch correctness reviewer (task mode).
 
 **Do not mark the task complete or start the next task until reviewer returns ✅ Approved.**
 
@@ -121,6 +123,8 @@ Update `docs/flow/STATE.md`: `phase: verify` when starting verify. User menu and
 
 - Skip subagents and implement inline
 - Skip spec or correctness review
+- **Trust the implementer report for spec compliance** — spec reviewer must inspect the diff independently
+- **Skip spec review because tests pass** — spec and correctness are separate gates
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Create a worktree without user confirming option 2**
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)
