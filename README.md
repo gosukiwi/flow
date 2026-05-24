@@ -1,4 +1,4 @@
-# Flow
+# 🌀 Flow
 
 **Enter flow state with your AI Agents.**
 
