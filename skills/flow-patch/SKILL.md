@@ -29,6 +29,8 @@ For **single bounded changes** — too small for a full spec doc. Implement **in
 
 ### 1. Micro-spec (required)
 
+If `docs/flow/STATE.md` or the user points to a brainstorm brief at `docs/flow/brainstorms/...`, read it first and carry forward agreed decisions into the micro-spec.
+
 Write inline before any code. Break work into one or more tasks with bite-sized steps:
 
 ```markdown

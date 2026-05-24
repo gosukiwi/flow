@@ -32,6 +32,8 @@ New work?
 ├─ Bug or test failure? → /flow-debug
 ├─ Small bounded change? → /flow-patch
 ├─ Idea fuzzy or needs exploration? → /flow-brainstorm
+│   ├─ Small bounded scope? → /flow-patch
+│   └─ Multi-step or multi-concern? → /flow-spec
 ├─ Direction clear, ready to lock requirements? → /flow-spec
 └─ Plan already written? → /flow-execute
 

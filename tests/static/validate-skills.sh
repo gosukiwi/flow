@@ -112,6 +112,14 @@ else
   fail "flow-patch: must require inline execution and subagent review"
 fi
 
+# flow-brainstorm: conditional handoff to patch or spec
+brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
+if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then
+  pass "flow-brainstorm: references both /flow-patch and /flow-spec handoff"
+else
+  fail "flow-brainstorm: must reference both /flow-patch and /flow-spec in handoff"
+fi
+
 if grep -q 'path resolver' "$SKILLS_DIR/flow/SKILL.md"; then
   pass "flow: documents path resolver"
 else

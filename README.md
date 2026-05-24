@@ -98,7 +98,8 @@ docs/flow/
 ## Workflow
 
 ```
-/flow-brainstorm → explore (optional) → /flow-spec → user approves spec → AI self-reviews plan
+/flow-brainstorm → explore (optional) → small scope? → /flow-patch
+                                      → larger scope? → /flow-spec → user approves spec → AI self-reviews plan
 /flow-execute    → subagents (TDD → spec review → code quality review per task)
 /flow-patch      → inline TDD → self-review → spec + code quality review per task
 /flow-verify     → tests + requirements checklist → user menu (merge / push / review / done)

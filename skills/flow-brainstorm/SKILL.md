@@ -11,9 +11,9 @@ metadata:
 
 **Triggered by:** `/flow-brainstorm`
 
-Explore intent, options, and design **before** a formal spec. No production code. No implementation plan.
+Explore intent, options, and design **before** formal requirements. No production code. No implementation plan.
 
-Use when the idea is fuzzy, large, or needs decomposing. When direction is clear and approved, hand off to `/flow-spec`.
+Use when the idea is fuzzy, large, or needs decomposing. When direction is clear and approved, hand off to **`/flow-patch`** when scope is small and bounded; **`/flow-spec`** when multi-step or multi-concern.
 
 ## When to use
 
@@ -22,7 +22,8 @@ Use when the idea is fuzzy, large, or needs decomposing. When direction is clear
 | "I'm not sure how to build this" | — |
 | Multiple valid approaches | — |
 | Large initiative needing decomposition | — |
-| Scope already clear, ready to lock requirements | `/flow-spec` |
+| Fuzzy but resolves to small bounded change | `/flow-patch` (after lightweight brainstorm) |
+| Scope already clear, multi-step feature | `/flow-spec` |
 | Single bounded fix | `/flow-patch` |
 | Bug or failing test | `/flow-debug` |
 
@@ -61,9 +62,27 @@ If the user already stated a preference, skip recommending a different option �
 
 If the request spans multiple independent subsystems, help decompose: what are the pieces, how do they relate, what order?
 
+#### Scope assessment
+
+After clarifying purpose and constraints, evaluate scope using the same criteria as `/flow-patch`:
+
+| Route to `/flow-patch` | Route to `/flow-spec` |
+|------------------------|----------------------|
+| ≤3 files, one concern | >3 files or multiple concerns |
+| Clear success criteria | Multi-step / multi-subsystem |
+| Design direction settled | Needs formal plan with many tasks |
+
+- **Clearly small from the start** (no real design ambiguity left): redirect immediately to `/flow-patch` — skip the brainstorm brief; the micro-spec in patch replaces it.
+- **Still exploring but likely small**: continue with a lightweight brainstorm, then hand off to `/flow-patch`.
+- **Multi-step or multi-concern**: continue full brainstorm, then hand off to `/flow-spec`.
+
+Re-assess scope before handoff. If scope grew during brainstorm, route to `/flow-spec`. If scope is small and bounded, route to `/flow-patch`.
+
 ### 3. Propose approaches
 
 Present 2–3 options with trade-offs. Mark one **`(Recommended)`** and explain why in one sentence.
+
+**Small-scope exception:** When routing to `/flow-patch` and only one sensible approach exists, skip artificial alternatives — present one recommended approach and get user approval.
 
 ### 4. Present design
 
@@ -84,6 +103,10 @@ Save to:
 docs/flow/brainstorms/YYYY-MM-DD-<topic>.md
 ```
 
+Use the **Next Step** that matches scope assessment — pick one, not both:
+
+**Small bounded scope → patch:**
+
 ```markdown
 # [Topic] — Brainstorm
 
@@ -97,7 +120,25 @@ docs/flow/brainstorms/YYYY-MM-DD-<topic>.md
 ## Out of Scope (for now)
 ## Open Questions
 ## Next Step
-→ Run `/flow-spec` to produce formal spec + plan
+→ Run `/flow-patch` — small bounded scope; use this brief as context for the micro-spec
+```
+
+**Multi-step or multi-concern → spec:**
+
+```markdown
+# [Topic] — Brainstorm
+
+## Problem / Goal
+## Constraints
+## Decisions Made
+<!-- Each row: question → chosen answer -->
+## Approaches Considered
+## Recommended Direction
+## Design Summary
+## Out of Scope (for now)
+## Open Questions
+## Next Step
+→ Run `/flow-spec` — multi-step change; lock requirements and generate implementation plan
 ```
 
 Self-review the brief before saving: no contradictions, open questions resolved or listed explicitly.
@@ -106,13 +147,19 @@ Update `docs/flow/STATE.md`: `phase: brainstorm`, add brief path.
 
 ### 6. Handoff
 
-When user approves the direction:
+When user approves the direction, use the message that matches scope:
+
+**Small bounded scope:**
+
+> Brainstorm saved to `docs/flow/brainstorms/...`. Run `/flow-patch` — use this brief as context for the micro-spec.
+
+**Multi-step or multi-concern:**
 
 > Brainstorm saved to `docs/flow/brainstorms/...`. Run `/flow-spec` to lock requirements and generate the implementation plan.
 
-Do **not** auto-run `/flow-spec`. User invokes it explicitly.
+Do **not** auto-run the next skill. User invokes `/flow-patch` or `/flow-spec` explicitly.
 
-If scope shrinks to a small bounded change during brainstorm, redirect to `/flow-patch`.
+At handoff, default to `/flow-patch` when scope meets patch criteria; use `/flow-spec` only when it doesn't.
 
 ## Principles
 
@@ -120,4 +167,4 @@ If scope shrinks to a small bounded change during brainstorm, redirect to `/flow
 - One question at a time
 - Mark **`(Recommended)`** on multiple-choice options
 - Incremental validation — get approval before going deeper
-- Brainstorm explores; spec commits
+- Brainstorm explores; patch or spec commits

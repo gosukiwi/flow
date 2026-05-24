@@ -36,7 +36,7 @@ cat <<'EOF'
 
 Installed skills:
   /flow            — router
-  /flow-brainstorm — explore before spec
+  /flow-brainstorm — explore; small scope → patch, larger → spec
   /flow-spec       — spec + plan
   /flow-execute  — subagent execution
   /flow-patch    — small changes

@@ -13,7 +13,7 @@ metadata:
 
 Create a clear spec (user-approved) and implementation plan (AI self-reviewed). Do not write production code in this skill.
 
-If a brainstorm brief exists at `docs/flow/brainstorms/`, read it first and carry forward agreed direction. If requirements are still fuzzy, redirect to `/flow-brainstorm`.
+If a brainstorm brief exists at `docs/flow/brainstorms/`, read it first and carry forward agreed direction. If requirements are still fuzzy, redirect to `/flow-brainstorm`. If the brief's scope is small and bounded (≤3 files, one concern), redirect to `/flow-patch` instead of writing a spec.
 
 ## Phase A — Spec
 
