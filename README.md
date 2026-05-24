@@ -107,7 +107,7 @@ docs/flow/
 
 Small changes: `/flow-patch` → `/flow-verify`. Bugs: `/flow-debug` → `/flow-patch`.
 
-Per-task reviews run during execute and patch. For an extra whole-change pass, review the diff yourself or invoke a project skill (e.g. `clean-code-reviewer`) — optional, via verify option 3.
+Per-task reviews run during execute and patch. `/flow-verify` runs tests and a requirements checklist — not a full diff review. For an optional whole-change pass before merge/push, choose verify **option 3**: runs `clean-code-reviewer` when installed, otherwise Flow's whole-branch quality review.
 
 ## Branch rules
 
