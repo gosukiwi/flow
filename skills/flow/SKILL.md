@@ -78,7 +78,7 @@ updated: YYYY-MM-DD
 
 Do not invoke `flow-shared` directly — resolve it via the path resolver above for prompts and references.
 
-Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) — ask before creating or switching branches or worktrees.
+Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/references/session-gate.md` and `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) — ask before overwriting STATE or mutating branches/worktrees.
 
 ## When `/flow` is invoked
 
@@ -86,10 +86,11 @@ Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/re
 
 1. Read the user's message and `docs/flow/STATE.md` (if present) for current phase and artifact paths
 2. If `STATE.md` `branch` differs from `git branch --show-current`, run `git worktree list` — if a worktree matches the STATE branch, suggest `cd` to that path to resume
-3. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
-4. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
-5. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
-6. **Stop.** Wait for the user to manually invoke the suggested command
+3. If active STATE + unrelated user message, warn about possible conflict — suggest resume or worktree before recommending `/flow-brainstorm` or `/flow-spec`
+4. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
+5. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
+6. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
+7. **Stop.** Wait for the user to manually invoke the suggested command
 
 **Hard gate:** Do not proceed to §How to Start for a child skill in the same turn as your suggestion. Do not read child `SKILL.md` files, write micro-specs, write specs/plans, edit code, or run tests while triaging under `/flow`.
 

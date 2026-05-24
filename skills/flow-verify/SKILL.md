@@ -31,6 +31,8 @@ List gaps explicitly. Do not claim complete with open gaps.
 
 4. Report only after steps 2–3. If anything fails, do **not** claim done. Route to `/flow-debug` or `/flow-patch`.
 
+**Before updating STATE:** read `flow-shared/references/session-gate.md` (resolve via path resolver in `flow/SKILL.md`). Confirm STATE branch/plan matches the work being verified. Unrelated active STATE → stop and session-gate.
+
 Update `docs/flow/STATE.md`: `phase: verify` when starting.
 
 ## User menu

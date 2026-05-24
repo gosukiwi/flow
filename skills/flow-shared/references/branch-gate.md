@@ -1,6 +1,6 @@
 # Branch Gate (Workspace Gate)
 
-Also covers **in-place branch** vs **git worktree** selection. Worktree creation steps live in `worktree-setup.md` (resolve via path resolver in `flow/SKILL.md`).
+Also covers **in-place branch** vs **git worktree** selection. Worktree creation steps live in `worktree-setup.md`. **Read `session-gate.md` before any STATE write** when unrelated work may conflict (resolve via path resolver in `flow/SKILL.md`).
 
 ## Hard gate
 

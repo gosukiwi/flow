@@ -23,7 +23,7 @@ For **single bounded changes** — too small for a full spec doc. Implement **in
 
 ## Branch rule
 
-**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Branch and workspace confirmation is a blocking user gate — proposing a name or option is not enough; wait for the user's reply before any implementation.
+**Read and follow** `flow-shared/references/session-gate.md` then `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Session gate before any STATE write; branch and workspace confirmation before implementation.
 
 ## Process
 
@@ -74,11 +74,11 @@ Surface audit results only — do not ask the user to find internal contradictio
 
 **Stop until approved.** If they request changes, update micro-spec and re-run self-review.
 
-### 3. Workspace gate (required)
+### 3. Session and workspace gate (required)
 
-Follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+Follow `flow-shared/references/session-gate.md` then `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-Apply the detection matrix: on `main`/`master`, unrelated work on a feature branch, or continuing matched work each have different gate messages. **Stop until the user confirms branch name and workspace option (when offered).**
+Session gate first: if STATE shows active unrelated work, stop before any STATE write. Then apply branch-gate detection matrix for workspace option.
 
 Do **not** in the same turn: create/switch branches, create worktrees, or start implementation (Task 1, code edits, TDD steps).
 

@@ -89,6 +89,7 @@ Per-task reviews run during execute and patch. `/flow-verify` runs tests and a r
 - Feature branch for all implementation; never commit on `main`/`master` without explicit approval
 - **Ask before creating or switching branches or worktrees** — propose a branch name and workspace option (in-place vs worktree), or wait for the user to say where to work
 - **Concurrent sessions:** use a worktree with a new branch for unrelated work while another feature stays checked out in the main workspace. Each worktree has its own `docs/flow/STATE.md`
+- **Session gate:** read `STATE.md` before starting new flow work; unrelated concurrent work on the same checkout → stop and offer resume vs worktree (`flow-shared/references/session-gate.md`)
 - Worktrees live in `.worktrees/<slug>/` by default (must be gitignored). See `flow-shared/references/worktree-setup.md` after user confirms option 2
 
 ## For maintainers

@@ -21,17 +21,17 @@ Execute an approved plan using **subagents only** — never implement tasks inli
 
 ## Branch rule
 
-**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+**Read and follow** `flow-shared/references/session-gate.md` then `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-Branch and workspace confirmation is a **blocking user gate** — same weight as micro-spec approval. Proposing a name or option is not enough; wait for the user's reply.
+Session gate before any STATE write; branch and workspace confirmation is a **blocking user gate** — same weight as micro-spec approval.
 
 ## Process
 
-### 1. Workspace gate (required)
+### 1. Session and workspace gate (required)
 
-Follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+Follow `flow-shared/references/session-gate.md` then `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-Apply the detection matrix: on `main`/`master`, unrelated work on a feature branch, or continuing matched work each have different gate messages. **Stop until the user confirms branch name and workspace option (when offered).**
+Session gate first: if STATE shows active unrelated work, stop before any STATE write. Then apply branch-gate detection matrix. **Stop until the user confirms branch name and workspace option (when offered).**
 
 Do **not** in the same turn: create/switch branches, create worktrees, create TodoWrite for tasks, dispatch implementers, or start Task 1.
 

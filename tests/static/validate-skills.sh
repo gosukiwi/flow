@@ -73,7 +73,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(tdd-red-green verification-gate branch-gate worktree-setup root-cause-tracing)
+REFS=(tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -150,6 +150,34 @@ if grep -q 'workspace: worktree' "$SKILLS_DIR/flow-verify/SKILL.md"; then
   pass "flow-verify: documents worktree cleanup on merge"
 else
   fail "flow-verify: must document worktree cleanup for merge option"
+fi
+
+session_gate="$SKILLS_DIR/flow-shared/references/session-gate.md"
+if grep -q 'Hard gate' "$session_gate" && grep -q 'Detection matrix' "$session_gate"; then
+  pass "session-gate: has hard gate with detection matrix"
+else
+  fail "session-gate: must have hard gate and detection matrix"
+fi
+
+for skill_file in flow-brainstorm flow-spec flow-debug; do
+  f="$SKILLS_DIR/$skill_file/SKILL.md"
+  if grep -q 'session-gate' "$f"; then
+    pass "$skill_file: references session-gate"
+  else
+    fail "$skill_file: must reference session-gate.md"
+  fi
+done
+
+if grep -q 'session-gate' "$patch_file" && grep -q 'session-gate' "$execute_file"; then
+  pass "flow-patch and flow-execute: reference session-gate"
+else
+  fail "flow-patch and flow-execute: must reference session-gate before branch-gate"
+fi
+
+if grep -q 'session-gate' "$SKILLS_DIR/flow-verify/SKILL.md"; then
+  pass "flow-verify: references session-gate before STATE update"
+else
+  fail "flow-verify: must reference session-gate"
 fi
 
 if grep -q 'path resolver' "$SKILLS_DIR/flow/SKILL.md"; then

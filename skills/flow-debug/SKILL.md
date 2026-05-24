@@ -21,6 +21,10 @@ NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
 
 ## Phase 1 — Investigate
 
+**Read and follow** `flow-shared/references/session-gate.md` (resolve via path resolver in `flow/SKILL.md`) before updating STATE.
+
+Same-topic failure (matches active plan/spec/patch on this branch) → set `phase: debug` and investigate. Unrelated topic with active STATE → session gate first; do not overwrite STATE until user confirms.
+
 1. **Read errors carefully** — full stack traces, line numbers, error codes
 2. **Reproduce** — exact steps; confirm consistent failure
 3. **Check recent changes** — git diff, recent commits, config/env changes

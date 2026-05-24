@@ -43,7 +43,15 @@ When scope is clear:
 - Cover architecture, components, error handling, testing approach
 - Get user approval on the design
 
-### 4. Write spec
+### 4. Session gate (required)
+
+**Read and follow** `flow-shared/references/session-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+
+Before writing the spec file or updating STATE: if STATE shows active **unrelated** work, send the session gate message and **stop**. Do **not** save the spec or write STATE in the same turn as the gate.
+
+Same-topic handoffs from an approved brainstorm brief on this initiative → proceed without gate.
+
+### 5. Write spec
 
 Save to:
 
@@ -67,9 +75,9 @@ Required sections:
 
 `Open Questions` must be empty or say "None" before proceeding.
 
-### 5. Spec self-review
+### 6. Spec self-review
 
-Fix inline until all pass. **Do not proceed to §6 while any blocking check fails.**
+Fix inline until all pass. **Do not proceed to §7 while any blocking check fails.**
 
 Record self-review output internally (review notes, not necessarily in the spec file):
 
@@ -120,7 +128,7 @@ If Success Criteria, Design tree, and Testing Approach disagree on paths or layo
 
 Document the chosen rule in Design or Testing Approach so the plan cannot interpret it two ways.
 
-### 6. User gate (required)
+### 7. User gate (required)
 
 > Spec written to `docs/flow/specs/...`.
 >

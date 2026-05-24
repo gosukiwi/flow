@@ -95,7 +95,15 @@ Scale to complexity — a few sentences for simple topics, more for nuanced ones
 
 Get user approval on the design direction. Revise until aligned.
 
-### 5. Write brainstorm brief
+### 5. Session gate (required)
+
+**Read and follow** `flow-shared/references/session-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+
+Before saving the brief or updating `docs/flow/STATE.md`: if STATE shows active unrelated work, send the session gate message and **stop**. Do **not** save the brief or write STATE in the same turn as the gate.
+
+After gate passes (same topic, empty STATE, or user confirmed worktree for new topic): proceed to §6.
+
+### 6. Write brainstorm brief
 
 Save to:
 
@@ -145,7 +153,7 @@ Self-review the brief before saving: no contradictions, open questions resolved 
 
 Update `docs/flow/STATE.md`: `phase: brainstorm`, add brief path.
 
-### 6. Handoff
+### 7. Handoff
 
 When user approves the direction, use the message that matches scope:
 
@@ -168,3 +176,5 @@ At handoff, default to `/flow-patch` when scope meets patch criteria; use `/flow
 - Mark **`(Recommended)`** on multiple-choice options
 - Incremental validation — get approval before going deeper
 - Brainstorm explores; patch or spec commits
+- **Propose session gate and save brief/STATE in the same turn** — session gate requires waiting for user reply
+- **Overwrite STATE with unrelated phase** while active work exists on this checkout
