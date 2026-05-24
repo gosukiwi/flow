@@ -16,7 +16,8 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 
 - **You drive the workflow** — `/flow` suggests one next command; you invoke it when ready.
 - **Scope picks the path** — small bounded change → `/flow-patch`; multi-step feature → spec then execute (see [Commands](#commands)).
-- **Tests before merge** — verify runs automatically after execute or patch; you get a merge/push menu when things pass.
+- **Review built in** — during execute and patch, each task is checked against the spec and reviewed for correctness before moving on.
+- **Verify before merge** — runs automatically after execute or patch (full tests + requirements checklist); you get a merge/push menu when things pass. Optional whole-branch review is on that menu.
 - **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
 - **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
 
