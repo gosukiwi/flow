@@ -16,6 +16,18 @@ A solid, explicit, and minimal development workflow for Cursor and compatible ag
 
 The agents will guide you from there. See below for detailed information on all included workflows.
 
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/flow` | Router and path resolver |
+| `/flow-brainstorm` | Explore ideas and design before formal spec |
+| `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
+| `/flow-execute` | Execute plan via subagents + two-stage review per task |
+| `/flow-patch` | Micro-spec + inline TDD + per-task review |
+| `/flow-debug` | Root cause investigation before fixes |
+| `/flow-verify` | Tests + spec checklist; user menu when done |
+
 ## Install
 
 From GitHub:
@@ -82,18 +94,6 @@ Per-task reviews run during execute and patch. `/flow-verify` runs tests and a r
 - **Ask before creating or switching branches** — propose a name or wait for the user to say where to work
 
 **Planned:** Git worktree support — isolated checkout per feature without switching branches in the main workspace. Not in v1; branch gate + user confirmation is the current model.
-
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/flow` | Router and path resolver |
-| `/flow-brainstorm` | Explore ideas and design before formal spec |
-| `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
-| `/flow-execute` | Execute plan via subagents + two-stage review per task |
-| `/flow-patch` | Micro-spec + inline TDD + per-task review |
-| `/flow-debug` | Root cause investigation before fixes |
-| `/flow-verify` | Tests + spec checklist; user menu when done |
 
 ## For maintainers
 
