@@ -2,7 +2,7 @@
 
 **Enter flow state with your AI Agents.**
 
-A solid, explicit, and minimal development workflow for Cursor and compatible agents: explicit `/flow-*` commands, TDD, subagents, and verification gates.
+A **simple, minimal, explicit** workflow for Cursor and compatible agents: `/flow-*` commands, TDD, subagents, and verification gates.
 
 ## TLDR
 
