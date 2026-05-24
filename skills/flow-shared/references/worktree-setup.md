@@ -22,15 +22,16 @@ Follow this priority order:
 
 ## Safety verification (project-local only)
 
-For `.worktrees/` or `worktrees/` inside the repo:
+For `.worktrees/` or `worktrees/` inside the repo, verify the **chosen directory** only:
 
 ```bash
-git check-ignore -q .worktrees 2>/dev/null || git check-ignore -q worktrees 2>/dev/null
+worktree_dir=".worktrees"   # or "worktrees", whichever was selected
+git check-ignore -q "$worktree_dir" 2>/dev/null
 ```
 
 **If NOT ignored:**
 
-1. Add the directory to `.gitignore`
+1. Add the chosen directory to `.gitignore`
 2. **Get user approval** before committing the `.gitignore` change
 3. Commit the change
 4. Then create the worktree

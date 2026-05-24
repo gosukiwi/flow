@@ -76,8 +76,8 @@ def validate_plan(path: Path, *, should_pass: bool) -> bool:
             print(f"  ✗ {path.name}: missing TDD verification steps")
             ok = False
     else:
-        if not has_placeholder:
-            print(f"  ✗ {path.name}: expected placeholder content")
+        if not has_placeholder and has_tdd:
+            print(f"  ✗ {path.name}: expected to fail validation but looked clean")
             ok = False
 
     if ok:

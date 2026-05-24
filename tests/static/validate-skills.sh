@@ -158,6 +158,14 @@ else
   fail "flow-brainstorm: must reference both /flow-patch and /flow-spec in handoff"
 fi
 
+if grep -q 'Red flags.*never' "$brainstorm_file" \
+  && grep -q '^- \*\*Propose session gate and save brief/STATE in the same turn\*\*' "$brainstorm_file" \
+  && grep -q '^- \*\*Overwrite STATE with unrelated phase\*\*' "$brainstorm_file"; then
+  pass "flow-brainstorm: forbidden gate/STATE actions are red flags"
+else
+  fail "flow-brainstorm: must list forbidden gate/STATE actions as red flags, not principles"
+fi
+
 branch_gate="$SKILLS_DIR/flow-shared/references/branch-gate.md"
 if grep -q 'Hard gate' "$branch_gate" && grep -q 'Stop until' "$branch_gate"; then
   pass "branch-gate: has hard gate with stop-until language"
@@ -176,6 +184,12 @@ if grep -q 'git check-ignore' "$worktree_setup" && grep -q 'git worktree add' "$
   pass "worktree-setup: has ignore check and worktree add steps"
 else
   fail "worktree-setup: must document ignore verification and git worktree add"
+fi
+
+if grep -qi 'chosen directory' "$worktree_setup" && grep -q 'git check-ignore -q "$worktree_dir"' "$worktree_setup"; then
+  pass "worktree-setup: verifies the selected worktree directory is ignored"
+else
+  fail "worktree-setup: must check-ignore the selected project-local worktree directory"
 fi
 
 if grep -q 'worktree-setup' "$execute_file" && grep -q 'worktree-setup' "$patch_file"; then
