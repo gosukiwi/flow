@@ -6,21 +6,17 @@ A **simple, minimal, and explicit** workflow for Cursor and compatible agents: `
 
 ## TLDR
 
-**New feature?** Start with `/flow-brainstorm`. Eg:
-
 ```
-/flow-brainstorm let's implement this new feature
+/flow add email validation to the signup form
 ```
 
-**Not sure?** Start with `/flow` — it routes you to the right step.
-
-The agents will guide you from there. See below for detailed information on all included workflows.
+Flow suggests the next `/flow-*` command — invoke it when you're ready. Already know the step? Pick from **Commands** below.
 
 ## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/flow` | Router and path resolver |
+| `/flow` | Triage — suggests which `/flow-*` command to run next |
 | `/flow-brainstorm` | Explore ideas and design before formal spec |
 | `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
 | `/flow-execute` | Execute plan via subagents + two-stage review per task |

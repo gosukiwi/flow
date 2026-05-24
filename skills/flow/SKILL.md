@@ -1,6 +1,6 @@
 ---
 name: flow
-description: Router for the flow development workflow. Invoke with /flow to choose spec, execute, patch, debug, or verify.
+description: Router for the flow development workflow. Invoke with /flow to triage and suggest the right /flow-* command.
 disable-model-invocation: true
 metadata:
   flow:
@@ -78,10 +78,31 @@ Do not invoke `flow-shared` directly — resolve it via the path resolver above 
 
 Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) — ask before creating or switching branches.
 
+## When `/flow` is invoked
+
+`/flow` is a **triage concierge** — not brainstorm, spec, patch, debug, execute, or verify. Help the user pick the right `/flow-*` command; **do not run that workflow** until they invoke it.
+
+1. Read the user's message and `docs/flow/STATE.md` (if present) for current phase and artifact paths
+2. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
+3. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
+4. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
+5. **Stop.** Wait for the user to manually invoke the suggested command
+
+**Hard gate:** Do not proceed to §How to Start for a child skill in the same turn as your suggestion. Do not read child `SKILL.md` files, write micro-specs, write specs/plans, edit code, or run tests while triaging under `/flow`.
+
+**Forbidden in the same message as a suggestion:**
+
+- Starting micro-spec, spec, plan, debug, execute, or verify work
+- "Loading `/flow-patch`…", "Starting Task 1…", or equivalent auto-start language
+- Bundling suggestion + first step of the target workflow
+
+If the user already invoked a specific `/flow-*` command (not `/flow`), read that skill's `SKILL.md` per **How to Start** below — do not triage.
+
 ## How to Start
 
 Read the skill matching the user's command:
 
+- `/flow` → triage only (see **When `/flow` is invoked** above); do not load child skills until user invokes them
 - `/flow-brainstorm` → read `flow-brainstorm/SKILL.md`
 - `/flow-spec` → read `flow-spec/SKILL.md`
 - `/flow-execute` → read `flow-execute/SKILL.md`

@@ -133,6 +133,13 @@ else
   fail "flow: missing path resolver"
 fi
 
+flow_router="$SKILLS_DIR/flow/SKILL.md"
+if grep -q 'Hard gate' "$flow_router" && grep -q 'When `/flow` is invoked' "$flow_router"; then
+  pass "flow: router has manual handoff hard gate"
+else
+  fail "flow: must have When /flow is invoked and Hard gate for triage-only routing"
+fi
+
 for path in '.agents/skills/flow-shared' '.cursor/skills/flow-shared'; do
   if grep -q "$path" "$SKILLS_DIR/flow/SKILL.md"; then
     pass "flow: mentions $path"
