@@ -14,29 +14,17 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 
 ## Commands
 
-| Command | Purpose |
-|---------|---------|
-| `/flow` | Triage — suggests which `/flow-*` command to run next |
-| `/flow-brainstorm` | Explore ideas and design before formal spec |
-| `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
-| `/flow-execute` | Execute plan via **subagents** + two-stage review per task |
-| `/flow-patch` | Micro-spec + **inline** TDD + per-task review |
-| `/flow-debug` | Root cause investigation before fixes |
-| `/flow-verify` | Tests + spec checklist; user menu when done |
+| Command | When to use |
+|---------|-------------|
+| `/flow` | Not sure where to start — triage only; suggests one command, **you invoke it** |
+| `/flow-debug` | Bug, test failure, or unexpected behavior — root cause before fixes |
+| `/flow-patch` | Small bounded change (≤3 files, one concern) — micro-spec + **inline** TDD + per-task review |
+| `/flow-brainstorm` | Idea still fuzzy — explore options and design before formal spec |
+| `/flow-spec` | Clear feature or multi-step change — user-approved spec + AI self-reviewed plan |
+| `/flow-execute` | Plan already approved — **subagents** run tasks with two-stage review per task |
+| `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check or resume |
 
-## Which command?
-
-| Situation | Start with |
-|-----------|------------|
-| Not sure | `/flow` |
-| Bug or test failure | `/flow-debug` |
-| Small fix (≤3 files, one concern) | `/flow-patch` |
-| Idea still fuzzy | `/flow-brainstorm` |
-| Clear feature, needs spec + plan | `/flow-spec` |
-| Plan already approved | `/flow-execute` |
-| Implementation done | `/flow-verify` |
-
-More detail: [`docs/workflow.md`](docs/workflow.md)
+Typical paths: new feature → `/flow-brainstorm` → `/flow-spec` → `/flow-execute` → verify; small fix → `/flow-patch` → verify; bug → `/flow-debug` → patch or spec. More detail: [`docs/workflow.md`](docs/workflow.md)
 
 ## Install
 
@@ -70,7 +58,7 @@ docs/flow/
 
 - **Feature branch** for implementation — agent asks before switching branches or creating worktrees.
 - **`/flow-execute` = subagents.** **`/flow-patch` = inline.** Don't mix them for the same plan.
-- **`/flow-verify`** before calling work done — tests + requirements checklist.
+- **`/flow-verify`** runs automatically when execute or patch finish — full tests + requirements checklist before the merge/push menu.
 
 Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
 
