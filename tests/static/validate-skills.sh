@@ -18,6 +18,7 @@ REQUIRED_SKILLS=(
   flow-patch
   flow-debug
   flow-verify
+  flow-finish
   flow-shared
 )
 
@@ -73,7 +74,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing)
+REFS=(tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -183,10 +184,38 @@ else
   fail "flow-execute and flow-patch: must reference worktree-setup.md"
 fi
 
-if grep -q 'workspace: worktree' "$SKILLS_DIR/flow-verify/SKILL.md"; then
-  pass "flow-verify: documents worktree cleanup on merge"
+verify_file="$SKILLS_DIR/flow-verify/SKILL.md"
+finish_gate="$SKILLS_DIR/flow-shared/references/finish-gate.md"
+finish_skill="$SKILLS_DIR/flow-finish/SKILL.md"
+
+if grep -qi 'worktree remove\|finish-gate' "$verify_file"; then
+  pass "flow-verify: documents worktree cleanup on merge via finish-gate"
 else
-  fail "flow-verify: must document worktree cleanup for merge option"
+  fail "flow-verify: must document worktree cleanup for merge option (finish-gate)"
+fi
+
+if grep -q 'git worktree remove' "$finish_gate"; then
+  pass "finish-gate: documents worktree remove after merge"
+else
+  fail "finish-gate: must document git worktree remove on merge locally"
+fi
+
+if grep -q 'finish-gate' "$finish_skill" && grep -q 'phase: done' "$finish_gate"; then
+  pass "flow-finish: references finish-gate with phase done"
+else
+  fail "flow-finish: must reference finish-gate and phase done cleanup"
+fi
+
+if grep -qi 'flow-finish\|finish-gate' "$verify_file"; then
+  pass "flow-verify: delegates finish actions to flow-finish/finish-gate"
+else
+  fail "flow-verify: must delegate merge/push/done to flow-finish or finish-gate"
+fi
+
+if grep -qi 'raw git merge\|finish-gate' "$verify_file"; then
+  pass "flow-verify: forbids ad hoc merge without finish-gate"
+else
+  fail "flow-verify: must forbid raw merge without finish-gate for ad hoc requests"
 fi
 
 session_gate="$SKILLS_DIR/flow-shared/references/session-gate.md"
@@ -224,6 +253,11 @@ else
 fi
 
 flow_router="$SKILLS_DIR/flow/SKILL.md"
+if grep -q '/flow-finish' "$flow_router"; then
+  pass "flow: router references /flow-finish"
+else
+  fail "flow: must reference /flow-finish in commands or decision tree"
+fi
 if grep -q 'Hard gate' "$flow_router" && grep -q 'When `/flow` is invoked' "$flow_router"; then
   pass "flow: router has manual handoff hard gate"
 else

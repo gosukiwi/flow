@@ -22,9 +22,10 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 | `/flow-brainstorm` | Idea still fuzzy — explore options and design before formal spec |
 | `/flow-spec` | Clear feature or multi-step change — user-approved spec + AI self-reviewed plan |
 | `/flow-execute` | Plan already approved — **subagents** run tasks with two-stage review per task |
-| `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check or resume |
+| `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check |
+| `/flow-finish` | Merge locally, push, or close out — updates STATE, worktree cleanup, branch delete offer; use when user says "merge to main" outside the menu |
 
-Typical paths: new feature → `/flow-brainstorm` → `/flow-spec` → `/flow-execute` → verify; small fix → `/flow-patch` → verify; bug → `/flow-debug` → patch or spec. More detail: [`docs/workflow.md`](docs/workflow.md)
+Typical paths: new feature → `/flow-brainstorm` → `/flow-spec` → `/flow-execute` → verify → `/flow-finish`; small fix → `/flow-patch` → verify → `/flow-finish`; bug → `/flow-debug` → patch or spec. More detail: [`docs/workflow.md`](docs/workflow.md)
 
 ## Install
 
@@ -59,6 +60,7 @@ docs/flow/
 - **Feature branch** for implementation — agent asks before switching branches or creating worktrees.
 - **`/flow-execute` = subagents.** **`/flow-patch` = inline.** Don't mix them for the same plan.
 - **`/flow-verify`** runs automatically when execute or patch finish — full tests + requirements checklist before the merge/push menu.
+- **`/flow-finish`** for ad hoc merge/push/done (e.g. "merge back into main") — STATE `phase: done`, worktree cleanup, branch delete offer via `finish-gate.md`.
 
 Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
 

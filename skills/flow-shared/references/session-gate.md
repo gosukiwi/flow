@@ -77,6 +77,7 @@ Follow `branch-gate.md` + `worktree-setup.md` for branch name and worktree path.
 - spec → `/flow-execute` when plan exists
 - debug → `/flow-patch` for same bug
 - execute → `/flow-verify` for same plan
+- verify → `/flow-finish` for merge/push/done on same branch
 
 These are same-topic even when `phase` changes.
 

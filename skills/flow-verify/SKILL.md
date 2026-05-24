@@ -60,12 +60,19 @@ Use option 3 label **`clean-code-reviewer`** when that skill is available; other
 
 | Option | Agent action |
 |--------|--------------|
-| 1 Merge locally | Confirm base branch; run merge if user confirms; if `STATE.md` has `workspace: worktree`, run `git worktree remove <worktree-path>` after successful merge |
-| 2 Push branch | `git push -u origin HEAD`; do not create a PR; keep worktree |
+| 1 Merge locally | Read `flow-finish/SKILL.md` or `flow-shared/references/finish-gate.md` (merge locally section) — confirm base, merge, worktree remove if applicable, `phase: done`, offer branch delete |
+| 2 Push branch | Read finish-gate (push branch section) — push, `phase: done`, keep worktree |
 | 3 Review diff | See **Option 3 — branch review** below |
-| 4 Done for now | Stop; no git actions; keep worktree |
+| 4 Done for now | Read finish-gate (done for now section) — `phase: done`, no git actions |
 
-Set `docs/flow/STATE.md`: `phase: done` when the user chooses option 1, 2, or 4 **after** verification passes.
+Set `docs/flow/STATE.md`: `phase: done` when finish-gate steps complete for options 1, 2, or 4.
+
+## Ad hoc finish requests
+
+When the user asks to merge, push, or close out **without** picking from the menu above (e.g. "merge back into local main"):
+
+- Read and follow `flow-finish/SKILL.md` — same cleanup as menu options
+- **Forbidden:** Raw `git merge` / `git push` without finish-gate (STATE must reach `phase: done` after merge/push)
 
 ### Option 3 — branch review
 

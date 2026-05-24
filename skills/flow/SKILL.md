@@ -23,7 +23,8 @@ Explicit workflow for spec-driven development with TDD, subagents, and verificat
 | `/flow-execute` | Approved spec exists; run the plan with subagents |
 | `/flow-patch` | Single bounded change (≤3 files, one concern) |
 | `/flow-debug` | Bug, test failure, or unexpected behavior |
-| `/flow-verify` | Tests + spec checklist; user menu when done |
+| `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes |
+| `/flow-finish` | Merge locally, push branch, or close out — STATE + worktree cleanup; use when user says "merge to main" outside the menu |
 
 ## Decision Tree
 
@@ -38,7 +39,8 @@ New work?
 └─ Plan already written? → /flow-execute
 
 Implementation done?
-└─ /flow-verify → merge / push / review / done
+├─ Tests/checklist not confirmed? → /flow-verify
+└─ Verify passed or user says merge/push/done? → /flow-finish (or verify menu → finish-gate)
 ```
 
 ## path resolver
@@ -82,21 +84,22 @@ Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/re
 
 ## When `/flow` is invoked
 
-`/flow` is a **triage concierge** — not brainstorm, spec, patch, debug, execute, or verify. Help the user pick the right `/flow-*` command; **do not run that workflow** until they invoke it.
+`/flow` is a **triage concierge** — not brainstorm, spec, patch, debug, execute, verify, or finish. Help the user pick the right `/flow-*` command; **do not run that workflow** until they invoke it.
 
 1. Read the user's message and `docs/flow/STATE.md` (if present) for current phase and artifact paths
 2. If `STATE.md` `branch` differs from `git branch --show-current`, run `git worktree list` — if a worktree matches the STATE branch, suggest `cd` to that path to resume
 3. If active STATE + unrelated user message, warn about possible conflict — suggest resume or worktree before recommending `/flow-brainstorm` or `/flow-spec`
 4. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
-5. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
-6. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
-7. **Stop.** Wait for the user to manually invoke the suggested command
+5. **Merge/push/done with verify already passed** (`phase: verify`, or user confirms tests green) → recommend **`/flow-finish`**, not another `/flow-verify`
+6. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
+7. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
+8. **Stop.** Wait for the user to manually invoke the suggested command
 
 **Hard gate:** Do not proceed to §How to Start for a child skill in the same turn as your suggestion. Do not read child `SKILL.md` files, write micro-specs, write specs/plans, edit code, or run tests while triaging under `/flow`.
 
 **Forbidden in the same message as a suggestion:**
 
-- Starting micro-spec, spec, plan, debug, execute, or verify work
+- Starting micro-spec, spec, plan, debug, execute, verify, or finish work
 - "Loading `/flow-patch`…", "Starting Task 1…", or equivalent auto-start language
 - Bundling suggestion + first step of the target workflow
 
@@ -113,5 +116,6 @@ Read the skill matching the user's command:
 - `/flow-patch` → read `flow-patch/SKILL.md`
 - `/flow-debug` → read `flow-debug/SKILL.md`
 - `/flow-verify` → read `flow-verify/SKILL.md`
+- `/flow-finish` → read `flow-finish/SKILL.md`
 
 Follow that skill exactly. Do not skip gates.

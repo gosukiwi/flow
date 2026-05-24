@@ -42,6 +42,7 @@ Installed skills:
   /flow-patch    — small changes
   /flow-debug    — root cause first
   /flow-verify   — tests + spec checklist; user menu
+  /flow-finish   — merge/push/done + STATE and worktree cleanup
 
 Project artifacts: docs/flow/{brainstorms,specs,plans,STATE.md}
 

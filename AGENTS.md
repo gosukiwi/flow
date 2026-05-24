@@ -4,7 +4,7 @@ Guidance for Cursor AI agents working on **this repository** — the Flow skills
 
 ## What this repo is
 
-**Flow** is a spec-driven development workflow shipped as Cursor agent skills (`/flow`, `/flow-brainstorm`, `/flow-spec`, `/flow-execute`, `/flow-patch`, `/flow-debug`, `/flow-verify`).
+**Flow** is a spec-driven development workflow shipped as Cursor agent skills (`/flow`, `/flow-brainstorm`, `/flow-spec`, `/flow-execute`, `/flow-patch`, `/flow-debug`, `/flow-verify`, `/flow-finish`).
 
 - **Published as:** [github.com/gosukiwi/flow](https://github.com/gosukiwi/flow)
 - **Not an application repo.** There is no app server, build step, or runtime. Source of truth is Markdown skill files under `skills/` plus bash/Python validation scripts.
@@ -22,6 +22,7 @@ skills/                    # Shippable skill package (published in npm "files")
   flow-patch/              # Small changes, inline TDD
   flow-debug/              # Root cause before fixes
   flow-verify/             # Tests + checklist + user menu
+  flow-finish/             # Merge/push/done + STATE and worktree cleanup
   flow-shared/             # Shared prompts + references (not invoked directly)
     prompts/               # Subagent prompt templates
     references/            # Gates, TDD, worktree, session rules
@@ -222,3 +223,4 @@ When dogfooding Flow on real features, do that in a separate project with skills
 | `/flow-patch` | Micro-spec + inline TDD | Subagent implementers |
 | `/flow-debug` | Root cause analysis | Fixes before cause found |
 | `/flow-verify` | Full test run + checklist | Auto-merge/push without user menu |
+| `/flow-finish` | Merge/push/done + STATE/worktree cleanup | Re-run full verify (use `/flow-verify`) |

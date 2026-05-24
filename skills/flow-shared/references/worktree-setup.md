@@ -145,9 +145,9 @@ Ready to implement <feature-name>
 - Create worktree without user confirming workspace option in branch gate
 - Skip ignore verification for project-local directories
 - Proceed with failing baseline tests without asking (when baseline was requested)
-- Update STATE.md in the main workspace when working in a worktree
+- Update STATE.md in the main workspace when working in a worktree **during implementation** — **except** `/flow-finish` merge locally (finish-gate step 5 after successful merge + worktree remove)
 - Run `git worktree add` in the same message as the workspace gate question
 
 ## Cleanup
 
-Worktree removal is handled by `/flow-verify` after merge (option 1). See `flow-verify/SKILL.md` for option-specific cleanup rules.
+Worktree removal is handled by `/flow-finish` (merge locally) via `finish-gate.md`. See `flow-finish/SKILL.md` and `flow-verify/SKILL.md` option 1.

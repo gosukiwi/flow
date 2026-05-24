@@ -18,6 +18,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-router-manual-handoff.md` | `/flow` | Agent suggests a `/flow-*` command; user must invoke it — no auto-start |
 | `flow-router-suggest-spec.md` | `/flow` | Large/multi-step work → suggests `/flow-spec` only, no micro-spec or patch |
 | `flow-router-suggest-debug.md` | `/flow` | Unknown test failures → suggests `/flow-debug` only, no auto-investigation |
+| `flow-router-suggest-finish.md` | `/flow` | Verify done + merge intent → suggests `/flow-finish` only, no git in same message |
 | `flow-router-suggest-brainstorm.md` | `/flow` | Fuzzy idea → suggests `/flow-brainstorm` only, no spec or exploration start |
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
 | `flow-patch-skip-review.md` | `/flow-patch` | Agent dispatches reviewers; doesn't skip when user says patch is tiny |
@@ -37,6 +38,9 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
 | `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
+| `flow-finish-adhoc-merge.md` | `/flow-finish` | Agent uses finish-gate on "merge to main"; sets phase done, not raw git merge only |
+| `flow-finish-worktree-merge.md` | `/flow-finish` | Agent merges from main workspace, removes worktree after success, sets phase done |
+| `flow-verify-adhoc-merge.md` | `/flow-verify` | Ad hoc "merge to main" reads finish-gate via path resolver; does not raw merge or defer to /flow-finish only |
 | `flow-execute-worktree-skip-gate.md` | `/flow-execute` | Agent sends workspace gate only — no worktree creation or Task 1 in same message |
 | `flow-patch-concurrent-unrelated-work.md` | `/flow-patch` | Unrelated work on active feature branch → worktree recommended, not branch switch |
 | `flow-execute-resume-no-worktree.md` | `/flow-execute` | Continuing matched STATE work → resume on current branch, no worktree |

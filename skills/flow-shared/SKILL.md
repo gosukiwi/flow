@@ -10,7 +10,7 @@ metadata:
 
 # Flow Shared Assets
 
-**Do not invoke directly.** Bundles prompts and references for `flow-execute` and `flow-patch`.
+**Do not invoke directly.** Bundles prompts and references for orchestrator skills (`flow-execute`, `flow-patch`, `flow-verify`, `flow-finish`, and others via path resolver).
 
 ## Contents
 
@@ -23,6 +23,7 @@ metadata:
 - `flow-shared/references/session-gate.md`
 - `flow-shared/references/worktree-setup.md`
 - `flow-shared/references/root-cause-tracing.md`
+- `flow-shared/references/finish-gate.md`
 
 ## Usage
 
