@@ -19,10 +19,10 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 ## What to expect
 
 - **Describe the work** — one small change? `/flow-patch`. Several steps or a new feature? `/flow-spec` (see [Commands](#commands)).
+- **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
 - **TDD by default** — each task starts with a failing test, then implementation, then green.
 - **Review built in** — each task is reviewed for spec fit and correctness before the next.
-- **Verify before merge** — runs automatically when tasks finish (full tests + requirements checklist); you get a merge/push menu when things pass.
-- **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
+- **Verify before merge** — full tests and a checklist when work finishes; merge or push when they pass.
 - **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
 
 Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
