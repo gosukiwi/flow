@@ -73,7 +73,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(tdd-red-green verification-gate branch-gate root-cause-tracing)
+REFS=(tdd-red-green verification-gate branch-gate worktree-setup root-cause-tracing)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -125,6 +125,31 @@ if grep -q 'Hard gate' "$branch_gate" && grep -q 'Stop until' "$branch_gate"; th
   pass "branch-gate: has hard gate with stop-until language"
 else
   fail "branch-gate: must have hard gate with stop-until user confirmation"
+fi
+
+if grep -q 'worktree' "$branch_gate" && grep -q 'Detection matrix' "$branch_gate"; then
+  pass "branch-gate: has workspace gate with worktree detection matrix"
+else
+  fail "branch-gate: must include workspace gate and detection matrix for worktrees"
+fi
+
+worktree_setup="$SKILLS_DIR/flow-shared/references/worktree-setup.md"
+if grep -q 'git check-ignore' "$worktree_setup" && grep -q 'git worktree add' "$worktree_setup"; then
+  pass "worktree-setup: has ignore check and worktree add steps"
+else
+  fail "worktree-setup: must document ignore verification and git worktree add"
+fi
+
+if grep -q 'worktree-setup' "$execute_file" && grep -q 'worktree-setup' "$patch_file"; then
+  pass "flow-execute and flow-patch: reference worktree-setup"
+else
+  fail "flow-execute and flow-patch: must reference worktree-setup.md"
+fi
+
+if grep -q 'workspace: worktree' "$SKILLS_DIR/flow-verify/SKILL.md"; then
+  pass "flow-verify: documents worktree cleanup on merge"
+else
+  fail "flow-verify: must document worktree cleanup for merge option"
 fi
 
 if grep -q 'path resolver' "$SKILLS_DIR/flow/SKILL.md"; then

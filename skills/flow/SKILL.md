@@ -70,23 +70,26 @@ phase: brainstorm | spec | execute | patch | debug | verify | done
 brainstorm: docs/flow/brainstorms/YYYY-MM-DD-topic.md
 spec: docs/flow/specs/YYYY-MM-DD-topic.md
 plan: docs/flow/plans/YYYY-MM-DD-topic.md
+workspace: in-place | worktree
+worktree: .worktrees/feature-topic   # when workspace: worktree
 branch: feature/topic
 updated: YYYY-MM-DD
 ```
 
 Do not invoke `flow-shared` directly — resolve it via the path resolver above for prompts and references.
 
-Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) — ask before creating or switching branches.
+Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) — ask before creating or switching branches or worktrees.
 
 ## When `/flow` is invoked
 
 `/flow` is a **triage concierge** — not brainstorm, spec, patch, debug, execute, or verify. Help the user pick the right `/flow-*` command; **do not run that workflow** until they invoke it.
 
 1. Read the user's message and `docs/flow/STATE.md` (if present) for current phase and artifact paths
-2. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
-3. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
-4. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
-5. **Stop.** Wait for the user to manually invoke the suggested command
+2. If `STATE.md` `branch` differs from `git branch --show-current`, run `git worktree list` — if a worktree matches the STATE branch, suggest `cd` to that path to resume
+3. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
+4. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
+5. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
+6. **Stop.** Wait for the user to manually invoke the suggested command
 
 **Hard gate:** Do not proceed to §How to Start for a child skill in the same turn as your suggestion. Do not read child `SKILL.md` files, write micro-specs, write specs/plans, edit code, or run tests while triaging under `/flow`.
 

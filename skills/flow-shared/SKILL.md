@@ -21,6 +21,7 @@ metadata:
 - `flow-shared/references/tdd-red-green.md`
 - `flow-shared/references/verification-gate.md`
 - `flow-shared/references/branch-gate.md`
+- `flow-shared/references/worktree-setup.md`
 - `flow-shared/references/root-cause-tracing.md`
 
 ## Usage

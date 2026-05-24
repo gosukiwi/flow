@@ -23,7 +23,7 @@ For **single bounded changes** — too small for a full spec doc. Implement **in
 
 ## Branch rule
 
-**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Branch confirmation is a blocking user gate — proposing a name is not enough; wait for the user's reply before any implementation.
+**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Branch and workspace confirmation is a blocking user gate — proposing a name or option is not enough; wait for the user's reply before any implementation.
 
 ## Process
 
@@ -74,15 +74,20 @@ Surface audit results only — do not ask the user to find internal contradictio
 
 **Stop until approved.** If they request changes, update micro-spec and re-run self-review.
 
-### 3. Branch gate (required)
+### 3. Workspace gate (required)
 
 Follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-If on `main`/`master` or branch is unclear: propose a branch name using the gate message template. **Stop until the user confirms or provides a name.**
+Apply the detection matrix: on `main`/`master`, unrelated work on a feature branch, or continuing matched work each have different gate messages. **Stop until the user confirms branch name and workspace option (when offered).**
 
-Do **not** in the same turn: create/switch branches or start implementation (Task 1, code edits, TDD steps).
+Do **not** in the same turn: create/switch branches, create worktrees, or start implementation (Task 1, code edits, TDD steps).
 
-After confirmation: create or switch to the branch (if needed), record it in `docs/flow/STATE.md`, update `phase: patch`, then proceed to step 4.
+After confirmation:
+
+- **Option 1 (in-place):** create or switch to the branch in the current workspace; record `workspace: in-place` in `docs/flow/STATE.md`
+- **Option 2 (worktree):** follow `flow-shared/references/worktree-setup.md`; all subsequent work happens in the worktree
+
+Update `phase: patch` in `docs/flow/STATE.md`, then proceed to step 4.
 
 ### 4. Inline execution (per task)
 
@@ -127,6 +132,7 @@ Run `/flow-verify` against the micro-spec.
 
 ## Red flags — never
 
-- **Propose a branch and start Task 1 in the same turn** — branch gate requires waiting for user reply
-- Skip micro-spec approval or branch confirmation
+- **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
+- **Create a worktree for unrelated work without offering workspace choice**
+- Skip micro-spec approval or branch/workspace confirmation
 - Dispatch implementer subagent (patch is inline only)

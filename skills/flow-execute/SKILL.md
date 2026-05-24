@@ -23,21 +23,24 @@ Execute an approved plan using **subagents only** — never implement tasks inli
 
 **Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-Branch confirmation is a **blocking user gate** — same weight as micro-spec approval. Proposing a name is not enough; wait for the user's reply.
+Branch and workspace confirmation is a **blocking user gate** — same weight as micro-spec approval. Proposing a name or option is not enough; wait for the user's reply.
 
 ## Process
 
-### 1. Branch gate (required)
+### 1. Workspace gate (required)
 
 Follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-If on `main`/`master` or branch is unclear: propose a branch name using the gate message template. **Stop until the user confirms or provides a name.**
+Apply the detection matrix: on `main`/`master`, unrelated work on a feature branch, or continuing matched work each have different gate messages. **Stop until the user confirms branch name and workspace option (when offered).**
 
-Do **not** in the same turn: create/switch branches, create TodoWrite for tasks, dispatch implementers, or start Task 1.
+Do **not** in the same turn: create/switch branches, create worktrees, create TodoWrite for tasks, dispatch implementers, or start Task 1.
 
-After confirmation: create or switch to the branch (if needed), record it in `docs/flow/STATE.md`, then proceed to step 2.
+After confirmation:
 
-Git worktrees: out of scope for v1 (may be added later).
+- **Option 1 (in-place):** create or switch to the branch in the current workspace; record `workspace: in-place` in `docs/flow/STATE.md`
+- **Option 2 (worktree):** follow `flow-shared/references/worktree-setup.md`; all subsequent work happens in the worktree
+
+Then proceed to step 2.
 
 ### 2. Load plan
 
@@ -118,7 +121,8 @@ Update `docs/flow/STATE.md`: `phase: verify` when starting verify. User menu and
 
 - Skip subagents and implement inline
 - Skip spec or code quality review
-- **Propose a branch and start Task 1 in the same turn** — branch gate requires waiting for user reply
+- **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
+- **Create a worktree without user confirming option 2**
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)
 - Dispatch parallel subagents across tasks (different tasks or roles at once)
 - Make subagent read the plan file — provide full task text in prompts
@@ -130,6 +134,6 @@ Do not pause between **completed** tasks for progress check-ins.
 
 **Continuous ≠ parallel.** Finish the full gate for Task N before dispatching anything for Task N+1.
 
-**Continuous ≠ skip branch gate.** Branch confirmation happens once up front and always blocks until the user responds.
+**Continuous ≠ skip workspace gate.** Branch and workspace confirmation happens once up front and always blocks until the user responds.
 
 Stop only when: blocked, ambiguous, or all tasks complete.

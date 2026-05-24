@@ -58,10 +58,10 @@ Use option 3 label **`clean-code-reviewer`** when that skill is available; other
 
 | Option | Agent action |
 |--------|--------------|
-| 1 Merge locally | Confirm base branch; run merge if user confirms |
-| 2 Push branch | `git push -u origin HEAD`; do not create a PR |
+| 1 Merge locally | Confirm base branch; run merge if user confirms; if `STATE.md` has `workspace: worktree`, run `git worktree remove <worktree-path>` after successful merge |
+| 2 Push branch | `git push -u origin HEAD`; do not create a PR; keep worktree |
 | 3 Review diff | See **Option 3 — whole-change review** below |
-| 4 Done for now | Stop; no git actions |
+| 4 Done for now | Stop; no git actions; keep worktree |
 
 Set `docs/flow/STATE.md`: `phase: done` when the user chooses option 1, 2, or 4 **after** verification passes.
 

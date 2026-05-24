@@ -84,12 +84,12 @@ Small changes: `/flow-patch` → `/flow-verify`. Bugs: `/flow-debug` → `/flow-
 
 Per-task reviews run during execute and patch. `/flow-verify` runs tests and a requirements checklist — not a full diff review. Optional **option 3** is a whole-branch review before merge or push (see [clean-code-skills](https://github.com/gosukiwi/clean-code-skills) under Install).
 
-### Branch rules
+### Branch and workspace rules
 
 - Feature branch for all implementation; never commit on `main`/`master` without explicit approval
-- **Ask before creating or switching branches** — propose a name or wait for the user to say where to work
-
-**Planned:** Git worktree support — isolated checkout per feature without switching branches in the main workspace. Not in v1; branch gate + user confirmation is the current model.
+- **Ask before creating or switching branches or worktrees** — propose a branch name and workspace option (in-place vs worktree), or wait for the user to say where to work
+- **Concurrent sessions:** use a worktree with a new branch for unrelated work while another feature stays checked out in the main workspace. Each worktree has its own `docs/flow/STATE.md`
+- Worktrees live in `.worktrees/<slug>/` by default (must be gitignored). See `flow-shared/references/worktree-setup.md` after user confirms option 2
 
 ## For maintainers
 
