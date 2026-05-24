@@ -9,5 +9,5 @@
 
 - [ ] **Step 1:** Add the feature
 - [ ] **Step 2:** Write tests for the above
-- [ ] **Step 3:** Handle edge cases
+- [ ] **Step 3:** Run tests
 - [ ] **Step 4:** Commit

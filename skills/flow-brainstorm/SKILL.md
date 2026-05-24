@@ -176,5 +176,8 @@ At handoff, default to `/flow-patch` when scope meets patch criteria; use `/flow
 - Mark **`(Recommended)`** on multiple-choice options
 - Incremental validation — get approval before going deeper
 - Brainstorm explores; patch or spec commits
+
+## Red flags — never
+
 - **Propose session gate and save brief/STATE in the same turn** — session gate requires waiting for user reply
 - **Overwrite STATE with unrelated phase** while active work exists on this checkout
