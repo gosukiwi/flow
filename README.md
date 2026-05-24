@@ -16,18 +16,6 @@ A solid, explicit, and minimal development workflow for Cursor and compatible ag
 
 The agents will guide you from there. See below for detailed information on all included workflows.
 
-## Commands
-
-| Command | Purpose |
-|---------|---------|
-| `/flow` | Router and path resolver |
-| `/flow-brainstorm` | Explore ideas and design before formal spec |
-| `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
-| `/flow-execute` | Execute plan via subagents + two-stage review per task |
-| `/flow-patch` | Micro-spec + inline TDD + per-task review |
-| `/flow-debug` | Root cause investigation before fixes |
-| `/flow-verify` | Tests + spec checklist; user menu when done |
-
 ## Install
 
 From GitHub:
@@ -54,7 +42,62 @@ npx skills add gosukiwi/flow -a cursor --skill '*' -g -y
 
 Installs to `.agents/skills/` (project) or `~/.cursor/skills/` (global). Includes `flow-shared` (prompts bundle).
 
-## Layout
+### Optional: [clean-code-skills](https://github.com/gosukiwi/clean-code-skills)
+
+Separate skill pack for style + correctness code review. When installed, `/flow-verify` **option 3** uses `clean-code-reviewer` (full branch review with style and correctness passes). Without it, Flow falls back to its bundled whole-branch correctness review.
+
+```bash
+npx skills add gosukiwi/clean-code-skills -a cursor --skill '*' -y
+```
+
+## In your project
+
+Flow creates artifacts in your repo as you work — not in the skill package:
+
+```
+docs/flow/
+  brainstorms/   # optional exploration briefs
+  specs/         # approved requirements
+  plans/         # self-reviewed implementation plans
+  STATE.md       # current phase and paths
+```
+
+## Workflow
+
+```
+/flow-brainstorm → explore (optional) → small scope? → /flow-patch
+                                      → larger scope? → /flow-spec → user approves spec → AI self-reviews plan
+/flow-execute    → subagents (TDD → spec review → code quality review per task)
+/flow-patch      → inline TDD → self-review → spec + code quality review per task
+/flow-verify     → tests + requirements checklist → user menu (merge / push / review / done)
+```
+
+Small changes: `/flow-patch` → `/flow-verify`. Bugs: `/flow-debug` → `/flow-patch`.
+
+Per-task reviews run during execute and patch. `/flow-verify` runs tests and a requirements checklist — not a full diff review. Optional **option 3** is a whole-branch review before merge or push (see [clean-code-skills](https://github.com/gosukiwi/clean-code-skills) under Install).
+
+### Branch rules
+
+- Feature branch for all implementation; never commit on `main`/`master` without explicit approval
+- **Ask before creating or switching branches** — propose a name or wait for the user to say where to work
+
+**Planned:** Git worktree support — isolated checkout per feature without switching branches in the main workspace. Not in v1; branch gate + user confirmation is the current model.
+
+## Commands
+
+| Command | Purpose |
+|---------|---------|
+| `/flow` | Router and path resolver |
+| `/flow-brainstorm` | Explore ideas and design before formal spec |
+| `/flow-spec` | Spec (user-approved) + plan (AI self-reviewed) |
+| `/flow-execute` | Execute plan via subagents + two-stage review per task |
+| `/flow-patch` | Micro-spec + inline TDD + per-task review |
+| `/flow-debug` | Root cause investigation before fixes |
+| `/flow-verify` | Tests + spec checklist; user menu when done |
+
+## For maintainers
+
+### Repository layout
 
 ```
 skills/                    # installed into consumer project
@@ -66,7 +109,7 @@ skills/                    # installed into consumer project
   flow-debug/
   flow-verify/
   flow-shared/             # internal — prompts + references
-tests/                     # maintainer only — not installed
+tests/                     # not installed — scenario + static tests
 ```
 
 ### Shared prompts
@@ -84,40 +127,7 @@ Orchestrator skills resolve paths via the resolver in `flow/SKILL.md`:
 2. `.cursor/skills/flow-shared/`
 3. `~/.cursor/skills/flow-shared/`
 
-### Project artifacts
-
-Created in the **consumer project**, not in the skill package:
-
-```
-docs/flow/
-  brainstorms/
-  specs/
-  plans/
-  STATE.md
-```
-
-## Workflow
-
-```
-/flow-brainstorm → explore (optional) → small scope? → /flow-patch
-                                      → larger scope? → /flow-spec → user approves spec → AI self-reviews plan
-/flow-execute    → subagents (TDD → spec review → code quality review per task)
-/flow-patch      → inline TDD → self-review → spec + code quality review per task
-/flow-verify     → tests + requirements checklist → user menu (merge / push / review / done)
-```
-
-Small changes: `/flow-patch` → `/flow-verify`. Bugs: `/flow-debug` → `/flow-patch`.
-
-Per-task reviews run during execute and patch. `/flow-verify` runs tests and a requirements checklist — not a full diff review. For an optional whole-change pass before merge/push, choose verify **option 3**: runs `clean-code-reviewer` when installed, otherwise Flow's whole-branch correctness review (no style pass).
-
-## Branch rules
-
-- Feature branch for all implementation; never commit on `main`/`master` without explicit approval
-- **Ask before creating or switching branches** — propose a name or wait for the user to say where to work
-
-**Planned:** Git worktree support — isolated checkout per feature without switching branches in the main workspace. Not in v1; branch gate + user confirmation is the current model.
-
-## Testing this repo
+### Testing
 
 ```bash
 make test           # Layer 1 static validators
@@ -126,7 +136,7 @@ make test-scenarios # Layer 2 scenario list + manual agent runs
 
 Layer 2 uses RED→GREEN→REFACTOR for skill changes. See [`tests/writing-skills.md`](tests/writing-skills.md).
 
-## Development
+### Development
 
 After editing skills:
 
