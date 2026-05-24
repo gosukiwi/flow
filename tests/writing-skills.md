@@ -4,7 +4,18 @@
 
 Skill changes here use the same RED→GREEN→REFACTOR cycle as code TDD. Scenarios are failing tests; `SKILL.md` files are the fix.
 
-Full generic skill authoring (descriptions, CSO, persuasion): use [superpowers `writing-skills`](https://github.com/obra/superpowers) if available. This doc is **Flow-specific** — workflow skills, gates, and how we test them.
+## Authoring principles
+
+Rules for writing skills that agents actually follow under pressure:
+
+- **Iron Law:** No skill change without a failing scenario first. If you edited the skill before RED, treat the edit as invalid until you run RED on the old version and confirm failure.
+- **Description:** When-to-use and triggers only — not a workflow summary. Flow skills are explicit commands, so `"Invoke with /flow-…"` is fine; still avoid describing the full process (e.g. "dispatches subagents with two-stage review").
+- **Discipline skills:** After RED, add counters for the exact rationalizations you saw — rationalization table, red flags, `Hard gate` / `Stop until`, forbidden same-turn actions (see `branch-gate.md`).
+- **Mechanical rules → automate:** If grep can enforce it cheaply, add to `validate-skills.sh` after GREEN proved the rule matters — do not restate in prose alone.
+- **Supporting files:** Heavy reference or reusable tools only (`flow-shared/prompts/`, `references/`). Keep gates and process inline in the skill or shared refs.
+- **Cross-refs:** Reference other skills or shared refs by path/name; do not use `@` links that force-load files into context.
+
+Pressure scenario design: combine realistic context with temptation to skip a gate (time pressure, sunk cost, bundling the next step). See the scenario recipe below.
 
 ## Testing pyramid
 
