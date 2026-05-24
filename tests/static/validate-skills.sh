@@ -125,6 +125,18 @@ else
   fail "flow-execute: must record BASE_SHA before spec compliance review"
 fi
 
+if grep -qi 'flow-verify/SKILL.md' "$execute_file" && grep -qi 'auto-run\|immediately continue into verify' "$execute_file"; then
+  pass "flow-execute: auto-runs verify after all tasks"
+else
+  fail "flow-execute: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
+fi
+
+if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
+  pass "flow-patch: auto-runs verify after all tasks"
+else
+  fail "flow-patch: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then

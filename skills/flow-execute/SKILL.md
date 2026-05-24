@@ -113,16 +113,26 @@ Reviewers do not edit code.
 
 Mark Task N completed in TodoWrite. **Then** begin Task N+1 step 1.
 
-### 4. After all tasks
+### 4. Verify (auto-run)
 
-Run `/flow-verify` against spec + plan.
+When all plan tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
 
-Update `docs/flow/STATE.md`: `phase: verify` when starting verify. User menu and `phase: done` are handled by `/flow-verify`.
+1. Read `flow-verify/SKILL.md` (resolve via path resolver in `flow/SKILL.md`)
+2. Follow verify process: `verification-gate.md`, full test suite, requirements checklist against spec + plan
+3. Update `docs/flow/STATE.md`: `phase: verify` when starting
+4. If verify fails → route to `/flow-debug` or `/flow-patch`; do not present the done menu
+5. If verify passes → present the verify user menu per `flow-verify/SKILL.md`
+
+**Do not run verify option 3 (branch review) automatically** — only when the user chooses it from the menu.
+
+**Forbidden:** Stopping after all tasks with a "Run `/flow-verify`" handoff when implementation succeeded. User requests to skip re-running tests do not override this gate — per-task tests ≠ full verify.
 
 ## Red flags — never
 
 - Skip subagents and implement inline
 - Skip spec or correctness review
+- **Hand off verify instead of running it** after all tasks complete
+- **Wait for `/flow-verify` invocation** before running the full test suite or requirements checklist
 - **Trust the implementer report for spec compliance** — spec reviewer must inspect the diff independently
 - **Skip spec review because tests pass** — spec and correctness are separate gates
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
@@ -140,4 +150,6 @@ Do not pause between **completed** tasks for progress check-ins.
 
 **Continuous ≠ skip workspace gate.** Branch and workspace confirmation happens once up front and always blocks until the user responds.
 
-Stop only when: blocked, ambiguous, or all tasks complete.
+**Continuous ≠ hand off verify.** After all tasks, read `flow-verify/SKILL.md` and run verify — do not stop for a separate `/flow-verify` invocation.
+
+Stop only when: blocked, ambiguous, verify steps complete and user menu presented, or user picks a menu option.

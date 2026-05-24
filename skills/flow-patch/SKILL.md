@@ -121,11 +121,21 @@ For each task:
 
 **Fixes after ❌:** orchestrator implements fixes inline, then re-dispatches the reviewer — reviewers do not edit code.
 
-Stop when blocked, ambiguous, or all tasks complete. Do not guess.
+Stop when blocked, ambiguous, or verify steps complete and user menu presented. Do not guess.
 
-### 5. Verify
+### 5. Verify (auto-run)
 
-Run `/flow-verify` against the micro-spec.
+When all micro-spec tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
+
+1. Read `flow-verify/SKILL.md` (resolve via path resolver in `flow/SKILL.md`)
+2. Follow verify process: `verification-gate.md`, full test suite, requirements checklist against micro-spec
+3. Update `docs/flow/STATE.md`: `phase: verify` when starting
+4. If verify fails → route to `/flow-debug` or fix inline; do not present the done menu
+5. If verify passes → present the verify user menu per `flow-verify/SKILL.md`
+
+**Do not run verify option 3 (branch review) automatically** — only when the user chooses it from the menu.
+
+**Forbidden:** Stopping with a "Run `/flow-verify`" handoff when patch tasks succeeded.
 
 ## Redirect rules
 
@@ -139,3 +149,4 @@ Run `/flow-verify` against the micro-spec.
 - **Create a worktree for unrelated work without offering workspace choice**
 - Skip micro-spec approval or branch/workspace confirmation
 - Dispatch implementer subagent (patch is inline only)
+- **Hand off verify instead of running it** after all tasks complete

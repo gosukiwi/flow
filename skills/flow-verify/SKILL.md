@@ -9,7 +9,7 @@ metadata:
 
 # Flow Verify
 
-**Triggered by:** `/flow-verify`
+**Triggered by:** `/flow-verify` — also entered automatically at the end of `/flow-execute` and `/flow-patch` when all tasks complete.
 
 Evidence before assertions. **Read and follow** `flow-shared/references/verification-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
