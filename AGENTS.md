@@ -37,6 +37,7 @@ tests/
     validate-artifacts.py  # Spec/plan template validation
   fixtures/artifacts/      # good/bad spec and plan fixtures
   scenarios/               # Layer 2 pressure scenarios (manual agent runs)
+    evidence/              # RED + GREEN records (required before commit on gate changes)
   writing-skills.md        # Maintainer guide — read before editing skills
 
 scripts/install.sh         # Local install helper
@@ -49,7 +50,7 @@ Makefile                   # test, test-static, test-scenarios, install
 |---------|---------|
 | `make test` | **Run before every commit.** Static skill validation + artifact fixtures. |
 | `make test-static` | Same as above without the Layer 2 reminder. |
-| `make test-scenarios` | Lists scenario files; does not run agents. Scenarios are manual. |
+| `make test-scenarios` | Lists scenario files + evidence reminder; does not run agents. |
 | `make install` | Install skills from this clone into current project. |
 | `npx skills add ./skills -a cursor --skill '*' -y --copy` | Reinstall after local skill edits (use `--copy` when iterating). |
 
@@ -117,16 +118,16 @@ The scenario must trap a **specific rationalization** (same-turn bundling, "no c
 
 ### 2. RED — run the scenario and see it fail
 
-1. Open a **fresh Cursor agent session** (no prior context from this edit).
+1. Open a **fresh Cursor agent session** (no prior context from this edit) **or** launch a Task subagent with only the relevant skills at the pre-change commit — see **When you cannot open a fresh session** below.
 2. Install **only the relevant skills** — not unrelated skills that could override Flow behavior:
    ```bash
    npx skills add ./skills -a cursor --skill 'flow-<skill>' --skill flow-shared -y --copy
    ```
    Add `flow` (router) only when the scenario tests routing. For execute/patch scenarios, include `flow-shared` (shared gates/refs).
 3. Paste the scenario file content as the user message. Invoke the matching `/flow-*` command if the scenario expects it.
-4. **Confirm RED:** the agent chooses the non-compliant option or rationalizes the violation. Record the choice verbatim. If the agent already passes, the scenario is too weak — sharpen it before proceeding.
+4. **Confirm RED:** the agent chooses the non-compliant option or rationalizes the violation. **Record the choice verbatim** in `tests/scenarios/evidence/<scenario-file>.md` (create the file). If the agent already passes, the scenario is too weak — sharpen it before proceeding.
 
-Use the **committed (pre-change) skills** for this run — stash local edits or test from the last good commit.
+Use the **committed (pre-change) skills** for this run — stash local edits or test from the last good commit (`git show <base>:skills/...` for subagent runs).
 
 ### 3. GREEN — update skills
 
@@ -140,11 +141,28 @@ npx skills add ./skills -a cursor --skill 'flow-<skill>' --skill flow-shared -y 
 
 ### 4. GREEN — run the scenario again and see it pass
 
-Same setup as step 2 (fresh session, **only relevant skills**). Paste the same scenario.
+Same setup as step 2 (fresh session or subagent, **only relevant skills**). Paste the same scenario.
 
-**Confirm GREEN:** the agent chooses the compliant option and cites the rule or gate. If it still fails, iterate on the skill text — do not weaken the scenario to match sloppy behavior.
+**Confirm GREEN:** the agent chooses the compliant option and cites the rule or gate. **Append results to** `tests/scenarios/evidence/<scenario-file>.md`. If it still fails, iterate on the skill text — do not weaken the scenario to match sloppy behavior.
 
 Run `make test` after GREEN.
+
+### Evidence gate — before commit (discipline changes)
+
+**Do not commit or push** a discipline/gate change until all of:
+
+- [ ] **RED** recorded in `tests/scenarios/evidence/<scenario>.md` — non-compliant choice verbatim, pre-change skills
+- [ ] **GREEN** recorded in the same file — compliant choice + rule/gate cited, new skills
+- [ ] `make test` passed
+
+**Do not mark scenario todos complete** without RED and GREEN evidence files. Static greps alone are not sufficient for gate changes.
+
+### When you cannot open a fresh session
+
+1. **Task subagent** — paste the scenario; point the subagent at skills via `git show <base>:skills/...` (RED) or current tree (GREEN); return choice verbatim.
+2. **Ask the user** — stop before commit and request a manual Layer 2 run (`make test-scenarios` lists files).
+
+Never skip RED/GREEN because Layer 2 is manual or because the skill text "looks correct."
 
 ### 5. REFACTOR — plug remaining holes (optional)
 
@@ -155,7 +173,7 @@ Run `make test` after GREEN.
 ## Typical maintainer workflow
 
 1. Identify which skill(s) and shared references need changes.
-2. **Discipline/gate changes:** follow **RED → GREEN → REFACTOR** above — scenario first, fail, then edit skills, then pass.
+2. **Discipline/gate changes:** follow **RED → GREEN → REFACTOR** above — scenario first, fail, then edit skills, then pass. **Evidence file required before commit** (see Evidence gate).
 3. **Non-discipline changes** (wording, docs in skills): edit directly, then `make test`.
 4. Reinstall locally when iterating: `npx skills add ./skills -a cursor --skill '*' -y --copy`.
 5. Commit only when the user asks.
@@ -172,8 +190,9 @@ Run `make test` after GREEN.
 ## Git and commits
 
 - **Only commit when the user explicitly asks.**
+- **Discipline/gate changes:** require `tests/scenarios/evidence/<scenario>.md` with RED + GREEN before commit — see Evidence gate above.
 - Recent commit style: short imperative subject (`Add session gate…`, `Simplify README…`).
-- No pre-commit hooks or CI in this repo currently — `make test` is the quality gate.
+- No pre-commit hooks or CI in this repo currently — `make test` is the static quality gate; Layer 2 evidence is the discipline gate.
 - Do not push unless asked.
 
 ## Common tasks

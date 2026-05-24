@@ -46,17 +46,18 @@ Run Layer 1 before every commit. Run Layer 2 before tagging a release. Layer 3 i
 ### RED — watch it fail
 
 1. Write a **pressure scenario** before or while hardening the skill (see recipe below).
-2. Run against the **old** skill (stash changes or use committed version).
-3. Use a subagent or fresh session; ask what it would **actually do under pressure**, not the ideal answer.
-4. Note the choice and rationalization verbatim (PR description or local notes).
+2. Run against the **old** skill (stash changes or use committed version) — fresh session or Task subagent with `git show <base>:skills/...`.
+3. Ask what the agent would **actually do under pressure**, not the ideal answer.
+4. **Record verbatim** in `tests/scenarios/evidence/<scenario-basename>.md`. Do not proceed to skill edits until RED passes (non-compliant choice).
 
 If the scenario passes on the old skill, it is **too weak** — sharpen it (draft-message traps work better than abstract A/B/C).
 
 ### GREEN — write the skill
 
-1. Update `SKILL.md` / shared references to block the specific rationalization you saw.
-2. Re-run the scenario with the new skill loaded.
-3. Agent should choose the compliant option and cite the rule.
+1. Update `SKILL.md` / shared references to block the specific rationalization you saw in RED.
+2. Re-run the scenario with the new skill loaded (fresh session or subagent).
+3. Agent should choose the compliant option and cite the rule — **append to the evidence file**.
+4. Run `make test`. Do not commit discipline changes without RED + GREEN in the evidence file (`AGENTS.md` §Evidence gate).
 
 ### REFACTOR — plug holes
 
