@@ -36,6 +36,16 @@ From `docs/flow/STATE.md`:
 
 Confirm `git branch --show-current` matches `STATE.branch` (or user is in the worktree path from STATE).
 
+## Canonical STATE location
+
+| `workspace` | Finish action | Update `STATE` in |
+|-------------|---------------|-------------------|
+| `in-place` | merge / push / done for now | Current checkout |
+| `worktree` | push or done for now | **Worktree path** (worktree kept) |
+| `worktree` | merge locally | **Main workspace** after merge succeeds and worktree is removed |
+
+See `worktree-setup.md` **Canonical STATE location** for the full lifecycle table.
+
 ## Option: Merge locally
 
 1. **Confirm base branch** with user (default `main`; use project convention if different)
@@ -55,9 +65,14 @@ Confirm `git branch --show-current` matches `STATE.branch` (or user is in the wo
 
    Only after merge succeeded. Do not remove a worktree with unmerged or uncommitted work.
 
-5. **Update STATE** — set `phase: done` in the **main workspace** after worktree merge (integration complete); keep artifact paths for history; update `updated` date. Do not leave `phase: verify` in an orphaned worktree `STATE.md` without updating the canonical checkout's STATE.
+5. **Update STATE (canonical location)** — when `workspace: worktree`, merge locally **moves STATE home** to the main workspace:
 
-   **Exception to worktree-setup "no main-workspace STATE" rule:** finish merge is the one time main-workspace STATE is updated for worktree work — integration is complete.
+   - Set `phase: done` in **main workspace** `docs/flow/STATE.md`
+   - Keep artifact paths for history; update `updated` date
+   - Worktree `STATE.md` is removed with the worktree — do not rely on it after step 4
+
+   When `workspace: in-place`, update `phase: done` in the current checkout (same as step 6 branch cleanup context).
+
 6. **Offer branch cleanup (in-place)** — after successful merge:
 
    > Feature branch merged. Delete local branch? `git branch -d <feature-branch>`
@@ -75,7 +90,7 @@ Confirm `git branch --show-current` matches `STATE.branch` (or user is in the wo
    git push -u origin HEAD
    ```
 
-3. **Update STATE** — `phase: done`
+3. **Update STATE** — `phase: done` in the **worktree** when `workspace: worktree` (canonical location until merge); current checkout when `workspace: in-place`
 4. **Keep worktree** — do not remove on push-only
 5. **Report** — remote tracking set; user opens PR when ready
 
@@ -84,7 +99,7 @@ Confirm `git branch --show-current` matches `STATE.branch` (or user is in the wo
 Pause without merge or push. **`phase: done` closes the flow lane** — branch and worktree stay as-is for you to resume or integrate later.
 
 1. **No git actions** — no merge, push, or worktree remove
-2. **Update STATE** — `phase: done`
+2. **Update STATE** — `phase: done` in the **worktree** when `workspace: worktree`; current checkout when `workspace: in-place`
 3. **Report** — work paused; branch and worktree (if any) preserved
 
 ## Red flags — never
@@ -92,7 +107,8 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 - Merge active flow work without setting `phase: done` afterward
 - Remove worktree before merge succeeds or with dirty state
 - Push or merge when verify failed and user has not acknowledged
-- Update STATE in the main workspace **during** active worktree implementation (see `worktree-setup.md`) — **except** finish-gate merge locally step 5 after successful merge + worktree remove
+- Update main-workspace `STATE.md` during worktree implementation — canonical STATE is in the worktree (see **Canonical STATE location**)
+- Update **both** main and worktree `STATE.md` to sync during worktree work
 - Treat clean-code-reviewer **Suggest** items as blocking merge unless user asks to fix them first
 
 ## Skills that use this reference

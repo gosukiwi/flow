@@ -120,6 +120,21 @@ branch: feature/topic
 
 All implementation, STATE updates, commits, and `/flow-verify` for this session happen in the worktree path. Do not edit files in the main workspace for this feature unless the user explicitly switches back.
 
+## Canonical STATE location
+
+Where `docs/flow/STATE.md` is authoritative depends on `workspace` and lifecycle phase:
+
+| Situation | Canonical STATE location |
+|-----------|--------------------------|
+| `workspace: in-place` | Current feature-branch checkout |
+| `workspace: worktree` — brainstorm through verify | **Worktree path** from STATE (`worktree:` field) |
+| `workspace: worktree` — push or done for now (worktree kept) | **Worktree path** — branch/worktree still active |
+| `workspace: worktree` — merge locally after successful merge + worktree remove | **Main workspace** — worktree is gone; STATE moves home |
+
+**During worktree implementation:** main-workspace `STATE.md` is stale or empty by design. Do not update it to “sync” or “help the user find status.”
+
+**At merge locally finish:** after `git worktree remove`, update `phase: done` in the **main workspace** only — see `finish-gate.md` merge locally step 5.
+
 Report when ready:
 
 ```
@@ -145,7 +160,8 @@ Ready to implement <feature-name>
 - Create worktree without user confirming workspace option in branch gate
 - Skip ignore verification for project-local directories
 - Proceed with failing baseline tests without asking (when baseline was requested)
-- Update STATE.md in the main workspace when working in a worktree **during implementation** — **except** `/flow-finish` merge locally (finish-gate step 5 after successful merge + worktree remove)
+- Update main-workspace `STATE.md` while `workspace: worktree` during implementation (canonical STATE is in the worktree — see **Canonical STATE location** above)
+- Update **both** main and worktree `STATE.md` to “keep them in sync”
 - Run `git worktree add` in the same message as the workspace gate question
 
 ## Cleanup

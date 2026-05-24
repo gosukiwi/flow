@@ -200,6 +200,12 @@ else
   fail "finish-gate: must document git worktree remove on merge locally"
 fi
 
+if grep -qi 'Canonical STATE location' "$finish_gate" && grep -qi 'Canonical STATE location' "$worktree_setup"; then
+  pass "finish-gate and worktree-setup: document canonical STATE location"
+else
+  fail "finish-gate and worktree-setup: must document canonical STATE location"
+fi
+
 if grep -q 'finish-gate' "$finish_skill" && grep -q 'phase: done' "$finish_gate"; then
   pass "flow-finish: references finish-gate with phase done"
 else

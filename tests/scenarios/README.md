@@ -45,6 +45,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-patch-concurrent-unrelated-work.md` | `/flow-patch` | Unrelated work on active feature branch → worktree recommended, not branch switch |
 | `flow-execute-resume-no-worktree.md` | `/flow-execute` | Continuing matched STATE work → resume on current branch, no worktree |
 | `flow-worktree-ignore-check.md` | `/flow-execute` | Agent adds worktree dir to `.gitignore` before `git worktree add` |
+| `flow-worktree-canonical-state.md` | worktree flow | Agent updates STATE in worktree only during implementation; not main or both |
 | `flow-brainstorm-concurrent-unrelated-state.md` | `/flow-brainstorm` | Unrelated brainstorm with active STATE → session gate; no STATE write |
 | `flow-spec-concurrent-unrelated-state.md` | `/flow-spec` | Unrelated spec with active STATE → gate before spec save |
 | `flow-debug-during-execute-same-topic.md` | `/flow-debug` | Same-plan test failure → allow debug; no worktree |
