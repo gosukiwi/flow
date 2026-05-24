@@ -52,13 +52,27 @@ Write inline before any code. Break work into one or more tasks with bite-sized 
 
 Single-task patches are fine. Multi-step work gets one review cycle per task, not per checkbox.
 
-Review the micro-spec critically before starting — raise concerns with the user if anything is unclear or risky.
+**Micro-spec failures (never write these):** TBD/TODO, "add tests", "handle edge cases", steps without code or commands, vague success criteria.
+
+**Micro-spec self-review** — fix inline until all blocking checks pass. **Do not proceed to §2 while blocked.**
+
+**Calibration:** Contradictions and unmapped success criteria are **blocking**. Wording polish is **advisory**.
+
+- **General:** No placeholders; no internal contradictions; no unrequested scope (YAGNI)
+- **Success criteria audit:** Each success criterion must cite **Problem**, **Files**, or a task step that satisfies it. Missing backing → fix or remove the criterion
+- **Out of scope:** Task steps must not touch anything listed under **Out of scope**
 
 ### 2. User gate
 
-> Micro-spec above. Approve to proceed?
+> Micro-spec above.
+>
+> Self-review: [N/N success criteria mapped]
+>
+> Approve to proceed?
 
-**Stop until approved.**
+Surface audit results only — do not ask the user to find internal contradictions.
+
+**Stop until approved.** If they request changes, update micro-spec and re-run self-review.
 
 ### 3. Branch gate (required)
 
@@ -86,6 +100,7 @@ For each task:
    - Tests verify real behavior, not mocks
    - TDD cycle followed (watched test fail before implementing)
    - Names clear; files focused
+   - No task step touches anything under micro-spec **Out of scope**
 
 4. Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md` (resolve via path resolver in `flow/SKILL.md`); paste full task text + micro-spec context. Loop: fix inline → re-review until ✅
 5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **code quality reviewer** — read `flow-shared/prompts/code-quality-reviewer.md` (resolve via path resolver in `flow/SKILL.md`). Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
@@ -107,6 +122,7 @@ Run `/flow-verify` against the micro-spec.
 ## Redirect rules
 
 - User scope grows during patch → stop and switch to `/flow-spec`
+- Path or mirror layout needs a full tree → `/flow-spec`
 - Root cause unclear → `/flow-debug` first
 
 ## Red flags — never
