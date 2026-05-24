@@ -18,6 +18,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-router-manual-handoff.md` | `/flow` | Agent suggests a `/flow-*` command; user must invoke it — no auto-start |
 | `flow-router-suggest-spec.md` | `/flow` | Large/multi-step work → suggests `/flow-spec` only, no micro-spec or patch |
 | `flow-router-suggest-debug.md` | `/flow` | Unknown test failures → suggests `/flow-debug` only, no auto-investigation |
+| `flow-router-suggest-brainstorm.md` | `/flow` | Fuzzy idea → suggests `/flow-brainstorm` only, no spec or exploration start |
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
 | `flow-patch-test-after-fix.md` | `/flow-patch` | Agent rejects test-after-fix; requires RED→GREEN cycle |
 | `flow-patch-skip-branch-gate.md` | `/flow-patch` | Agent sends branch ask only — no starting TDD in same message |
