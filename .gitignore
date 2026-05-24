@@ -1,0 +1,3 @@
+# Local npx skills add (source of truth is skills/)
+.agents/
+skills-lock.json

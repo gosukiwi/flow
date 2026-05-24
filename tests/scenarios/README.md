@@ -2,9 +2,7 @@
 
 Manual agent regression tests. Run before tagging a release.
 
-**Full process:** [`../writing-skills.md`](../writing-skills.md) — RED→GREEN→REFACTOR, scenario recipe, when to test.
-
-**Evidence:** Discipline changes require RED + GREEN notes in [`evidence/`](evidence/) before commit (`AGENTS.md` §Evidence gate).
+**Full process:** [`../writing-skills.md`](../writing-skills.md) — RED→GREEN→REFACTOR when authoring; run scenarios manually before release.
 
 ## How to run
 
