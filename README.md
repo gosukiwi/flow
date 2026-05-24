@@ -2,7 +2,7 @@
 
 **Enter flow state with your AI Agents.**
 
-A **simple, minimal, and explicit** workflow for Cursor and compatible agents: `/flow-*` commands, TDD, subagents, verification gates, and optional git worktrees for concurrent sessions.
+A **simple, minimal, and explicit** software development workflow for Cursor and compatible agents: `/flow-*` commands, TDD, subagents, verification gates, and worktrees.
 
 ## Quick start
 
@@ -10,9 +10,7 @@ A **simple, minimal, and explicit** workflow for Cursor and compatible agents: `
 /flow add email validation to the signup form
 ```
 
-Flow suggests the next `/flow-*` command — **you invoke it** when ready. Typical feature path:
-
-`/flow-spec` → `/flow-execute` → `/flow-verify`
+Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 
 ## Commands
 
@@ -25,8 +23,6 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready. Typic
 | `/flow-patch` | Micro-spec + **inline** TDD + per-task review |
 | `/flow-debug` | Root cause investigation before fixes |
 | `/flow-verify` | Tests + spec checklist; user menu when done |
-
-**Execute vs patch:** plans with multiple tasks → `/flow-execute` (subagents only). Small bounded changes → `/flow-patch` (you see edits live in session).
 
 ## Which command?
 
