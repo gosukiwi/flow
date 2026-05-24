@@ -23,7 +23,7 @@ For **single bounded changes** — too small for a full spec doc. Implement **in
 
 ## Branch rule
 
-**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Confirm branch with the user before the first commit.
+**Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Branch confirmation is a blocking user gate — proposing a name is not enough; wait for the user's reply before any implementation.
 
 ## Process
 
@@ -60,11 +60,17 @@ Review the micro-spec critically before starting — raise concerns with the use
 
 **Stop until approved.**
 
-Confirm branch per `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) before implementation — propose a name or ask where to work.
+### 3. Branch gate (required)
 
-Update `docs/flow/STATE.md`: `phase: patch`.
+Follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-### 3. Inline execution (per task)
+If on `main`/`master` or branch is unclear: propose a branch name using the gate message template. **Stop until the user confirms or provides a name.**
+
+Do **not** in the same turn: create/switch branches or start implementation (Task 1, code edits, TDD steps).
+
+After confirmation: create or switch to the branch (if needed), record it in `docs/flow/STATE.md`, update `phase: patch`, then proceed to step 4.
+
+### 4. Inline execution (per task)
 
 **Implement in this session** — do not dispatch an implementer subagent. User should see edits and test runs live.
 
@@ -94,7 +100,7 @@ For each task:
 
 Stop when blocked, ambiguous, or all tasks complete. Do not guess.
 
-### 4. Verify
+### 5. Verify
 
 Run `/flow-verify` against the micro-spec.
 
@@ -102,3 +108,9 @@ Run `/flow-verify` against the micro-spec.
 
 - User scope grows during patch → stop and switch to `/flow-spec`
 - Root cause unclear → `/flow-debug` first
+
+## Red flags — never
+
+- **Propose a branch and start Task 1 in the same turn** — branch gate requires waiting for user reply
+- Skip micro-spec approval or branch confirmation
+- Dispatch implementer subagent (patch is inline only)

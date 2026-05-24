@@ -120,6 +120,13 @@ else
   fail "flow-brainstorm: must reference both /flow-patch and /flow-spec in handoff"
 fi
 
+branch_gate="$SKILLS_DIR/flow-shared/references/branch-gate.md"
+if grep -q 'Hard gate' "$branch_gate" && grep -q 'Stop until' "$branch_gate"; then
+  pass "branch-gate: has hard gate with stop-until language"
+else
+  fail "branch-gate: must have hard gate with stop-until user confirmation"
+fi
+
 if grep -q 'path resolver' "$SKILLS_DIR/flow/SKILL.md"; then
   pass "flow: documents path resolver"
 else

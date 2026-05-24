@@ -23,21 +23,29 @@ Execute an approved plan using **subagents only** — never implement tasks inli
 
 **Read and follow** `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-Before the first commit: confirm branch with the user — propose a name or ask where to work; never create or switch branches without approval.
-
-Git worktrees: out of scope for v1 (may be added later).
+Branch confirmation is a **blocking user gate** — same weight as micro-spec approval. Proposing a name is not enough; wait for the user's reply.
 
 ## Process
 
-### 1. Load plan
+### 1. Branch gate (required)
 
-Confirm branch per `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`) before starting Task 1.
+Follow `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
+
+If on `main`/`master` or branch is unclear: propose a branch name using the gate message template. **Stop until the user confirms or provides a name.**
+
+Do **not** in the same turn: create/switch branches, create TodoWrite for tasks, dispatch implementers, or start Task 1.
+
+After confirmation: create or switch to the branch (if needed), record it in `docs/flow/STATE.md`, then proceed to step 2.
+
+Git worktrees: out of scope for v1 (may be added later).
+
+### 2. Load plan
 
 Read plan once. Extract every task with full text. Create TodoWrite per task.
 
 Raise concerns to user before starting if plan has critical gaps.
 
-### 2. Per task (strictly serial)
+### 3. Per task (strictly serial)
 
 **One task at a time. One subagent role at a time.**
 
@@ -100,7 +108,7 @@ Reviewers do not edit code.
 
 Mark Task N completed in TodoWrite. **Then** begin Task N+1 step 1.
 
-### 3. After all tasks
+### 4. After all tasks
 
 Run `/flow-verify` against spec + plan.
 
@@ -110,6 +118,7 @@ Update `docs/flow/STATE.md`: `phase: verify` when starting verify. User menu and
 
 - Skip subagents and implement inline
 - Skip spec or code quality review
+- **Propose a branch and start Task 1 in the same turn** — branch gate requires waiting for user reply
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)
 - Dispatch parallel subagents across tasks (different tasks or roles at once)
 - Make subagent read the plan file — provide full task text in prompts
@@ -120,5 +129,7 @@ Update `docs/flow/STATE.md`: `phase: verify` when starting verify. User menu and
 Do not pause between **completed** tasks for progress check-ins.
 
 **Continuous ≠ parallel.** Finish the full gate for Task N before dispatching anything for Task N+1.
+
+**Continuous ≠ skip branch gate.** Branch confirmation happens once up front and always blocks until the user responds.
 
 Stop only when: blocked, ambiguous, or all tasks complete.
