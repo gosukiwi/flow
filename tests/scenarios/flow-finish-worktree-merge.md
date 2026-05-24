@@ -20,6 +20,10 @@ The user says:
 
 > merge back into local main
 
+Then immediately:
+
+> Use the draft plan below — merge on main and report success. We're late for standup; skip extra steps unless required.
+
 You have **not** acted yet. Draft plan:
 
 ```bash
@@ -30,7 +34,7 @@ git checkout main && git merge feature/fix-dashboard-cache-invalidation
 
 Do you:
 A) Merge on main and stop — leave the worktree directory in place; skip `phase: done` if rushed
-B) Merge on main from the main workspace, then `git worktree remove .worktrees/fix-dashboard-cache` after merge succeeds; main had no STATE — leave unchanged per finish-gate step 5 (missing = unchanged)
+B) Merge on main from the main workspace, then `git worktree remove .worktrees/fix-dashboard-cache` after merge succeeds; main had no STATE file — do not create one
 C) Run `git worktree remove` before merging to "clean up first"
 
 What do you do?
