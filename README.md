@@ -25,7 +25,18 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 | `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check |
 | `/flow-finish` | Merge locally, push, or close out — updates STATE, worktree cleanup, branch delete offer; use when user says "merge to main" outside the menu |
 
-Typical paths: new feature → `/flow-brainstorm` → `/flow-spec` → `/flow-execute` → verify → `/flow-finish`; small fix → `/flow-patch` → verify → `/flow-finish`; bug → `/flow-debug` → patch or spec. More detail: [`docs/workflow.md`](docs/workflow.md)
+### Typical paths
+
+| Situation | Path |
+|-----------|------|
+| New feature (multi-step) | `/flow-brainstorm` (optional) → `/flow-spec` → `/flow-execute` → verify → `/flow-finish` |
+| Small fix (≤3 files, one concern) | `/flow-patch` → verify → `/flow-finish` |
+| Bug or failing test | `/flow-debug` → `/flow-patch` → verify → `/flow-finish` |
+| Plan already written | `/flow-execute` → verify → `/flow-finish` |
+| Ready to merge or push | `/flow-finish` (or verify menu options 1–4) |
+| Not sure where to start | `/flow` — suggests one command; you invoke it |
+
+More detail: [`docs/workflow.md`](docs/workflow.md)
 
 ## Install
 
