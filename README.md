@@ -12,6 +12,16 @@ A **simple, minimal, and explicit** software development workflow for Cursor and
 
 Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 
+## What to expect
+
+- **You drive the workflow** — `/flow` suggests one next command; you invoke it when ready.
+- **Scope picks the path** — small bounded change → `/flow-patch`; multi-step feature → spec then execute (see [Commands](#commands)).
+- **Tests before merge** — verify runs automatically after execute or patch; you get a merge/push menu when things pass.
+- **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
+- **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
+
+Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
+
 ## Commands
 
 | Command | When to use |
@@ -53,16 +63,6 @@ Enhances `/flow-verify` option 3 with full style + correctness review. Without i
 ```bash
 npx skills add gosukiwi/clean-code-skills -a cursor --skill '*' -y
 ```
-
-## What to expect
-
-- **You drive the workflow** — `/flow` suggests one next command; you invoke it when ready.
-- **Scope picks the path** — small bounded change → `/flow-patch`; multi-step feature → spec then execute (see [Commands](#commands)).
-- **Tests before merge** — verify runs automatically after execute or patch; you get a merge/push menu when things pass.
-- **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
-- **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
-
-Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
 
 ## In your project
 
