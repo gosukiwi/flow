@@ -41,16 +41,25 @@ Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/work
 | `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check |
 | `/flow-finish` | Merge locally, push, or close out — updates STATE, worktree cleanup, branch delete offer; use when user says "merge to main" outside the menu |
 
-### Typical paths
+### Example scenarios
 
-| Situation | Path |
-|-----------|------|
-| New feature (multi-step) | `/flow-brainstorm` (optional) → `/flow-spec` → `/flow-execute` → verify → `/flow-finish` |
-| Small fix (≤3 files, one concern) | `/flow-patch` → verify → `/flow-finish` |
-| Bug or failing test | `/flow-debug` → `/flow-patch` → verify → `/flow-finish` |
-| Plan already written | `/flow-execute` → verify → `/flow-finish` |
-| Ready to merge or push | `/flow-finish` (or verify menu options 1–4) |
-| Not sure where to start | `/flow` — suggests one command; you invoke it |
+**"I want to add OAuth login"** (new feature, multiple steps)  
+Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec` → `/flow-execute`. Verify runs when execution finishes; merge or push from the menu or `/flow-finish`.
+
+**"Fix a typo in the error message"** (small, one concern)  
+`/flow-patch` → verify → `/flow-finish`.
+
+**"This test started failing after the deploy"**  
+`/flow-debug` to find root cause → `/flow-patch` to fix → verify → `/flow-finish`.
+
+**"The spec and plan are already approved"**  
+Skip straight to `/flow-execute` → verify → `/flow-finish`.
+
+**"Tests pass — merge to main"**  
+`/flow-finish`, or use the merge/push options from the verify menu.
+
+**"Not sure where to start"**  
+`/flow` — it suggests one next command; you invoke it.
 
 More detail: [`docs/workflow.md`](docs/workflow.md)
 
