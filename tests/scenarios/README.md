@@ -14,6 +14,7 @@ Manual agent regression tests. Run before tagging a release.
 | File | Skill | Tests |
 |------|-------|-------|
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
+| `flow-patch-test-after-fix.md` | `/flow-patch` | Agent rejects test-after-fix; requires RED→GREEN cycle |
 | `flow-spec-skip-questions.md` | `/flow-spec` | Agent asks questions instead of jumping to code |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
 | `flow-brainstorm-small-scope-patch.md` | `/flow-brainstorm` | Agent hands off to `/flow-patch` for small bounded scope |
