@@ -37,7 +37,7 @@ Run Layer 1 before every commit. Run Layer 2 before tagging a release. Layer 3 i
 1. Write a **pressure scenario** before or while hardening the skill (see recipe below).
 2. Run against the **old** skill (stash changes or use committed version).
 3. Use a subagent or fresh session; ask what it would **actually do under pressure**, not the ideal answer.
-4. Log verbatim in [`tests/regression/`](regression/README.md): choice, rationalization.
+4. Note the choice and rationalization verbatim (PR description or local notes).
 
 If the scenario passes on the old skill, it is **too weak** — sharpen it (draft-message traps work better than abstract A/B/C).
 
@@ -106,7 +106,7 @@ Do not grep for rules that need behavioral verification — use scenarios.
 
 - [ ] Layer 1: `make test`
 - [ ] If changing discipline: write or update scenario
-- [ ] RED: run scenario against old skill; log in `tests/regression/` if it fails as expected
+- [ ] RED: run scenario against old skill; confirm it fails as expected
 - [ ] Edit skill / shared reference
 - [ ] GREEN: run scenario with new skill
 - [ ] REFACTOR: optional static check; re-run scenario
@@ -118,5 +118,3 @@ Do not grep for rules that need behavioral verification — use scenarios.
 1. **RED** — scenario bundles branch ask + "Starting Task 1"; old skill → agent chose A ("no commit yet").
 2. **GREEN** — `branch-gate.md` hard gate + forbidden same-message list; agent chose B.
 3. **REFACTOR** — red flags in execute/patch; `validate-skills.sh` grep for `Hard gate`.
-
-See [`tests/regression/README.md`](regression/README.md) for the log format.

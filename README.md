@@ -141,7 +141,7 @@ make test
 npx skills add ./skills -a cursor --skill '*' -y --copy
 ```
 
-**Hardening a discipline skill?** Follow [`tests/writing-skills.md`](tests/writing-skills.md) — write a pressure scenario, RED on old skill, GREEN after fix, log in [`tests/regression/`](tests/regression/).
+**Hardening a discipline skill?** Follow [`tests/writing-skills.md`](tests/writing-skills.md) — write a pressure scenario, RED on old skill, GREEN after fix.
 
 ## License
 

@@ -9,7 +9,7 @@ Manual agent regression tests. Run before tagging a release.
 1. Open a fresh Cursor agent session in a test project
 2. Install skills: `npx skills add gosukiwi/flow -a cursor --skill '*' -y`
 3. Load the scenario file content as the user message (or paste scenario + skill command)
-4. Record pass/fail and any rationalizations verbatim in `tests/regression/`
+4. Record pass/fail and any rationalizations in your notes or PR description
 
 ## Scenarios
 
