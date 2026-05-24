@@ -59,19 +59,19 @@ Task N gate (all steps required, in order):
 
   [ ] 1. Implementer subagent        → DONE
   [ ] 2. Spec compliance reviewer    → ✅
-  [ ] 3. Code quality reviewer       → ✅ Approved
+  [ ] 3. Correctness reviewer        → ✅ Approved
   [ ] 4. Mark Task N complete in TodoWrite
 
 Only then start Task N+1 step 1.
 ```
 
-**Forbidden:** Starting Task N+1 while Task N is still in spec or code quality review — even if the implementer already finished. Reviews are blocking gates, not background work.
+**Forbidden:** Starting Task N+1 while Task N is still in spec or correctness review — even if the implementer already finished. Reviews are blocking gates, not background work.
 
 **Before each dispatch:** Read prompt templates (resolve via path resolver in `flow/SKILL.md`):
 
 - `flow-shared/prompts/implementer.md`
 - `flow-shared/prompts/spec-reviewer.md`
-- `flow-shared/prompts/code-quality-reviewer.md`
+- `flow-shared/prompts/correctness-reviewer.md`
 
 Paste **full task text** into subagent prompts. Subagents must not read plan files themselves.
 
@@ -94,9 +94,9 @@ Dispatch spec reviewer. Loop: implementer fixes → re-review until ✅.
 
 **Do not start step 3 or the next task until spec review is ✅.**
 
-#### Step 3 — Code quality review
+#### Step 3 — Correctness review
 
-Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch code quality reviewer.
+Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch correctness reviewer (task mode).
 
 **Do not mark the task complete or start the next task until reviewer returns ✅ Approved.**
 
@@ -120,7 +120,7 @@ Update `docs/flow/STATE.md`: `phase: verify` when starting verify. User menu and
 ## Red flags — never
 
 - Skip subagents and implement inline
-- Skip spec or code quality review
+- Skip spec or correctness review
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Create a worktree without user confirming option 2**
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)

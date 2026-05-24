@@ -108,7 +108,7 @@ For each task:
    - No task step touches anything under micro-spec **Out of scope**
 
 4. Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md` (resolve via path resolver in `flow/SKILL.md`); paste full task text + micro-spec context. Loop: fix inline → re-review until ✅
-5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **code quality reviewer** — read `flow-shared/prompts/code-quality-reviewer.md` (resolve via path resolver in `flow/SKILL.md`). Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
+5. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **correctness reviewer** (task mode) — read `flow-shared/prompts/correctness-reviewer.md` (resolve via path resolver in `flow/SKILL.md`). Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
    - **Block or Fix present:** fix inline → re-review
    - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
    Reviewers do not edit code.

@@ -1,6 +1,6 @@
 # Spec Compliance Reviewer Subagent Prompt
 
-Use after implementer reports DONE. Verifies plan/micro-spec compliance only — not general code quality.
+Use after implementer reports DONE. Verifies plan/micro-spec compliance only — not correctness review.
 
 ```
 Task tool (generalPurpose):

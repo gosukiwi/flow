@@ -50,11 +50,11 @@ What would you like to do?
 
 1. Merge locally — merge this branch into your base branch
 2. Push the branch — I'll push; you open the PR when ready
-3. Review the diff — [clean-code-reviewer | whole-change correctness review]
+3. Review the diff — [clean-code-reviewer | branch correctness review]
 4. Done for now — I'll stop here; you take it from there
 ```
 
-Use option 3 label **`clean-code-reviewer`** when that skill is available; otherwise **`whole-change correctness review`**.
+Use option 3 label **`clean-code-reviewer`** when that skill is available; otherwise **`branch correctness review`**.
 
 **Option actions:**
 
@@ -62,21 +62,21 @@ Use option 3 label **`clean-code-reviewer`** when that skill is available; other
 |--------|--------------|
 | 1 Merge locally | Confirm base branch; run merge if user confirms; if `STATE.md` has `workspace: worktree`, run `git worktree remove <worktree-path>` after successful merge |
 | 2 Push branch | `git push -u origin HEAD`; do not create a PR; keep worktree |
-| 3 Review diff | See **Option 3 — whole-change review** below |
+| 3 Review diff | See **Option 3 — branch review** below |
 | 4 Done for now | Stop; no git actions; keep worktree |
 
 Set `docs/flow/STATE.md`: `phase: done` when the user chooses option 1, 2, or 4 **after** verification passes.
 
-### Option 3 — whole-change review
+### Option 3 — branch review
 
-Optional extra pass before merge or push. Per-task reviews already ran during implementation; this reviews the **full branch** for cross-task quality issues.
+Optional extra pass before merge or push. Per-task reviews already ran during implementation; this reviews the **full branch** for cross-task issues.
 
 **Do not run option 3 automatically** — only when the user chooses it.
 
 1. Determine git range: `BASE_SHA` = merge-base with main (or first commit on branch); `HEAD_SHA` = `HEAD`
 2. **If `clean-code-reviewer` is in available skills:** read and follow its `SKILL.md` on the full branch diff
-3. **If not available:** dispatch a subagent using `flow-shared/prompts/whole-change-reviewer.md` (resolve via path resolver in `flow/SKILL.md`) with `BASE_SHA`, `HEAD_SHA`, and brief spec/plan/micro-spec context
+3. **If not available:** dispatch a subagent using `flow-shared/prompts/correctness-reviewer.md` (branch mode) (resolve via path resolver in `flow/SKILL.md`) with `BASE_SHA`, `HEAD_SHA`, and brief spec/plan/micro-spec context
 4. If review returns ❌ Needs changes: fix via `/flow-patch` or inline edits → re-run verify steps 2–3 if behavior changed → re-run option 3 until ✅ Approved
 5. When ✅ Approved, re-present the user menu (options 1–4). No git actions unless the user picks 1 or 2.
 
-Flow does not run a final whole-change review unless the user chooses option 3.
+Flow does not run a branch review unless the user chooses option 3.

@@ -1,26 +1,39 @@
-# Whole-Change Correctness Reviewer Prompt
+# Correctness Reviewer Subagent Prompt
 
-Use when `/flow-verify` option 3 runs and `clean-code-reviewer` is not in available skills.
+Dispatch **after spec compliance review is ✅** (per-task), or for `/flow-verify` option 3 when `clean-code-reviewer` is not available (branch).
 
-Checklist adapted from **clean-code-reviewer-correctness** (correctness, security, performance, test coverage — no style). Requirements checklist (verify step 3) already passed — do not re-check spec line-by-line.
+## Modes
+
+| Mode | When | `BASE_SHA` | Extra context |
+|------|------|------------|---------------|
+| **task** | Each task in `/flow-patch` or `/flow-execute` | Commit before task | Full task text |
+| **branch** | `/flow-verify` option 3 fallback | merge-base with main | Brief spec/plan/micro-spec summary |
+
+Set `{MODE}` to `task` or `branch` in the dispatch prompt below.
 
 ```
 Task tool (generalPurpose):
-  description: "Whole-change correctness review"
+  description: "Correctness review ({MODE})"
   prompt: |
-    You are a senior reviewer. Review the full branch diff for functional issues —
+    You are a senior reviewer. Review the diff for functional issues —
     not style, naming, formatting, or file structure.
 
-    Spec/requirements compliance was already verified. Focus on how the change
-    holds together across all commits and whether it is safe to merge.
+    Spec/requirements compliance was already verified. Focus on how well
+    the change was built and whether it is safe to merge.
+
+    ## Mode: {MODE}
 
     ## Context
 
-    {Brief summary: spec/plan/micro-spec path and goal — optional}
+    {TASK_OR_BRANCH_CONTEXT — full task text (task mode) or brief spec/plan/micro-spec summary (branch mode)}
+
+    ## What Was Implemented
+
+    {DESCRIPTION from implementer report or orchestrator summary — task mode only; omit in branch mode if redundant}
 
     ## Git Range to Review
 
-    Base: {BASE_SHA} (merge-base with main or branch start)
+    Base: {BASE_SHA}
     Head: {HEAD_SHA}
 
     Run:
@@ -36,9 +49,10 @@ Task tool (generalPurpose):
     Do not review unchanged code unless the change directly breaks it.
     Do not review generated files, lock files, or vendored dependencies.
 
-    ## Flow-specific
+    ## Branch mode only
 
-    - Cross-task consistency: duplication or conflicting patterns introduced in different commits on this branch
+    When mode is branch: check cross-task consistency — duplication or conflicting
+    patterns introduced in different commits on this branch. Skip this section in task mode.
 
     ## Correctness
 
@@ -49,6 +63,8 @@ Task tool (generalPurpose):
     - Behavioral mismatch vs commit message, function name, or comments
     - Type narrowing gaps with runtime impact (`as` without validation, unchecked `unknown`/`Any`)
     - Broken contracts: documented or implied behavior violated
+    - Error handling and edge cases
+    - Deviations from plan — intentional improvement or problem?
 
     ## Security
 
@@ -69,6 +85,7 @@ Task tool (generalPurpose):
     ## Test Coverage Risk
 
     - Changed behavior without tests; removed or disabled tests for still-live behavior
+    - Tests verify real behavior (not mock theater)
     - Untested error paths, retries, timeouts
     - Critical paths (auth, payments, mutations, permissions) without dedicated tests
 
@@ -85,8 +102,10 @@ Task tool (generalPurpose):
     ## Calibration
 
     **Block:** production break, data loss, exploitable vulnerability, silent corruption for existing users
-    **Fix:** likely bug or vulnerability with plausible production impact; maintainability/test gaps that will likely cause bugs soon
+    **Fix:** likely bug or vulnerability with plausible production impact; maintainability or test gaps that would likely cause bugs or painful maintenance soon
     **Suggest:** context-dependent or low-probability; does not block approval
+
+    Do not flag issues unless they would cause real problems in production or maintenance.
 
     ## Output Format (use exactly these headings)
 
@@ -114,4 +133,6 @@ Task tool (generalPurpose):
     Do not edit code yourself — report issues only.
 ```
 
-**Orchestrator after review:** If ❌, fix via `/flow-patch` or inline edits, re-run verify steps 2–3 if behavior changed, then re-run option 3 until ✅ Approved. Re-present user menu when review passes.
+**Orchestrator after ❌ (task mode):** implementer or orchestrator fixes all Block and Fix items, then re-dispatch until ✅ Approved.
+
+**Orchestrator after ❌ (branch mode, verify option 3):** fix via `/flow-patch` or inline edits → re-run verify steps 2–3 if behavior changed → re-run option 3 until ✅ Approved. Re-present user menu when review passes.

@@ -62,7 +62,7 @@ for skill in "${REQUIRED_SKILLS[@]}"; do
 done
 
 # flow-shared prompts
-PROMPTS=(implementer spec-reviewer code-quality-reviewer whole-change-reviewer)
+PROMPTS=(implementer spec-reviewer correctness-reviewer)
 for prompt in "${PROMPTS[@]}"; do
   p="$SKILLS_DIR/flow-shared/prompts/${prompt}.md"
   if [[ -f "$p" ]]; then

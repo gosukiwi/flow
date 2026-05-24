@@ -18,7 +18,7 @@ Reference for users who want more than the [README](../README.md). Agents read t
 |---|-----------------|---------------|
 | **When** | Approved plan with multiple tasks | Single bounded change |
 | **Who implements** | Subagents (orchestrator coordinates) | Inline in your session |
-| **Reviews** | Spec + code quality reviewer per task | Same, per task |
+| **Reviews** | Spec + correctness reviewer per task | Same, per task |
 | **TDD** | Required per plan task | Required per micro-spec task |
 
 Do not run plan execution inline — that is what `/flow-patch` is for on small scope, or split the work into a proper plan for `/flow-execute`.
@@ -27,7 +27,7 @@ Do not run plan execution inline — that is what `/flow-patch` is for on small 
 
 - **`/flow-brainstorm`** — explore options; no production code. Saves brief to `docs/flow/brainstorms/`.
 - **`/flow-spec`** — user-approved spec + AI self-reviewed plan. No production code.
-- **`/flow-execute`** — subagents run plan tasks serially: implement → spec review → code quality review → next task.
+- **`/flow-execute`** — subagents run plan tasks serially: implement → spec review → correctness review → next task.
 - **`/flow-patch`** — micro-spec approval, then inline TDD with the same review loop per task.
 - **`/flow-debug`** — root cause before fixes; routes to patch or spec.
 - **`/flow-verify`** — full test run + requirements checklist; user menu (merge / push / review / done).

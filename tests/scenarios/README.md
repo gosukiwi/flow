@@ -31,7 +31,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
-| `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses whole-change correctness reviewer when clean-code-reviewer absent |
+| `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
 | `flow-execute-worktree-skip-gate.md` | `/flow-execute` | Agent sends workspace gate only — no worktree creation or Task 1 in same message |
 | `flow-patch-concurrent-unrelated-work.md` | `/flow-patch` | Unrelated work on active feature branch → worktree recommended, not branch switch |
 | `flow-execute-resume-no-worktree.md` | `/flow-execute` | Continuing matched STATE work → resume on current branch, no worktree |
