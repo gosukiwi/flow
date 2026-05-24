@@ -18,7 +18,7 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 
 ## What to expect
 
-- **Scope picks the path** — small bounded change → `/flow-patch`; multi-step feature → spec then execute (see [Commands](#commands)).
+- **Describe the work** — one small change? `/flow-patch`. Several steps or a new feature? `/flow-spec` (see [Commands](#commands)).
 - **TDD by default** — during execute and patch, each task starts with a failing test, then implementation, then green.
 - **Review built in** — during execute and patch, each task is checked against the spec and reviewed for correctness before moving on.
 - **Verify before merge** — runs automatically after execute or patch (full tests + requirements checklist); you get a merge/push menu when things pass. Optional whole-branch review is on that menu.
