@@ -26,6 +26,8 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-skip-branch-gate.md` | `/flow-execute` | Agent sends branch ask only — no "Starting Task 1" in same message |
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
+| `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
+| `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses whole-change-reviewer when clean-code-reviewer absent |
 
 See also [`../writing-skills.md`](../writing-skills.md) for the RED→GREEN→REFACTOR cycle and when to add new scenarios.
 
