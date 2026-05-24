@@ -67,14 +67,7 @@ Use option 3 label **`clean-code-reviewer`** when that skill is available; other
 
 Set `docs/flow/STATE.md`: `phase: done` when finish-gate steps complete for options 1, 2, or 4.
 
-## Ad hoc finish requests
-
-When the user asks to merge, push, or close out **without** picking from the menu above (e.g. "merge back into local main"):
-
-- Read and follow `flow-finish/SKILL.md` — same cleanup as menu options
-- **Forbidden:** Raw `git merge` / `git push` without finish-gate (STATE must reach `phase: done` after merge/push)
-
-### Option 3 — branch review
+## Option 3 — branch review
 
 Optional extra pass before merge or push. Per-task reviews already ran during implementation; this reviews the **full branch** for cross-task issues.
 
@@ -87,3 +80,10 @@ Optional extra pass before merge or push. Per-task reviews already ran during im
 5. When ✅ Approved, re-present the user menu (options 1–4). No git actions unless the user picks 1 or 2.
 
 Flow does not run a branch review unless the user chooses option 3.
+
+## Ad hoc finish requests
+
+When the user asks to merge, push, or close out **without** picking from the menu above (e.g. "merge back into local main"):
+
+- Read and follow `flow-finish/SKILL.md` — same cleanup as menu options
+- **Forbidden:** Raw `git merge` / `git push` without finish-gate (STATE must reach `phase: done` after merge/push)
