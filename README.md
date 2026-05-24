@@ -54,6 +54,16 @@ Enhances `/flow-verify` option 3 with full style + correctness review. Without i
 npx skills add gosukiwi/clean-code-skills -a cursor --skill '*' -y
 ```
 
+## What to expect
+
+- **You drive the workflow** — `/flow` suggests one next command; you invoke it when ready.
+- **Scope picks the path** — small bounded change → `/flow-patch`; multi-step feature → spec then execute (see [Commands](#commands)).
+- **Tests before merge** — verify runs automatically after execute or patch; you get a merge/push menu when things pass.
+- **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
+- **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
+
+Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
+
 ## In your project
 
 Flow writes artifacts in your repo — not in the skill package:
@@ -67,16 +77,6 @@ docs/flow/
 ```
 
 Specs, plans, and brainstorms belong in git. `STATE.md` is a per-checkout resume pointer (phase, branch, workspace) — gitignore it so worktree sessions do not pollute `main`. Flow offers to add the gitignore entry before the first STATE write.
-
-## What to expect
-
-- **You drive the workflow** — `/flow` suggests one next command; you invoke it when ready.
-- **Scope picks the path** — small bounded change → `/flow-patch`; multi-step feature → spec then execute (see [Commands](#commands)).
-- **Tests before merge** — verify runs automatically after execute or patch; you get a merge/push menu when things pass.
-- **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
-- **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
-
-Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
 
 ## Contributing
 
