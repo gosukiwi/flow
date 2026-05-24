@@ -65,21 +65,37 @@ See `worktree-setup.md` **Canonical STATE location** for the full lifecycle tabl
 
    Only after merge succeeded. Do not remove a worktree with unmerged or uncommitted work.
 
-5. **Update STATE (canonical location)** — when `workspace: worktree`, merge locally **moves STATE home** to the main workspace:
+   **Before step 4:** read worktree `docs/flow/STATE.md` for branch/artifact context only — do not copy it to main yet.
 
-   - Set `phase: done` in **main workspace** `docs/flow/STATE.md`
-   - Keep artifact paths for history; update `updated` date
-   - Worktree `STATE.md` is removed with the worktree — do not rely on it after step 4
+5. **Update main workspace STATE** — after worktree remove (or immediately when `workspace: in-place`):
 
-   When `workspace: in-place`, update `phase: done` in the current checkout (same as step 6 branch cleanup context).
+   Read **main workspace** `docs/flow/STATE.md` (not the worktree copy — removed after step 4). Apply:
 
-6. **Offer branch cleanup (in-place)** — after successful merge:
+   | Main STATE before finish | Action |
+   |--------------------------|--------|
+   | `phase: done` or missing | **Leave unchanged** — lane already closed; specs/plans merged via git |
+   | Active, same merged branch or stale for that feature | Set `phase: done`; clear `workspace` / `worktree` fields |
+   | Active, **unrelated** topic | **Session gate** — stop; do not overwrite silently (see below) |
+
+   **Do not** copy worktree STATE onto main (`workspace: worktree`, dead `worktree:` path, or `phase: verify` from the merged feature).
+
+   When `workspace: in-place`, set `phase: done` in the current checkout (same checkout throughout merge).
+
+   **Unrelated active STATE on main** — send session gate only; do not combine with merge report:
+
+   > Main checkout has active flow work (`phase: <phase>`, `<artifact path>`). Worktree feature merged and removed.
+   > 1. **Keep main STATE** — in-progress work on main unchanged
+   > 2. **Replace main STATE** — set `phase: done` for the merged feature only (you lose main resume pointer)
+   >
+   > Confirm (1 or 2). I won't update main `STATE.md` until you choose.
+
+6. **Offer branch cleanup** — after successful merge:
 
    > Feature branch merged. Delete local branch? `git branch -d <feature-branch>`
 
    Do not delete without user confirmation unless they already asked to clean up.
 
-7. **Report** — base branch, merge commit/ref, worktree removed (if any), STATE updated
+7. **Report** — base branch, merge commit/ref, worktree removed (if any), main STATE action taken (unchanged / updated / gated)
 
 ## Option: Push branch
 
@@ -109,6 +125,8 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 - Push or merge when verify failed and user has not acknowledged
 - Update main-workspace `STATE.md` during worktree implementation — canonical STATE is in the worktree (see **Canonical STATE location**)
 - Update **both** main and worktree `STATE.md` to sync during worktree work
+- Copy worktree STATE onto main after merge (dead `worktree:` path, `workspace: worktree`, or merged feature's `phase: verify`)
+- Overwrite unrelated active main STATE after worktree merge without session gate
 - Treat clean-code-reviewer **Suggest** items as blocking merge unless user asks to fix them first
 
 ## Skills that use this reference

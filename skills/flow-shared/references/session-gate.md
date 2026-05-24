@@ -85,6 +85,8 @@ Follow `branch-gate.md` + `worktree-setup.md` for branch name and worktree path.
 
 These are same-topic even when `phase` changes.
 
+**Worktree merge finish:** if main workspace has unrelated active STATE when integrating a worktree feature, session gate before overwriting main `STATE.md` — see `finish-gate.md` merge locally step 5.
+
 ## Red flags — never
 
 - Overwrite STATE with unrelated `phase` while active work exists

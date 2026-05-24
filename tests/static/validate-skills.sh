@@ -206,6 +206,12 @@ else
   fail "finish-gate and worktree-setup: must document canonical STATE location"
 fi
 
+if grep -qi 'phase: done.*Leave unchanged\|Leave unchanged.*phase: done' "$finish_gate"; then
+  pass "finish-gate: leaves main STATE unchanged when already phase done"
+else
+  fail "finish-gate: must leave main STATE unchanged when already phase done (worktree merge)"
+fi
+
 if grep -q 'finish-gate' "$finish_skill" && grep -q 'phase: done' "$finish_gate"; then
   pass "flow-finish: references finish-gate with phase done"
 else
