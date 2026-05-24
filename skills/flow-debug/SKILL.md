@@ -48,7 +48,7 @@ If you don't understand yet, ask the user or gather more evidence — do not rou
 
 | Outcome | Next step |
 |---------|-----------|
-| Root cause known, bounded fix | `/flow-patch` with regression test requirement |
+| Root cause known, bounded fix | `/flow-patch` with regression test requirement — **same review and verify rails as any patch** (per-task spec + correctness reviewers, then auto-verify + user menu) |
 | Fix needs design or spans subsystems | `/flow-spec` |
 | Cannot reproduce or insufficient data | Ask user; gather more evidence |
 
@@ -65,6 +65,8 @@ If **three** `/flow-patch` attempts for the **same underlying issue** have faile
 When routing to `/flow-patch`, the micro-spec must include:
 
 > Write failing test reproducing the bug before fixing (TDD RED-GREEN).
+
+**Debug does not implement, review, or verify.** After handoff, `/flow-patch` owns inline TDD, subagent reviews per task, auto-verify, and the numbered merge/push menu — identical to a standalone patch.
 
 ## Red flags
 

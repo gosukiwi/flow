@@ -137,6 +137,18 @@ else
   fail "flow-patch: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
 fi
 
+if grep -qi 'skip spec or correctness review' "$patch_file"; then
+  pass "flow-patch: forbids skipping per-task review"
+else
+  fail "flow-patch: must forbid skipping spec or correctness review"
+fi
+
+if grep -qi 'verify user menu' "$patch_file"; then
+  pass "flow-patch: requires verify user menu at finish"
+else
+  fail "flow-patch: must require verify user menu (not custom next steps)"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then

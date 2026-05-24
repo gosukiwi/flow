@@ -119,6 +119,8 @@ For each task:
 
 **One task at a time.** Do not start Task N+1 until Task N passes both reviews.
 
+**Forbidden:** Starting verify or marking the task complete while Task N is still in spec or correctness review — even if tests pass or the user says the fix is tiny.
+
 **Fixes after ❌:** orchestrator implements fixes inline, then re-dispatches the reviewer — reviewers do not edit code.
 
 Stop when blocked, ambiguous, or verify steps complete and user menu presented. Do not guess.
@@ -137,6 +139,8 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 
 **Forbidden:** Stopping with a "Run `/flow-verify`" handoff when patch tasks succeeded.
 
+**Forbidden:** Presenting ad hoc "next steps" or a custom merge/PR menu — use the **exact** verify user menu from `flow-verify/SKILL.md` (numbered options 1–4). Manual QA notes may appear **above** the menu, not instead of it.
+
 ## Redirect rules
 
 - User scope grows during patch → stop and switch to `/flow-spec`
@@ -148,5 +152,8 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Create a worktree for unrelated work without offering workspace choice**
 - Skip micro-spec approval or branch/workspace confirmation
+- **Skip spec or correctness review** — including when the user says the patch is tiny or done
+- **Trust self-review or passing tests instead of dispatching reviewers**
 - Dispatch implementer subagent (patch is inline only)
 - **Hand off verify instead of running it** after all tasks complete
+- **Replace the verify user menu with custom next steps** — merge/PR/iterate lists are not substitutes for options 1–4
