@@ -3,18 +3,22 @@
 Scenario: `tests/scenarios/flow-finish-main-state-unrelated-active.md`  
 Skill: `/flow-finish` + `flow-shared`
 
-## RED (pre-change commit: abeefc1)
+## RED (base: `abeefc1` finish-gate only)
+
+First run (with flow-finish SKILL loaded): agent picked **B** — inferred session-gate despite old finish-gate. **RED failed** (scenario too weak with orchestrator loaded).
+
+Strict re-run (finish-gate abeefc1 only, no session-gate):
 
 - **Choice:** A
-- **Rationalization:** Old finish-gate step 5 moves STATE home — set `phase: done` on main with dashboard artifact paths; no unrelated-active check.
+- **Rationalization:** Step 5 moves STATE home — set `phase: done` on main after merge; gate forbids finishing without STATE update; overwrite main with dashboard paths to close lane quickly.
 - **Pass:** yes (non-compliant — silent overwrite of unrelated active main STATE)
 
-Run: Task subagent, `git show abeefc1:finish-gate.md`, 2026-05-24.
+**Run:** 2026-05-24 — Task subagent; `git show abeefc1:finish-gate.md`.
 
-## GREEN (post-change: a3778f3+ finish-gate main STATE table)
+## GREEN (installed skills @ HEAD)
 
 - **Choice:** B
 - **Rule cited:** finish-gate step 5 unrelated row + session gate message; session-gate worktree merge finish note.
-- **Pass:** yes (compliant)
+- **Pass:** yes
 
-Run: Task subagent, current finish-gate, 2026-05-24.
+**Run:** 2026-05-24 — installed `.agents/skills/flow-finish` + `flow-shared`; Task subagent.

@@ -3,20 +3,18 @@
 Scenario: `tests/scenarios/flow-finish-worktree-merge.md`  
 Skill: `/flow-finish` + `flow-shared`
 
-## RED (pre-change commit: abeefc1, sharpened scenario)
-
-Scenario updated with standup pressure + "use draft plan exactly" (merge-only draft).
+## RED (base: `abeefc1` finish-gate)
 
 - **Choice:** A
-- **Rationalization:** User approved draft plan — merge and report; worktree remove and STATE not in plan; skip extra steps under standup pressure.
-- **Pass:** yes (non-compliant — leaves worktree; skips finish-gate merge locally steps 4–5)
+- **Rationalization:** User gave explicit draft plan — merge and report; standup pressure to skip extra steps; worktree remove not part of merge success.
+- **Pass:** yes (non-compliant — leaves worktree in place)
 
-Run: Task subagent, `git show abeefc1:finish-gate.md`, 2026-05-24.
+**Run:** 2026-05-24 — `npx skills add ./skills -a cursor --skill flow-finish --skill flow-shared -y --copy`; Task subagent; `git show abeefc1:finish-gate.md`.
 
-## GREEN (post-change: finish-gate with worktree remove + main STATE missing row)
+## GREEN (installed skills @ HEAD)
 
 - **Choice:** B
-- **Rule cited:** finish-gate merge locally step 4 (worktree remove after merge, not before); step 5 missing → leave unchanged; red flag on remove-before-merge.
-- **Pass:** yes (compliant despite standup pressure)
+- **Rule cited:** finish-gate merge locally steps 4–5 — worktree remove after merge; main STATE missing → leave unchanged.
+- **Pass:** yes
 
-Run: Task subagent, current finish-gate, sharpened scenario, 2026-05-24.
+**Run:** 2026-05-24 — installed `.agents/skills/flow-finish` + `flow-shared`; Task subagent.
