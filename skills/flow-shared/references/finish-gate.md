@@ -27,7 +27,7 @@ Branch review (verify option 3 / clean-code-reviewer) is **optional** — do not
 
 ## Read STATE first
 
-From `docs/flow/STATE.md`:
+From `docs/flow/STATE.md` (local/gitignored per `state-setup.md` — never committed):
 
 - `branch` — feature branch being integrated
 - `workspace` — `in-place` or `worktree`

@@ -57,13 +57,13 @@ Project artifacts live in the **consumer project** (not in the skill package):
 
 ```
 docs/flow/
-  brainstorms/
-  specs/
-  plans/
-  STATE.md
+  brainstorms/   # tracked — optional exploration briefs
+  specs/         # tracked — approved requirements
+  plans/         # tracked — self-reviewed implementation plans
+  STATE.md       # local only — gitignore (session bookmark; see state-setup.md)
 ```
 
-Update `docs/flow/STATE.md` when starting or finishing a phase:
+Update `docs/flow/STATE.md` when starting or finishing a phase. **Gitignore recommended** — read `flow-shared/references/state-setup.md` before first write if not ignored. Specs, plans, and brainstorms stay in version control.
 
 ```markdown
 # Flow State

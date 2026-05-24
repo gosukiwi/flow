@@ -203,7 +203,7 @@ Read the failure from `validate-skills.sh` — checks are documented inline with
 | | This repo (maintainer) | Consumer project |
 |---|------------------------|------------------|
 | Skills live in | `skills/` | `.agents/skills/` or `.cursor/skills/` |
-| Workflow artifacts | `tests/fixtures/` only | `docs/flow/{brainstorms,specs,plans,STATE.md}` |
+| Workflow artifacts | `tests/fixtures/` only | `docs/flow/{brainstorms,specs,plans}` tracked; `STATE.md` local/gitignored |
 | Install command | `make install` or local path | `npx skills add gosukiwi/flow …` |
 
 When dogfooding Flow on real features, do that in a separate project with skills installed — not by adding `docs/flow/` here.

@@ -74,7 +74,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate)
+REFS=(tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -224,7 +224,27 @@ else
   fail "flow-verify: must forbid raw merge without finish-gate for ad hoc requests"
 fi
 
+state_setup="$SKILLS_DIR/flow-shared/references/state-setup.md"
 session_gate="$SKILLS_DIR/flow-shared/references/session-gate.md"
+flow_router="$SKILLS_DIR/flow/SKILL.md"
+if grep -q 'git check-ignore' "$state_setup" && grep -q 'docs/flow/STATE.md' "$state_setup"; then
+  pass "state-setup: has ignore check for docs/flow/STATE.md"
+else
+  fail "state-setup: must document git check-ignore for docs/flow/STATE.md"
+fi
+
+if grep -q 'state-setup' "$session_gate"; then
+  pass "session-gate: references state-setup for gitignore gate"
+else
+  fail "session-gate: must reference state-setup.md before STATE write"
+fi
+
+if grep -qi 'gitignore\|local only' "$flow_router" && grep -q 'state-setup' "$flow_router"; then
+  pass "flow router: documents gitignored STATE and state-setup"
+else
+  fail "flow/SKILL.md: must document gitignored STATE and reference state-setup.md"
+fi
+
 if grep -q 'Hard gate' "$session_gate" && grep -q 'Detection matrix' "$session_gate"; then
   pass "session-gate: has hard gate with detection matrix"
 else

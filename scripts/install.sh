@@ -44,6 +44,6 @@ Installed skills:
   /flow-verify   — tests + spec checklist; user menu
   /flow-finish   — merge/push/done + STATE and worktree cleanup
 
-Project artifacts: docs/flow/{brainstorms,specs,plans,STATE.md}
+Project artifacts: docs/flow/{brainstorms,specs,plans} (tracked) + STATE.md (local, gitignore recommended)
 
 EOF

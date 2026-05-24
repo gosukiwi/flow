@@ -38,7 +38,11 @@ Per-task reviews run during execute and patch. `/flow-verify` is not a full diff
 
 ## STATE.md
 
-`docs/flow/STATE.md` is the agent's resume pointer: current phase, branch, and paths to brief/spec/plan. One file per checkout (worktrees get their own copy).
+`docs/flow/STATE.md` is the agent's **local session bookmark**: current phase, branch, workspace, and paths to brief/spec/plan. One file per checkout (worktrees get their own copy).
+
+**Gitignore it** in consumer projects. Specs, plans, and brainstorms are the durable record — STATE is ephemeral (phase churn, worktree paths). Flow offers to add `docs/flow/STATE.md` to `.gitignore` before the first write (`state-setup.md`). Opt out explicitly if you want STATE in git history.
+
+**Worktree note:** STATE in the worktree is also local/gitignored — never commit stale main-workspace STATE while work runs in a worktree.
 
 ## Branch, workspace, and concurrent sessions
 
@@ -49,7 +53,7 @@ Per-task reviews run during execute and patch. `/flow-verify` is not a full diff
 - **Session gate** — before overwriting `STATE.md`, unrelated new work on an occupied checkout stops and offers resume vs worktree.
 - **Same branch, two terminals** — git cannot isolate two checkouts on one branch; coordinate manually or use a worktree with a different branch for unrelated work.
 
-Skill references (installed with Flow): `flow-shared/references/branch-gate.md`, `session-gate.md`, `worktree-setup.md`.
+Skill references (installed with Flow): `flow-shared/references/branch-gate.md`, `session-gate.md`, `worktree-setup.md`, `state-setup.md`.
 
 ## Router behavior
 

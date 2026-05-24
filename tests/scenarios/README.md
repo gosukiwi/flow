@@ -50,6 +50,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-spec-concurrent-unrelated-state.md` | `/flow-spec` | Unrelated spec with active STATE → gate before spec save |
 | `flow-debug-during-execute-same-topic.md` | `/flow-debug` | Same-plan test failure → allow debug; no worktree |
 | `flow-brainstorm-skip-session-gate.md` | `/flow-brainstorm` | Session gate only — no brief save or STATE update in same message |
+| `flow-state-gitignore-check.md` | `/flow-brainstorm` | Agent proposes gitignore for STATE before first write; stops for approval |
 
 See also [`../writing-skills.md`](../writing-skills.md) for the RED→GREEN→REFACTOR cycle and when to add new scenarios.
 

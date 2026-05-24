@@ -131,7 +131,7 @@ Where `docs/flow/STATE.md` is authoritative depends on `workspace` and lifecycle
 | `workspace: worktree` — push or done for now (worktree kept) | **Worktree path** — branch/worktree still active |
 | `workspace: worktree` — merge locally after successful merge + worktree remove | **Main workspace** — worktree is gone; STATE moves home |
 
-**During worktree implementation:** main-workspace `STATE.md` is stale or empty by design. Do not update it to “sync” or “help the user find status.”
+**During worktree implementation:** main-workspace `STATE.md` is stale or empty by design. Do not update it to “sync” or “help the user find status.” Worktree STATE is also **gitignored locally** — see `state-setup.md`; never commit STATE to git.
 
 **At merge locally finish:** after `git worktree remove`, update `phase: done` in the **main workspace** only — see `finish-gate.md` merge locally step 5.
 

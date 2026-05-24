@@ -60,11 +60,13 @@ Flow writes artifacts in your repo — not in the skill package:
 
 ```
 docs/flow/
-  brainstorms/   # optional exploration briefs
-  specs/         # approved requirements
-  plans/         # self-reviewed implementation plans
-  STATE.md       # resume pointer: phase, branch, artifact paths
+  brainstorms/   # optional exploration briefs (tracked)
+  specs/         # approved requirements (tracked)
+  plans/         # self-reviewed implementation plans (tracked)
+  STATE.md       # local session bookmark — add to .gitignore (agent offers on first write)
 ```
+
+Specs, plans, and brainstorms belong in git. `STATE.md` is a per-checkout resume pointer (phase, branch, workspace) — gitignore it so worktree sessions do not pollute `main`. Flow offers to add the gitignore entry before the first STATE write.
 
 ## Key rules
 

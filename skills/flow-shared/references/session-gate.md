@@ -1,6 +1,6 @@
 # Session Gate
 
-Read before **any** write to `docs/flow/STATE.md`. Resolves concurrent-session conflicts on the same checkout. Git/worktree mutations defer to `branch-gate.md`; worktree creation to `worktree-setup.md` (resolve via path resolver in `flow/SKILL.md`).
+Read before **any** write to `docs/flow/STATE.md`. Resolves concurrent-session conflicts on the same checkout. Git/worktree mutations defer to `branch-gate.md`; worktree creation to `worktree-setup.md`; STATE gitignore to `state-setup.md` (resolve via path resolver in `flow/SKILL.md`).
 
 ## Hard gate
 
@@ -14,6 +14,10 @@ Proposing resume or worktree is not confirmation. **Stop and wait for the user's
 - Saving brainstorm briefs, specs, or plans that imply a new flow lane when STATE is occupied by unrelated work
 
 Reading files, exploring, clarifying, and writing artifacts for **same-topic** handoffs is fine.
+
+## STATE gitignore (before write)
+
+When session is confirmed (or no session gate needed), run the ignore check in `state-setup.md` **before** the first STATE write in this session if `git check-ignore -q docs/flow/STATE.md` fails. Follow `state-setup.md` — stop for user gate until gitignore is confirmed or user opts to keep tracked.
 
 ## Active phases
 
@@ -87,6 +91,7 @@ These are same-topic even when `phase` changes.
 - Save a new-topic brainstorm/spec while unrelated STATE is active without gate
 - Bundle session gate question with artifact save or STATE update in one message
 - Suggest worktree for same-topic resume on the same branch
+- Skip `state-setup.md` ignore check and write STATE when not gitignored
 
 ## Skills that must follow this reference
 
@@ -98,3 +103,5 @@ Before first STATE write in the session:
 - `flow-patch` — before workspace gate
 - `flow-execute` — before workspace gate
 - `flow-verify` — confirm STATE matches current work before `phase: verify`
+
+Before STATE write when not gitignored: read `state-setup.md` per **STATE gitignore** above.
