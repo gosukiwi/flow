@@ -12,7 +12,7 @@ Resolve via path resolver in `flow/SKILL.md`.
 NO RAW GIT MERGE/PUSH FOR ACTIVE FLOW WORK WITHOUT THIS CHECKLIST
 ```
 
-**Forbidden:** Running `git checkout main && git merge <feature>` (or equivalent) and reporting success **without** updating `STATE.md` to `phase: done` when merge completes in-place.
+**Forbidden:** Running `git checkout main && git merge <feature>` (or equivalent) and reporting success **without** following **merge locally** STATE rules (step 5): in-place → set `phase: done`; worktree → read main STATE and apply the table (leave unchanged if already `phase: done`; session gate if unrelated active — do not silently overwrite).
 
 Ad hoc user messages ("merge back into main", "push the branch", "we're done") trigger this gate — route to `/flow-finish` or follow the matching section below.
 

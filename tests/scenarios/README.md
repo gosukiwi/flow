@@ -41,8 +41,9 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
 | `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
 | `flow-finish-adhoc-merge.md` | `/flow-finish` | Agent uses finish-gate on "merge to main"; sets phase done, not raw git merge only |
-| `flow-finish-worktree-merge.md` | `/flow-finish` | Agent merges from main workspace, removes worktree after success, sets phase done |
+| `flow-finish-worktree-merge.md` | `/flow-finish` | Main STATE missing — merge, remove worktree; leave main STATE unchanged |
 | `flow-finish-main-state-done.md` | `/flow-finish` | Main STATE already `phase: done` — merge + worktree remove; leave main STATE unchanged |
+| `flow-finish-main-state-unrelated-active.md` | `/flow-finish` | Main STATE active unrelated topic — session gate before main STATE write |
 | `flow-verify-adhoc-merge.md` | `/flow-verify` | Ad hoc "merge to main" reads finish-gate via path resolver; does not raw merge or defer to /flow-finish only |
 | `flow-execute-worktree-skip-gate.md` | `/flow-execute` | Agent sends workspace gate only — no worktree creation or Task 1 in same message |
 | `flow-patch-concurrent-unrelated-work.md` | `/flow-patch` | Unrelated work on active feature branch → worktree recommended, not branch switch |

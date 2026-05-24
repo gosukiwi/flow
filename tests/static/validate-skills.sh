@@ -212,6 +212,12 @@ else
   fail "finish-gate: must leave main STATE unchanged when already phase done (worktree merge)"
 fi
 
+if grep -qi 'Unrelated active STATE on main' "$finish_gate"; then
+  pass "finish-gate: session gate for unrelated active main STATE at merge"
+else
+  fail "finish-gate: must session-gate unrelated active main STATE on worktree merge"
+fi
+
 if grep -q 'finish-gate' "$finish_skill" && grep -q 'phase: done' "$finish_gate"; then
   pass "flow-finish: references finish-gate with phase done"
 else
