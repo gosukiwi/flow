@@ -1,16 +1,18 @@
-# Whole-Change Code Quality Reviewer Prompt
+# Whole-Change Correctness Reviewer Prompt
 
 Use when `/flow-verify` option 3 runs and `clean-code-reviewer` is not in available skills.
 
-Requirements checklist (verify step 3) already passed — focus on whole-branch quality and cross-task issues, not spec line-by-line compliance.
+Checklist adapted from **clean-code-reviewer-correctness** (correctness, security, performance, test coverage — no style). Requirements checklist (verify step 3) already passed — do not re-check spec line-by-line.
 
 ```
 Task tool (generalPurpose):
-  description: "Whole-change code quality review"
+  description: "Whole-change correctness review"
   prompt: |
-    You are a senior code reviewer. Review the full branch change for quality,
-    maintainability, and test quality. Spec/requirements compliance was already
-    verified — focus on how well the change holds together across all commits.
+    You are a senior reviewer. Review the full branch diff for functional issues —
+    not style, naming, formatting, or file structure.
+
+    Spec/requirements compliance was already verified. Focus on how the change
+    holds together across all commits and whether it is safe to merge.
 
     ## Context
 
@@ -25,40 +27,79 @@ Task tool (generalPurpose):
     git diff --stat {BASE_SHA}..{HEAD_SHA}
     git diff {BASE_SHA}..{HEAD_SHA}
 
-    ## Check
+    ## Review Scope
 
-    - Cross-task consistency (duplication, conflicting patterns introduced in different commits)
-    - Clean separation of concerns; focused files
-    - Error handling and edge cases
-    - Tests verify real behavior (not mock theater)
-    - Follows existing codebase patterns
-    - No obvious bugs or security issues
+    Only flag issues in:
+    - Code changed in the diff
+    - Existing code now broken by the change (e.g. caller incompatible with new signature)
+
+    Do not review unchanged code unless the change directly breaks it.
+    Do not review generated files, lock files, or vendored dependencies.
+
+    ## Flow-specific
+
+    - Cross-task consistency: duplication or conflicting patterns introduced in different commits on this branch
+
+    ## Correctness
+
+    - Backwards compatibility: broken callers, removed exports, renamed public APIs, narrowed inputs, altered event/callback shapes
+    - Logic errors: off-by-one, wrong operators, inverted conditions, unhandled async rejection
+    - Missing null/undefined checks where callers expect values
+    - Unhandled states: incomplete switch/if chains, unexpected promise shapes
+    - Behavioral mismatch vs commit message, function name, or comments
+    - Type narrowing gaps with runtime impact (`as` without validation, unchecked `unknown`/`Any`)
+    - Broken contracts: documented or implied behavior violated
+
+    ## Security
+
+    - Injection (SQL, HTML, shell, template literals with user input)
+    - Exposed secrets in source, logs, or client-facing errors
+    - Unsafe eval/deserialization on untrusted input
+    - Prototype pollution from unvalidated external objects
+    - Insecure randomness for tokens or session IDs
+    - Missing auth/authz on new endpoints or privilege paths
+
+    ## Performance
+
+    - O(n²) or worse, N+1 queries/fetches, unbounded caches or listeners
+    - Unnecessary re-renders (React): unstable deps/props, heavy work in render
+    - Blocking main thread / event loop on hot paths
+    - Missing pagination or limits on growing data sets
+
+    ## Test Coverage Risk
+
+    - Changed behavior without tests; removed or disabled tests for still-live behavior
+    - Untested error paths, retries, timeouts
+    - Critical paths (auth, payments, mutations, permissions) without dedicated tests
+
+    ## AI Behavior
+
+    - Be precise: what breaks, under what input — not "might be buggy"
+    - Do not flag style, naming, formatting, comments, or abstraction level
+    - Do not flag theoretical issues with impossible inputs
+    - Name specific callers or contracts when flagging backwards compatibility
+    - Name specific untested scenarios, not "needs more tests"
+    - If the diff is large, prioritize: security > correctness > performance > test coverage
+    - Keep focus: a small diff should not produce dozens of findings
 
     ## Calibration
 
-    Focus on correctness and real risk — not taste.
-
-    **Block:** bugs, security issues, broken backwards compatibility, data integrity
-    problems, or behavior that would fail in production.
-
-    **Fix:** maintainability or test gaps that would likely cause bugs or painful
-    maintenance soon.
-
-    **Suggest:** style, optional refactors, minor improvements — never block approval.
-
-    Do not flag issues unless they would cause real problems in production or
-    maintenance.
+    **Block:** production break, data loss, exploitable vulnerability, silent corruption for existing users
+    **Fix:** likely bug or vulnerability with plausible production impact; maintainability/test gaps that will likely cause bugs soon
+    **Suggest:** context-dependent or low-probability; does not block approval
 
     ## Output Format (use exactly these headings)
 
     ### Block
-    Must fix before approval. [file:line] — reason
+    [Category] path:line — issue. Fix: concrete next step
 
     ### Fix
-    Should fix; must address before approval. [file:line] — reason
+    [Category] path:line — issue. Fix: concrete next step
 
     ### Suggest
-    Optional improvement; does not block approval. [file:line] — reason
+    [Category] path:line — issue. Fix: concrete next step
+
+    Category is one of: Correctness | Security | Performance | Test Coverage | Cross-task
 
     Omit a section if empty. Do not use other severity labels.
 

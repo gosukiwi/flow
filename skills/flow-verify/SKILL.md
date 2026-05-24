@@ -48,11 +48,11 @@ What would you like to do?
 
 1. Merge locally — merge this branch into your base branch
 2. Push the branch — I'll push; you open the PR when ready
-3. Review the diff — [clean-code-reviewer | whole-change code quality review]
+3. Review the diff — [clean-code-reviewer | whole-change correctness review]
 4. Done for now — I'll stop here; you take it from there
 ```
 
-Use option 3 label **`clean-code-reviewer`** when that skill is available; otherwise **`whole-change code quality review`**.
+Use option 3 label **`clean-code-reviewer`** when that skill is available; otherwise **`whole-change correctness review`**.
 
 **Option actions:**
 

@@ -76,6 +76,7 @@ Live in `skills/flow-shared/prompts/`:
 - `implementer.md`
 - `spec-reviewer.md`
 - `code-quality-reviewer.md`
+- `whole-change-reviewer.md` (verify option 3 fallback — correctness-only)
 
 Orchestrator skills resolve paths via the resolver in `flow/SKILL.md`:
 
@@ -107,7 +108,7 @@ docs/flow/
 
 Small changes: `/flow-patch` → `/flow-verify`. Bugs: `/flow-debug` → `/flow-patch`.
 
-Per-task reviews run during execute and patch. `/flow-verify` runs tests and a requirements checklist — not a full diff review. For an optional whole-change pass before merge/push, choose verify **option 3**: runs `clean-code-reviewer` when installed, otherwise Flow's whole-branch quality review.
+Per-task reviews run during execute and patch. `/flow-verify` runs tests and a requirements checklist — not a full diff review. For an optional whole-change pass before merge/push, choose verify **option 3**: runs `clean-code-reviewer` when installed, otherwise Flow's whole-branch correctness review (no style pass).
 
 ## Branch rules
 
