@@ -106,13 +106,17 @@ Mark Task N completed in TodoWrite. **Then** begin Task N+1 step 1.
 
 ### 4. Verify (auto-run)
 
-When all plan tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
+When all **implementation** plan tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
+
+**Plan task ≠ Flow verify finish.** A plan step or task named "Final verification", "Run full test suite", or similar is **implementation work** — it does **not** replace step 4 below. Even if the last plan task ran lint/build/test and updated STATE to `phase: verify`, you must still run the verify checklist and present the **numbered user menu** from `flow-verify/SKILL.md`.
 
 1. Read `flow-verify/SKILL.md` (resolve via path resolver in `flow/SKILL.md`)
 2. Follow verify process: `verification-gate.md`, full test suite, requirements checklist against spec + plan
 3. Update `docs/flow/STATE.md`: `phase: verify` when starting
 4. If verify fails → route to `/flow-debug` or `/flow-patch`; do not present the done menu
-5. If verify passes → present the verify user menu per `flow-verify/SKILL.md`
+5. If verify passes → present the verify user menu per `flow-verify/SKILL.md` (numbered options 1–4 — **not** ad hoc "commits or PR?" or implementation summary as the final message)
+
+**Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim execute or verify complete. Commit per plan task steps, dispatch implementer fixes, or route to `/flow-patch` — then re-run verify steps 2–5.
 
 **Do not run verify option 3 (branch review) automatically** — only when the user chooses it from the menu.
 
@@ -133,6 +137,9 @@ When all plan tasks are complete, **immediately continue into verify** — do no
 - Dispatch parallel subagents across tasks (different tasks or roles at once)
 - Make subagent read the plan file — provide full task text in prompts
 - Move to next task after implementer DONE but before both reviews ✅
+- **Treat a plan "Final verification" / last-task test run as Flow verify finish** — still present the numbered verify menu; plan verification ≠ `flow-verify/SKILL.md` completion
+- **Stop with implementation summary + "commits or PR?"** instead of the verify user menu (options 1–4)
+- **Claim execute or verify complete with uncommitted changes** on the feature branch — commit per plan or `/flow-patch` first
 
 ## Continuous execution
 
@@ -144,4 +151,4 @@ Do not pause between **completed** tasks for progress check-ins.
 
 **Continuous ≠ hand off verify.** After all tasks, read `flow-verify/SKILL.md` and run verify — do not stop for a separate `/flow-verify` invocation.
 
-Stop only when: blocked, ambiguous, verify steps complete and user menu presented, or user picks a menu option.
+Stop only when: blocked, ambiguous, verify steps complete and **numbered user menu** presented, uncommitted work resolved on the feature branch, or user picks a menu option.

@@ -33,3 +33,5 @@ Resume or start plan execution when a plan already exists. **Subagents only** �
 
 - Skip `plan-execution.md` and implement inline
 - **Stop with "Run `/flow-execute`"** when the user already invoked this skill or spec just finished the plan — begin at plan-execution step 1
+- **Treat plan Task 6 / "Final verification" as substitute for verify menu** — see plan-execution §4
+- **End with uncommitted changes** on the feature branch without commits or `/flow-patch`
