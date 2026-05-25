@@ -43,8 +43,8 @@ Task tool (generalPurpose):
     ## Self-Review Checklist
 
     - All requirements implemented, nothing extra (YAGNI)
-    - Tests verify real behavior, not mocks
-    - TDD cycle followed (watched test fail before implementing)
+    - Tests verify real behavior, not mocks — no existence-only or styling assertions unless spec requires behavior (see `tdd-red-green.md` § What to test)
+    - TDD cycle followed (watched test fail before implementing) — or presentation-only task documented manual checks with no new tests
     - Names clear; files focused
 
     ## Report Format

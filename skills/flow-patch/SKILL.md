@@ -42,6 +42,7 @@ Write inline before any code. Break work into one or more tasks with bite-sized 
 **Success criteria:** [how we know it's done]
 **Files:** [expected touch list]
 **Out of scope:** [what we will NOT do]
+**Testing:** [RED-GREEN for behavior changes | no new tests + manual checks for presentation-only — see `tdd-red-green.md`]
 
 ### Task 1: [name]
 

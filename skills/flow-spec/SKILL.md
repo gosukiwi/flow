@@ -93,6 +93,8 @@ Required sections:
 
 `Open Questions` must be empty or say "None" before proceeding.
 
+**Testing Approach:** Distinguish automated vs manual verification. For behavior changes, name what gets RED-GREEN tests. For pure presentation or visual work, say **no new unit tests** and list manual/browser checks. Follow `flow-shared/references/tdd-red-green.md` — test behavior, not markup presence or CSS values.
+
 ### 6. Spec self-review
 
 Fix inline until all pass. **Do not proceed to §7 while any blocking check fails.**
@@ -279,7 +281,7 @@ Repeat until all pass. Record `Status: Ready | Blocked` with blocking vs advisor
 | Placeholders | Any vague steps? |
 | Consistency | Names/signatures match across tasks? |
 | Undefined references | Any type, function, or method used but not defined in an earlier task? |
-| TDD | Behavior changes have RED-GREEN steps? |
+| TDD | Behavior changes have RED-GREEN steps? Presentation-only tasks skip new tests per `tdd-red-green.md` — not placeholder existence tests? |
 | Granularity | Steps are 2–5 minute actions? |
 
 **Structure refactor plans:** Before handoff, produce a short mapping table in the plan or review notes:
