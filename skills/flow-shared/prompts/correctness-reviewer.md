@@ -86,6 +86,7 @@ Task tool (generalPurpose):
 
     - Changed behavior without tests; removed or disabled tests for still-live behavior
     - Tests verify real behavior (not mock theater)
+    - Existence-only or styling assertions with no behavioral claim (assertion theater) — **Suggest** removing or replacing with behavior tests
     - Untested error paths, retries, timeouts
     - Critical paths (auth, payments, mutations, permissions) without dedicated tests
 
