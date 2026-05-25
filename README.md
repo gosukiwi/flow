@@ -30,7 +30,7 @@ For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 
 | Command | When to use |
 |---------|-------------|
-| `/flow` | **Start here** when unsure — triage, stale post-PR cleanup detection, suggests one command, **you invoke it** |
+| `/flow` | Not sure where to start — triage only; suggests one command, **you invoke it** |
 | `/flow-debug` | Bug, test failure, or unexpected behavior — root cause before fixes |
 | `/flow-patch` | Small bounded change (≤3 files, one concern) — micro-spec + **inline** TDD + per-task review |
 | `/flow-brainstorm` | Idea still fuzzy — explore options and design before formal spec |
@@ -59,8 +59,8 @@ Skip straight to `/flow-execute` → verify → `/flow-finish`.
 **"Not sure where to start"**  
 `/flow` — it suggests one next command; you invoke it.
 
-**"PR merged on GitHub — back on main"**  
-`/flow` may detect stale branch + `STATE.md` and suggest `/flow-finish` sync first. Or `/flow-finish` directly: pull main, delete local branch, remove worktree, clear `STATE.md`.
+**"PR merged on GitHub — sync local"**  
+`/flow-finish` — pull main, delete local branch, remove worktree, clear `STATE.md`.
 
 More detail: [`docs/workflow.md`](docs/workflow.md)
 

@@ -403,18 +403,6 @@ else
   fail "flow: must have When /flow is invoked and Hard gate for triage-only routing"
 fi
 
-if grep -qi 'Prefer `/flow` as entrypoint\|Prefer /flow as entrypoint' "$flow_router"; then
-  pass "flow: documents /flow as preferred entrypoint"
-else
-  fail "flow: must document Prefer /flow as entrypoint"
-fi
-
-if grep -qi 'Stale post-remote-merge\|stale post-merge' "$flow_router"; then
-  pass "flow: router detects stale post-remote-merge cleanup"
-else
-  fail "flow: must detect stale post-remote-merge cleanup before new work"
-fi
-
 for path in '.agents/skills/flow-shared' '.cursor/skills/flow-shared'; do
   if grep -q "$path" "$SKILLS_DIR/flow/SKILL.md"; then
     pass "flow: mentions $path"

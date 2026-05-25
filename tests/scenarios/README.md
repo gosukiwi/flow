@@ -19,7 +19,6 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-router-suggest-spec.md` | `/flow` | Large/multi-step work → suggests `/flow-spec` only, no micro-spec or patch |
 | `flow-router-suggest-debug.md` | `/flow` | Unknown test failures → suggests `/flow-debug` only, no auto-investigation |
 | `flow-router-suggest-finish.md` | `/flow` | Verify done + merge intent → suggests `/flow-finish` only, no git in same message |
-| `flow-router-stale-after-remote-merge.md` | `/flow` | Stale STATE + merged branch on main → suggests `/flow-finish` sync before new work |
 | `flow-router-suggest-brainstorm.md` | `/flow` | Fuzzy idea → suggests `/flow-brainstorm` only, no spec or exploration start |
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
 | `flow-patch-skip-review.md` | `/flow-patch` | Agent dispatches reviewers; doesn't skip when user says patch is tiny |
