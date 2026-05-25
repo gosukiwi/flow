@@ -175,6 +175,12 @@ else
   fail "flow-spec: must present numbered spec gate menu"
 fi
 
+if grep -q 'Approve design' "$spec_file" && grep -q 'Design gate' "$spec_file"; then
+  pass "flow-spec: design gate numbered menu"
+else
+  fail "flow-spec: must present numbered design gate menu"
+fi
+
 if grep -q 'Structure trees' "$spec_file" && grep -A5 'Spec gate' "$spec_file" | grep -q 'Structure trees'; then
   fail "flow-spec: must not expose structure trees in user gate template"
 else

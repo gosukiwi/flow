@@ -41,7 +41,25 @@ When scope is clear:
 
 - Present 2–3 approaches with trade-offs if genuinely ambiguous; otherwise present one recommended design
 - Cover architecture, components, error handling, testing approach
-- Get user approval on the design
+- Present the design, then send the **design gate** below — do not write the spec in the same message
+
+#### Design gate (required)
+
+After presenting the design, send **only** this gate — do not combine with writing the spec, naming a spec path, session gate, STATE updates, or plan outline:
+
+```
+Does this design work for you?
+
+1. Approve design — I'll write the spec (no code)
+2. Request changes — tell me what to revise in the design
+3. Stop — no spec or implementation
+```
+
+**Stop until the user picks 1, approves the design explicitly, or requests changes (2).** Option 3 ends spec work. If they request changes, revise the design proposal and re-send the design gate.
+
+**"Yes" / "approve" / "proceed" after this gate counts as design approval only** — not spec approval, plan writing, branch/workspace confirmation, or permission to run `/flow-execute`.
+
+After design approval: proceed to §4 (session gate if needed), then §5 (write spec).
 
 ### 4. Session gate (required)
 
@@ -288,6 +306,9 @@ Update `docs/flow/STATE.md`: `phase: execute`, add plan path.
 
 ## Red flags — never
 
+- **Use freeform "reply approve" at design time** — send the numbered design gate (§3); spec gate (§7) is a separate step after the spec file exists
+- **Bundle spec writing, spec path preview, STATE update, or session gate with the design gate message** — send design gate only; wait for approval before §4–§5
+- **Skip design gate** because clarifying questions are done or the design looks solid
 - **Treat spec "yes" as execute or workspace confirmation** — Phase B is plan-only; branch/worktree is `/flow-execute` step 1 after handoff
 - **Bundle plan outline, STATE update, worktree, or `/flow-execute` with the spec gate message** — send spec gate only; wait for approval before Phase B
 - **Skip spec gate** because the user asked for implementation preferences in the same message
