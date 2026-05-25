@@ -74,7 +74,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup)
+REFS=(plan-execution tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -87,17 +87,23 @@ done
 echo ""
 echo "=== validate-prompt-refs ==="
 
-# flow-execute: subagents only, no inline implementation
+# plan-execution + flow-execute: subagents only, no inline implementation
+plan_exec_file="$SKILLS_DIR/flow-shared/references/plan-execution.md"
 execute_file="$SKILLS_DIR/flow-execute/SKILL.md"
-if grep -q 'flow-shared/prompts/' "$execute_file"; then
-  pass "flow-execute: references flow-shared prompts"
+if grep -q 'flow-shared/prompts/' "$plan_exec_file"; then
+  pass "plan-execution: references flow-shared prompts"
 else
-  fail "flow-execute: must reference flow-shared/prompts/"
+  fail "plan-execution: must reference flow-shared/prompts/"
 fi
-if grep -qi 'subagent' "$execute_file" && grep -qi 'never implement inline\|subagents only' "$execute_file"; then
-  pass "flow-execute: requires subagent execution"
+if grep -qi 'subagent' "$plan_exec_file" && grep -qi 'never implement inline\|subagents only' "$plan_exec_file"; then
+  pass "plan-execution: requires subagent execution"
 else
-  fail "flow-execute: must forbid inline implementation"
+  fail "plan-execution: must forbid inline implementation"
+fi
+if grep -q 'plan-execution' "$execute_file"; then
+  pass "flow-execute: delegates to plan-execution.md"
+else
+  fail "flow-execute: must reference flow-shared/references/plan-execution.md"
 fi
 
 # flow-patch: inline implementation + subagent review
@@ -133,16 +139,16 @@ else
   fail "spec-reviewer and correctness-reviewer: must forbid checkout by SHA"
 fi
 
-if grep -q 'BASE_SHA' "$execute_file" && grep -qi 'spec compliance review' "$execute_file"; then
-  pass "flow-execute: passes BASE_SHA to spec compliance review"
+if grep -q 'BASE_SHA' "$plan_exec_file" && grep -qi 'spec compliance review' "$plan_exec_file"; then
+  pass "plan-execution: passes BASE_SHA to spec compliance review"
 else
-  fail "flow-execute: must record BASE_SHA before spec compliance review"
+  fail "plan-execution: must record BASE_SHA before spec compliance review"
 fi
 
-if grep -qi 'flow-verify/SKILL.md' "$execute_file" && grep -qi 'auto-run\|immediately continue into verify' "$execute_file"; then
-  pass "flow-execute: auto-runs verify after all tasks"
+if grep -qi 'flow-verify/SKILL.md' "$plan_exec_file" && grep -qi 'auto-run\|immediately continue into verify' "$plan_exec_file"; then
+  pass "plan-execution: auto-runs verify after all tasks"
 else
-  fail "flow-execute: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
+  fail "plan-execution: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
 fi
 
 if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
@@ -192,6 +198,19 @@ if grep -q 'Approve design' "$spec_file" && grep -q 'Design gate' "$spec_file"; 
   pass "flow-spec: design gate numbered menu"
 else
   fail "flow-spec: must present numbered design gate menu"
+fi
+
+if grep -q 'plan-execution' "$spec_file" && grep -qi 'auto-continue\|Immediately continue' "$spec_file"; then
+  pass "flow-spec: auto-continues to plan-execution after plan"
+else
+  fail "flow-spec: must auto-continue to plan-execution.md after plan self-review"
+fi
+
+if grep -q 'Terminal state is handoff to `/flow-execute`' "$spec_file" \
+  || grep -q 'Run `/flow-execute` to implement\.$' "$spec_file"; then
+  fail "flow-spec: must not hand off with Run /flow-execute"
+else
+  pass "flow-spec: no manual /flow-execute handoff"
 fi
 
 if grep -q 'Structure trees' "$spec_file" && grep -A5 'Spec gate' "$spec_file" | grep -q 'Structure trees'; then
@@ -248,10 +267,10 @@ else
   fail "worktree-setup: must check-ignore the selected project-local worktree directory"
 fi
 
-if grep -q 'worktree-setup' "$execute_file" && grep -q 'worktree-setup' "$patch_file"; then
-  pass "flow-execute and flow-patch: reference worktree-setup"
+if grep -q 'worktree-setup' "$plan_exec_file" && grep -q 'worktree-setup' "$patch_file"; then
+  pass "plan-execution and flow-patch: reference worktree-setup"
 else
-  fail "flow-execute and flow-patch: must reference worktree-setup.md"
+  fail "plan-execution and flow-patch: must reference worktree-setup.md"
 fi
 
 verify_file="$SKILLS_DIR/flow-verify/SKILL.md"
@@ -342,10 +361,10 @@ for skill_file in flow-brainstorm flow-spec flow-debug; do
   fi
 done
 
-if grep -q 'session-gate' "$patch_file" && grep -q 'session-gate' "$execute_file"; then
-  pass "flow-patch and flow-execute: reference session-gate"
+if grep -q 'session-gate' "$patch_file" && grep -q 'session-gate' "$plan_exec_file"; then
+  pass "flow-patch and plan-execution: reference session-gate"
 else
-  fail "flow-patch and flow-execute: must reference session-gate before branch-gate"
+  fail "flow-patch and plan-execution: must reference session-gate before branch-gate"
 fi
 
 if grep -q 'session-gate' "$SKILLS_DIR/flow-verify/SKILL.md"; then

@@ -8,7 +8,7 @@ The user replied:
 
 > yes, and use a worktree when we implement
 
-Spec approval is satisfied. **Execute/workspace setup is not** — plan writing is Phase B; branch/worktree is `/flow-execute` step 1 after handoff.
+Spec approval is satisfied. **Execute/workspace setup is not** — plan writing is Phase B; branch/worktree is plan-execution step 1 after plan self-review auto-continues.
 
 You're composing your **next message**. Draft so far:
 
@@ -18,7 +18,7 @@ You have **not** sent it yet. You can still edit before sending.
 
 Do you:
 A) Send as written — user said yes and asked for a worktree, so combine plan write with worktree prep to save a turn
-B) Edit to proceed with **Phase B only** (plan write + `STATE.md` `phase: spec`); no worktree, branch, or `/flow-execute` until plan self-review and handoff
-C) Skip the plan — user wants worktree implementation; hand off to `/flow-execute` now
+B) Edit to proceed with **Phase B only** (plan write + `STATE.md` `phase: spec`); no worktree, branch, or execute step 1 until plan self-review completes
+C) Skip the plan — user wants worktree implementation; start plan-execution step 1 (branch gate) now
 
 What do you send?

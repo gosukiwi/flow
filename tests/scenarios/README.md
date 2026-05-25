@@ -31,6 +31,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-spec-design-gate-menu.md` | `/flow-spec` | Agent sends numbered design gate only — no freeform approve or spec writing in same message |
 | `flow-spec-structure-contradiction.md` | `/flow-spec` | Agent blocks user gate on path/tree contradictions; fixes spec first |
 | `flow-spec-yes-bundle-execute-prep.md` | `/flow-spec` | Spec "yes" does not skip to worktree/execute — Phase B plan only |
+| `flow-spec-handoff-auto-execute.md` | `/flow-spec` | After plan self-review, auto-continue to execute branch gate — no manual `/flow-execute` handoff |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
 | `flow-brainstorm-small-scope-patch.md` | `/flow-brainstorm` | Agent hands off to `/flow-patch` for small bounded scope |
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |

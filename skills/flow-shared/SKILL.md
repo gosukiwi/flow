@@ -17,6 +17,7 @@ metadata:
 - `flow-shared/prompts/implementer.md`
 - `flow-shared/prompts/spec-reviewer.md`
 - `flow-shared/prompts/correctness-reviewer.md`
+- `flow-shared/references/plan-execution.md`
 - `flow-shared/references/tdd-red-green.md`
 - `flow-shared/references/verification-gate.md`
 - `flow-shared/references/branch-gate.md`
