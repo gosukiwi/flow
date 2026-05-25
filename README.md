@@ -6,7 +6,7 @@
 
 Flow is a spec-driven software development workflow for teams and solo developers working with AI coding agents. It is not an app or a CLI — it is a set of Cursor skills (`/flow-*` commands) that guide an agent through brainstorming, specs, TDD, review, verification, and merge.
 
-**Assumes:** you are a software developer; your project uses **git** (feature branches, commits, merge/push); you work in **Cursor** (or a compatible agent environment with skills support); the agent can run your project's tests and edit the repo. **You** invoke each step — Flow suggests, you decide.
+**You** invoke each step — Flow suggests, you decide.
 
 ## Quick start
 
