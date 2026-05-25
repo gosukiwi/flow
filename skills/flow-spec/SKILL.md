@@ -260,6 +260,7 @@ git commit -m "..."
 **Plan failures (never write these):**
 
 - TBD, TODO, "implement later", "fill in details"
+- **Final task named "Final verification", "Run full test suite", or verification-only** — verify auto-runs after all **implementation** tasks via `plan-execution.md` §4; do not duplicate in the plan
 - "Add tests", "add appropriate error handling", "add validation", "handle edge cases"
 - "Write tests for the above" without actual test code
 - "Similar to Task N" without repeating code
@@ -283,6 +284,7 @@ Repeat until all pass. Record `Status: Ready | Blocked` with blocking vs advisor
 | Undefined references | Any type, function, or method used but not defined in an earlier task? |
 | TDD | Behavior changes have RED-GREEN steps? Presentation-only tasks skip new tests per `tdd-red-green.md` — not placeholder existence tests? |
 | Granularity | Steps are 2–5 minute actions? |
+| Verify in plan | No task whose sole purpose is final/full verification — that is auto-run after tasks in execute (`plan-execution.md` §4)? |
 
 **Structure refactor plans:** Before handoff, produce a short mapping table in the plan or review notes:
 

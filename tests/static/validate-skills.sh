@@ -151,6 +151,18 @@ else
   fail "plan-execution: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
 fi
 
+if grep -qi 'Final verification\|Plan task.*Flow verify' "$plan_exec_file" && grep -qi 'numbered user menu\|numbered verify menu\|options 1–4\|options 1-4' "$plan_exec_file"; then
+  pass "plan-execution: plan verification task does not replace verify menu"
+else
+  fail "plan-execution: must state plan verification task does not replace numbered verify menu"
+fi
+
+if grep -qi 'uncommitted' "$plan_exec_file" && grep -qi 'git status' "$plan_exec_file"; then
+  pass "plan-execution: blocks complete with uncommitted changes"
+else
+  fail "plan-execution: must check git status and block complete with uncommitted changes"
+fi
+
 if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
   pass "flow-patch: auto-runs verify after all tasks"
 else
@@ -211,6 +223,12 @@ if grep -q 'Terminal state is handoff to `/flow-execute`' "$spec_file" \
   fail "flow-spec: must not hand off with Run /flow-execute"
 else
   pass "flow-spec: no manual /flow-execute handoff"
+fi
+
+if grep -qi 'Final verification\|verification-only' "$spec_file" && grep -qi 'Verify in plan\|verify auto-runs' "$spec_file"; then
+  pass "flow-spec: plan must not end with verification-only task"
+else
+  fail "flow-spec: must forbid final verification task in plan (verify auto-runs in execute)"
 fi
 
 if grep -q 'Structure trees' "$spec_file" && grep -A5 'Spec gate' "$spec_file" | grep -q 'Structure trees'; then

@@ -56,6 +56,8 @@ What would you like to do?
 
 Use option 3 label **`clean-code-reviewer`** when that skill is available; otherwise **`branch correctness review`**.
 
+**Forbidden:** Replacing the numbered user menu with an implementation summary, "say if you want commits/PR", or treating a plan's last "verification" task as verify finish — see `plan-execution.md` §4.
+
 **Option actions:**
 
 | Option | Agent action |
