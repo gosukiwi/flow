@@ -8,7 +8,7 @@ Reference for users who want more than the [README](../README.md). Agents read t
 |-----------|------|
 | Small fix (≤3 files, one concern) | `/flow-patch` → verify → `/flow-finish` (merge/push) |
 | Bug or failing test | `/flow-debug` → `/flow-patch` → verify → `/flow-finish` |
-| New feature (multi-step) | `/flow-brainstorm` (optional) → `/flow-spec` → `/flow-execute` → verify → `/flow-finish` |
+| New feature (multi-step) | `/flow-brainstorm` (optional) → `/flow-spec` (auto-continues to execute) → verify → `/flow-finish` |
 | Plan already written | `/flow-execute` → verify → `/flow-finish` |
 | Tests done, ready to merge/push | `/flow-finish` (or verify menu options 1–4) |
 | Not sure where to start | `/flow` — suggests one command; you invoke it |

@@ -1,6 +1,6 @@
 # Greeting Endpoint Implementation Plan
 
-> **Execution:** Use /flow-execute with subagents. TDD required.
+> **Execution:** Subagents per `flow-shared/references/plan-execution.md`. TDD required.
 
 **Goal:** Add GET `/hello` returning `{ "message": "hello" }`
 **Spec:** docs/flow/specs/2026-05-23-greeting.md
