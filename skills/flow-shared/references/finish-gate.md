@@ -185,7 +185,7 @@ Send **only** this message — do not combine with integration report, branch de
 Feature integrated. Delete flow artifacts for this topic?
 
 1. Keep spec/plan/brainstorm (default)
-2. Delete flow artifacts from STATE — I'll remove files and commit on <base>
+2. Delete flow artifacts from STATE — I'll open a chore branch, commit removals, and push for a PR into <base>
 
 Stop until the user picks 1 or 2.
 ```
@@ -196,26 +196,40 @@ Replace `<base>` with the integration base branch (e.g. `main`).
 
 **Option 1 — Keep (default):** Done. Artifacts remain in the repo.
 
-**Option 2 — Delete and commit (agent performs commit):**
+**Option 2 — Delete on chore branch (agent commits and pushes):**
 
-1. On `<base>` checkout, for each recorded path that exists:
+1. On `<base>` checkout (up to date after integration). Derive `<topic>` from spec/plan filename or merged branch name.
+2. **Create cleanup branch** — do not commit deletions on `<base>`:
+
+   ```bash
+   git checkout -b chore/remove-flow-artifacts-<topic>
+   ```
+
+3. For each recorded path that exists:
    - Tracked: `git rm <path>`
-   - Untracked only: remove file; no commit needed if nothing staged
-2. If no staged deletions → report "nothing to remove" and stop
-3. **Commit on `<base>`** — do not ask the user to commit:
+   - Untracked only: remove file; if nothing ends up staged → report "nothing to remove" and stop (delete branch if empty)
+4. If no staged deletions → report and stop
+5. **Commit on the chore branch** — do not ask the user to commit:
 
    ```bash
    git commit -m "Remove flow artifacts for <topic>"
    ```
 
-   Use a short topic from the spec/plan filename or merged branch name.
+6. **Push for PR** — do not merge into `<base>` locally:
 
-4. **Report** — list removed paths and commit SHA
+   ```bash
+   git push -u origin HEAD
+   ```
+
+7. **Report** — branch name, removed paths, commit SHA; user opens PR into `<base>` when ready (same handoff as verify **push branch**)
 
 **Forbidden:**
 
 - Delete artifact files without user picking **2**
 - Tell the user to delete files or "commit when you're ready"
+- **Commit artifact removal on `<base>`** — use `chore/remove-flow-artifacts-<topic>` only
+- **`git merge` cleanup branch into `<base>`** without explicit user request
+- Skip `git push` after option **2** when removals were committed
 - Bundle this gate with branch-delete confirmation or sync/merge report in the same message
 - Auto-pick option 2 because integration is complete
 
@@ -240,7 +254,8 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 - **Sync after remote merge:** stop at pull only; skip branch delete or STATE removal
 - **Sync after remote merge:** set `phase: done` but keep stale `branch` / `worktree` fields — delete `STATE.md` instead
 - **Artifact cleanup:** delete flow docs or commit removal without user picking option **2**
-- **Artifact cleanup:** defer artifact-removal commit to the user — agent commits on option **2**
+- **Artifact cleanup:** defer artifact-removal commit to the user — agent commits and pushes on option **2**
+- **Artifact cleanup:** commit removals on `<base>` instead of `chore/remove-flow-artifacts-<topic>`
 
 ## Skills that use this reference
 

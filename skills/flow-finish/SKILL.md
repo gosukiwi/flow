@@ -39,7 +39,7 @@ This skill is intentionally thin — `finish-gate.md` holds the checklists; this
 1. Read `finish-gate.md` — prerequisites and STATE fields
 2. Determine intent from user message or verify menu choice (merge / push / remote sync / done for now)
 3. Execute the matching finish-gate section **in order** — record artifact paths before STATE is cleared; remote sync **deletes** `STATE.md`
-4. After **merge locally** or **sync after remote merge**, run the **artifact cleanup gate** when files exist — option **2** removes files and **you commit** on base
+4. After **merge locally** or **sync after remote merge**, run the **artifact cleanup gate** when files exist — option **2** uses `chore/remove-flow-artifacts-<topic>`, **you commit and push** for a PR into base (not a commit on base)
 5. Report what was done: git actions, worktree removed (if any), STATE updated or removed, branch cleanup, artifact gate outcome
 
 ## Red flags — never
@@ -51,7 +51,8 @@ This skill is intentionally thin — `finish-gate.md` holds the checklists; this
 - **Pull only** after remote PR merge — sync after remote merge requires branch delete and STATE removal
 - **Local merge** when user says PR already merged on GitHub — use sync after remote merge
 - **Delete flow artifacts** without artifact cleanup gate option **2**
-- **Tell user to commit** artifact removal — option **2** is agent `git rm` + `git commit` on base
+- **Tell user to commit** artifact removal — option **2** is agent `git rm` + `git commit` + `git push` on `chore/remove-flow-artifacts-<topic>`
+- **Commit artifact removal on `main`/base** — option **2** uses a chore branch only
 
 ## Integration
 

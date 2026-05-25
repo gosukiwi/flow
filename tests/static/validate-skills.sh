@@ -307,10 +307,16 @@ else
   fail "finish-gate: must have artifact cleanup gate with numbered menu"
 fi
 
-if grep -qi 'git commit' "$finish_gate" && grep -qi 'do not ask the user to commit' "$finish_gate"; then
-  pass "finish-gate: agent commits artifact removal on option 2"
+if grep -q 'chore/remove-flow-artifacts' "$finish_gate" && grep -qi 'git push' "$finish_gate"; then
+  pass "finish-gate: artifact removal on chore branch with push for PR"
 else
-  fail "finish-gate: must commit artifact removal on option 2 without asking user"
+  fail "finish-gate: must use chore/remove-flow-artifacts branch and push on option 2"
+fi
+
+if grep -qi 'Commit artifact removal on.*base' "$finish_gate" || grep -qi 'do not commit deletions on' "$finish_gate"; then
+  pass "finish-gate: forbids committing artifact removal on base"
+else
+  fail "finish-gate: must forbid commit artifact removal on base branch"
 fi
 
 if grep -qi 'Canonical STATE location' "$finish_gate" && grep -qi 'Canonical STATE location' "$worktree_setup"; then
