@@ -150,6 +150,43 @@ else
   fail "flow-patch: must require verify user menu (not custom next steps)"
 fi
 
+if grep -qi 'micro-spec approval does.*not.*satisfy' "$patch_file"; then
+  pass "flow-patch: micro-spec approval does not satisfy branch gate"
+else
+  fail "flow-patch: must state micro-spec approval does not satisfy branch/workspace confirmation"
+fi
+
+if grep -q 'Approve micro-spec' "$patch_file" && grep -q 'Request changes' "$patch_file"; then
+  pass "flow-patch: micro-spec gate numbered menu"
+else
+  fail "flow-patch: must present numbered micro-spec gate menu"
+fi
+
+spec_file="$SKILLS_DIR/flow-spec/SKILL.md"
+if grep -qi 'spec approval does.*not.*satisfy\|"Yes".*spec approval only' "$spec_file"; then
+  pass "flow-spec: spec approval does not satisfy execute/workspace"
+else
+  fail "flow-spec: must state spec approval does not satisfy execute or workspace confirmation"
+fi
+
+if grep -q 'Approve spec' "$spec_file" && grep -q 'Request changes' "$spec_file"; then
+  pass "flow-spec: spec gate numbered menu"
+else
+  fail "flow-spec: must present numbered spec gate menu"
+fi
+
+if grep -q 'Structure trees' "$spec_file" && grep -A5 'Spec gate' "$spec_file" | grep -q 'Structure trees'; then
+  fail "flow-spec: must not expose structure trees in user gate template"
+else
+  pass "flow-spec: user gate hides internal structure tree audit"
+fi
+
+if grep -A8 'Micro-spec gate' "$patch_file" | grep -q 'Self-review:'; then
+  fail "flow-patch: must not expose self-review counts in user gate template"
+else
+  pass "flow-patch: user gate hides internal self-review audit"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then

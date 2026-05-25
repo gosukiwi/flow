@@ -25,6 +25,8 @@ For **single bounded changes** — too small for a full spec doc. Implement **in
 
 **Read and follow** `flow-shared/references/session-gate.md` then `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`). Session gate before any STATE write; branch and workspace confirmation before implementation.
 
+Branch and workspace confirmation is a **blocking user gate** — same weight as micro-spec approval. Micro-spec approval does **not** satisfy branch or workspace confirmation.
+
 ## Process
 
 ### 1. Micro-spec (required)
@@ -62,25 +64,33 @@ Single-task patches are fine. Multi-step work gets one review cycle per task, no
 - **Success criteria audit:** Each success criterion must cite **Problem**, **Files**, or a task step that satisfies it. Missing backing → fix or remove the criterion
 - **Out of scope:** Task steps must not touch anything listed under **Out of scope**
 
-### 2. User gate
+### 2. Micro-spec gate (required)
 
-> Micro-spec above.
->
-> Self-review: [N/N success criteria mapped]
->
-> Approve to proceed?
+Run micro-spec self-review internally (§1). **Do not proceed to §2 while blocked.** Then present the micro-spec and send **only** this gate — do not combine with workspace setup or Task 1:
 
-Surface audit results only — do not ask the user to find internal contradictions.
+```
+Micro-spec ready.
 
-**Stop until approved.** If they request changes, update micro-spec and re-run self-review.
+1. Approve micro-spec — proceed to workspace setup
+2. Request changes — tell me what to revise
+3. Stop — no implementation
+```
+
+Do **not** expose internal self-review checklist names (criteria mapping counts, structure trees, Status/Blocked) in the gate message — the user reviews the micro-spec content, not the agent's audit worksheet. Do not ask the user to find contradictions you should have caught in self-review.
+
+**Stop until the user picks 1, approves the micro-spec explicitly, or requests changes (2).** Option 3 ends the patch. If they request changes, update micro-spec and re-run self-review.
+
+**"Yes" / "approve" / "proceed" after this gate counts as micro-spec approval only** — not branch or workspace confirmation. If the user bundles other permissions in the same message (e.g. "yes, reset STATE.md"), handle each permission separately; micro-spec approval still does not skip §3.
 
 ### 3. Session and workspace gate (required)
 
 Follow `flow-shared/references/session-gate.md` then `flow-shared/references/branch-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-Session gate first: if STATE shows active unrelated work, stop before any STATE write. Then apply branch-gate detection matrix for workspace option.
+Session gate first: if STATE shows active unrelated work, stop before any STATE write. Then apply branch-gate detection matrix and send **only** the matching gate message — use the numbered menus from `branch-gate.md` (branch here vs worktree on `main`, etc.).
 
-Do **not** in the same turn: create/switch branches, create worktrees, or start implementation (Task 1, code edits, TDD steps).
+Do **not** in the same turn: create/switch branches, create worktrees, update STATE, or start implementation (Task 1, code edits, TDD steps).
+
+**Forbidden rationalizations:** "User said yes", "micro-spec approved", "feature branch off main is obvious", "STATE reset permission covers workspace" — none of these satisfy this gate.
 
 After confirmation:
 
@@ -149,6 +159,7 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 
 ## Red flags — never
 
+- **Treat micro-spec "yes" as branch/workspace confirmation** — §2 and §3 are separate gates; send workspace menu only after micro-spec approval
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Create a worktree for unrelated work without offering workspace choice**
 - Skip micro-spec approval or branch/workspace confirmation
