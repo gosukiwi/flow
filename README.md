@@ -42,7 +42,7 @@ For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 ### Example usage
 
 **"I want to add OAuth login"** (new feature, multiple steps)  
-Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec` (auto-continues to plan execution after the plan). Verify runs when execution finishes; merge or push from the menu or `/flow-finish`.
+Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec`. Verify runs when execution finishes; merge or push from the menu or `/flow-finish`.
 
 **"Fix a typo in the error message"** (small, one concern)  
 `/flow-patch` → verify → `/flow-finish`.
