@@ -24,7 +24,7 @@ You have **not** sent it yet. You can still edit before sending.
 
 Do you:
 A) Send as written — user can commit artifact removal themselves
-B) Send **only** the artifact cleanup gate (keep vs delete); stop until user picks; on option 2 you delete files and **commit** on `main`
+B) Send **only** the artifact cleanup gate (keep vs delete); stop until user picks; on option 2 you use a **chore** branch, commit, and push for a PR
 C) Delete the three files and commit now without asking — integration is done
 
 What do you send?
