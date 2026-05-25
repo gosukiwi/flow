@@ -12,6 +12,7 @@ Reference for users who want more than the [README](../README.md). Agents read t
 | Plan already written | `/flow-execute` → verify → `/flow-finish` |
 | Tests done, ready to merge/push | `/flow-finish` (or verify menu options 1–4) |
 | Not sure where to start | `/flow` — suggests one command; you invoke it |
+| PR merged on GitHub, local branch/STATE left over | `/flow-finish` → sync after remote merge |
 
 ## Execute vs patch
 
@@ -32,7 +33,7 @@ Do not run plan execution inline — that is what `/flow-patch` is for on small 
 - **`/flow-patch`** — micro-spec approval, then inline TDD with the same review loop per task.
 - **`/flow-debug`** — root cause before fixes; routes to patch or spec.
 - **`/flow-verify`** — full test run + requirements checklist; user menu (merge / push / review / done).
-- **`/flow-finish`** — merge locally, push, or close out with STATE and worktree cleanup; use when the user says "merge to main" outside the verify menu.
+- **`/flow-finish`** — merge locally, push, sync after remote PR merge, or close out with STATE and worktree cleanup; use when the user says "merge to main" outside the verify menu.
 
 Per-task reviews run during execute and patch. `/flow-verify` is not a full diff review — optional **option 3** is a whole-branch review before merge or push (see [clean-code-skills](https://github.com/gosukiwi/clean-code-skills) in the README). Finish actions (merge, push, `phase: done`, worktree remove) live in `/flow-finish` and `finish-gate.md`.
 

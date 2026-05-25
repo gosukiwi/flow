@@ -108,7 +108,54 @@ See `worktree-setup.md` **Canonical STATE location** for the full lifecycle tabl
 
 3. **Update STATE** — `phase: done` in the **worktree** when `workspace: worktree` (canonical location until merge); current checkout when `workspace: in-place`
 4. **Keep worktree** — do not remove on push-only
-5. **Report** — remote tracking set; user opens PR when ready
+5. **Report** — remote tracking set; user opens PR when ready. **After the PR merges on GitHub:** run `/flow-finish` → **sync after remote merge** (below) — pull base, delete local branch, remove worktree if any, clear `STATE.md`.
+
+## Option: Sync after remote merge
+
+Use when the PR merged on GitHub (or remote) and integration did **not** happen via **merge locally** in this repo. Typical after verify menu **push branch** or when the user returns and says "PR merged, sync local, clean up."
+
+**Do not use** when the user wants a local merge — use **merge locally** instead.
+
+### Prerequisites
+
+- User confirms the PR/feature is merged on the remote (or you verified the feature branch is an ancestor of the base branch after `git fetch` / `git pull`)
+- Read `docs/flow/STATE.md` for `branch`, `workspace`, `worktree`
+- If verify never ran and integration is uncertain → confirm with user before deleting branch/STATE
+
+### Steps (main workspace)
+
+1. **Confirm base branch** with user (default `main`)
+2. **Checkout base and pull:**
+
+   ```bash
+   git checkout <base>
+   git pull
+   ```
+
+3. **Verify feature branch is integrated** — `git merge-base --is-ancestor <feature-branch> <base>` must succeed after pull. If not → stop; PR may not be merged locally yet.
+4. **Remove worktree** if `STATE` had `workspace: worktree` and `worktree:` path — from **main workspace**, after confirming no uncommitted work in that worktree:
+
+   ```bash
+   git worktree remove <worktree-path>
+   ```
+
+5. **Delete local feature branch:**
+
+   ```bash
+   git branch -d <feature-branch>
+   ```
+
+   Use `-D` only if user confirms force-delete. Do not delete unrelated branches.
+
+6. **Clear STATE** — **delete** `docs/flow/STATE.md` in the **main workspace** (do not leave `phase: done` with stale `branch` / `worktree` / artifact paths). Specs and plans under `docs/flow/` stay tracked in git.
+
+7. **Report** — base updated, branch deleted, worktree removed (if any), `STATE.md` removed
+
+**Forbidden in this path:**
+
+- `git merge <feature-branch>` on base when remote already merged
+- Reporting success after `git pull` only — branch delete and STATE clear are required
+- Leaving `docs/flow/STATE.md` with old `branch:` or `workspace: worktree` after sync
 
 ## Option: Done for now
 
@@ -128,6 +175,8 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 - Copy worktree STATE onto main after merge (dead `worktree:` path, `workspace: worktree`, or merged feature's `phase: verify`)
 - Overwrite unrelated active main STATE after worktree merge without session gate
 - Treat clean-code-reviewer **Suggest** items as blocking merge unless user asks to fix them first
+- **Sync after remote merge:** stop at pull only; skip branch delete or STATE removal
+- **Sync after remote merge:** set `phase: done` but keep stale `branch` / `worktree` fields — delete `STATE.md` instead
 
 ## Skills that use this reference
 

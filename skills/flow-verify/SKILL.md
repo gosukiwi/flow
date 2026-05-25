@@ -49,7 +49,7 @@ Verification complete:
 What would you like to do?
 
 1. Merge locally — merge this branch into your base branch
-2. Push the branch — I'll push; you open the PR when ready
+2. Push the branch — I'll push; you open the PR when ready (after merge on GitHub, run `/flow-finish` to sync local)
 3. Review the diff — [clean-code-reviewer | branch correctness review]
 4. Done for now — I'll stop here; you take it from there
 ```
@@ -61,7 +61,7 @@ Use option 3 label **`clean-code-reviewer`** when that skill is available; other
 | Option | Agent action |
 |--------|--------------|
 | 1 Merge locally | Read `flow-finish/SKILL.md` or `flow-shared/references/finish-gate.md` (merge locally section) — confirm base, merge, worktree remove if applicable, `phase: done`, offer branch delete |
-| 2 Push branch | Read finish-gate (push branch section) — push, `phase: done`, keep worktree |
+| 2 Push branch | Read finish-gate (push branch section) — push, `phase: done`, keep worktree; tell user to run `/flow-finish` → sync after remote merge after PR merges on GitHub |
 | 3 Review diff | See **Option 3 — branch review** below |
 | 4 Done for now | Read finish-gate (done for now section) — `phase: done`, no git actions |
 

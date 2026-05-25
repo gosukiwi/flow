@@ -37,7 +37,7 @@ For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 | `/flow-spec` | Clear feature or multi-step change — user-approved spec + AI self-reviewed plan |
 | `/flow-execute` | Plan already approved — **subagents** run tasks with two-stage review per task |
 | `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check |
-| `/flow-finish` | Merge locally, push, or close out — updates STATE, worktree cleanup, branch delete offer; use when user says "merge to main" outside the menu |
+| `/flow-finish` | Merge locally, push, sync after GitHub PR merge, or close out — STATE, worktree, branch cleanup |
 
 ### Example usage
 
@@ -58,6 +58,9 @@ Skip straight to `/flow-execute` → verify → `/flow-finish`.
 
 **"Not sure where to start"**  
 `/flow` — it suggests one next command; you invoke it.
+
+**"PR merged on GitHub — sync local"**  
+`/flow-finish` — pull main, delete local branch, remove worktree, clear `STATE.md`.
 
 More detail: [`docs/workflow.md`](docs/workflow.md)
 

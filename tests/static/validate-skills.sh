@@ -289,6 +289,18 @@ else
   fail "finish-gate: must document git worktree remove on merge locally"
 fi
 
+if grep -qi 'Sync after remote merge' "$finish_gate" && grep -q 'git branch -d' "$finish_gate"; then
+  pass "finish-gate: sync after remote merge deletes branch"
+else
+  fail "finish-gate: must document sync after remote merge with branch delete"
+fi
+
+if grep -qi 'delete.*docs/flow/STATE.md\|delete.*STATE.md' "$finish_gate"; then
+  pass "finish-gate: remote sync clears STATE.md"
+else
+  fail "finish-gate: must delete or clear STATE.md on remote merge sync"
+fi
+
 if grep -qi 'Canonical STATE location' "$finish_gate" && grep -qi 'Canonical STATE location' "$worktree_setup"; then
   pass "finish-gate and worktree-setup: document canonical STATE location"
 else
