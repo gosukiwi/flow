@@ -36,9 +36,12 @@ Task tool (generalPurpose):
     Base: {BASE_SHA}
     Head: {HEAD_SHA}
 
-    Run:
+    Run from your current checkout (feature branch):
     git diff --stat {BASE_SHA}..{HEAD_SHA}
     git diff {BASE_SHA}..{HEAD_SHA}
+
+    **Do not checkout Base or Head SHAs** — SHAs are diff anchors only. Checking out
+    a SHA detaches HEAD and breaks the next task's commits on the branch.
 
     ## Review Scope
 

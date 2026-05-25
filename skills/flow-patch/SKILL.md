@@ -118,7 +118,7 @@ For each task:
    - Names clear; files focused
    - No task step touches anything under micro-spec **Out of scope**
 
-4. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md` (resolve via path resolver in `flow/SKILL.md`); paste full task text + micro-spec context + both SHAs. Loop: fix inline → refresh `HEAD_SHA` → re-review until ✅
+4. Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). **SHAs are diff anchors only** — for `git diff BASE..HEAD`; never `git checkout` a SHA (detached HEAD). Dispatch **spec compliance reviewer** — read `flow-shared/prompts/spec-reviewer.md` (resolve via path resolver in `flow/SKILL.md`); paste full task text + micro-spec context + both SHAs. Loop: fix inline → refresh `HEAD_SHA` → re-review until ✅
 
    **Forbidden:** Approving from your own implementer report without an independent diff review. Passing tests do not replace spec review.
 
@@ -165,6 +165,7 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - **Create a worktree for unrelated work without offering workspace choice**
 - Skip micro-spec approval or branch/workspace confirmation
 - **Skip spec or correctness review** — including when the user says the patch is tiny or done
+- **`git checkout <commit-sha>`** — detaches HEAD; commits miss the feature branch. Stay on the branch name; use SHAs only in `git diff`
 - **Trust self-review or passing tests instead of dispatching reviewers**
 - Dispatch implementer subagent (patch is inline only)
 - **Hand off verify instead of running it** after all tasks complete

@@ -29,12 +29,28 @@ Task tool (generalPurpose):
 
     If requirements, approach, dependencies, or acceptance criteria are unclear — ask now.
 
+    ## Git — stay on the branch (Hard gate)
+
+    Commit only while on the user-confirmed feature branch — `git branch --show-current`
+    must show that branch name (not empty).
+
+    - **Never** `git checkout <commit-sha>` — that detaches HEAD; new commits will not
+      move the branch forward.
+    - **Forbidden:** checking out `BASE_SHA`, `HEAD_SHA`, or any other SHA to "start
+      from" the task base or inspect the diff range.
+    - Use SHAs only in read-only commands: `git diff BASE..HEAD`, `git show <sha>`.
+
+    If detached (`git branch --show-current` is empty), run
+    `git checkout <feature-branch>` before committing.
+
     ## Your Job
 
     1. Implement exactly what the task specifies
     2. Follow TDD (RED-GREEN-REFACTOR)
     3. Run verification commands; capture output
-    4. Commit on the user-confirmed feature branch (never main/master; do not create or switch branches — orchestrator handles that)
+    4. Commit on the user-confirmed feature branch (never main/master; do not create
+       or switch branches — orchestrator handles that; never checkout by SHA — see
+       Git gate above)
     5. Self-review
     6. Report back
 

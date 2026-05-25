@@ -120,6 +120,19 @@ else
   fail "spec-reviewer: must require Do not trust report and git diff inspection"
 fi
 
+implementer="$SKILLS_DIR/flow-shared/prompts/implementer.md"
+if grep -qi 'detached HEAD\|detach' "$implementer" && grep -qi 'never.*checkout.*commit-sha\|checkout.*commit-sha' "$implementer"; then
+  pass "implementer: forbids checkout by SHA (detached HEAD)"
+else
+  fail "implementer: must forbid git checkout <commit-sha> (detached HEAD gate)"
+fi
+
+if grep -qi 'do not checkout.*sha\|SHAs are diff anchors' "$spec_reviewer" && grep -qi 'do not checkout.*sha\|SHAs are diff anchors' "$SKILLS_DIR/flow-shared/prompts/correctness-reviewer.md"; then
+  pass "reviewers: SHAs are diff anchors only, not checkout targets"
+else
+  fail "spec-reviewer and correctness-reviewer: must forbid checkout by SHA"
+fi
+
 if grep -q 'BASE_SHA' "$execute_file" && grep -qi 'spec compliance review' "$execute_file"; then
   pass "flow-execute: passes BASE_SHA to spec compliance review"
 else
