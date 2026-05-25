@@ -128,19 +128,25 @@ If Success Criteria, Design tree, and Testing Approach disagree on paths or layo
 
 Document the chosen rule in Design or Testing Approach so the plan cannot interpret it two ways.
 
-### 7. User gate (required)
+### 7. Spec gate (required)
 
-> Spec written to `docs/flow/specs/...`.
->
-> Self-review: [N/N success criteria mapped] | Structure trees: [aligned / N/A]
->
-> Please review and approve before I write the plan.
+Present the spec path and self-review, then send **only** this gate — do not combine with plan writing, STATE updates, or execute/workspace setup:
+
+```
+Spec ready at docs/flow/specs/.... Self-review: [N/N success criteria mapped] | Structure trees: [aligned / N/A]
+
+1. Approve spec — I'll write the plan (Phase B, no code)
+2. Request changes — tell me what to revise
+3. Stop — no plan or implementation
+```
 
 Surface audit results only — do not ask the user to find internal contradictions.
 
-**Stop until user approves.** If they request changes, update spec and re-run self-review.
+**Stop until the user picks 1, approves the spec explicitly, or requests changes (2).** Option 3 ends spec work. If they request changes, update spec and re-run self-review.
 
-Update `docs/flow/STATE.md` with spec path and `phase: spec`.
+**"Yes" / "approve" / "proceed" after this gate counts as spec approval only** — not plan approval (plan has no user gate), branch/workspace confirmation, or permission to run `/flow-execute`. If the user bundles other preferences in the same message (e.g. "yes, use a worktree when we implement"), note them for handoff but **do not** create branches, worktrees, or start execute during Phase B.
+
+After spec approval: update `docs/flow/STATE.md` with spec path and `phase: spec`, then proceed to Phase B.
 
 ---
 
@@ -279,3 +285,10 @@ When plan self-review passes:
 Update `docs/flow/STATE.md`: `phase: execute`, add plan path.
 
 **Do not implement.** Terminal state is handoff to `/flow-execute`.
+
+## Red flags — never
+
+- **Treat spec "yes" as execute or workspace confirmation** — Phase B is plan-only; branch/worktree is `/flow-execute` step 1 after handoff
+- **Bundle plan outline, STATE update, worktree, or `/flow-execute` with the spec gate message** — send spec gate only; wait for approval before Phase B
+- **Skip spec gate** because the user asked for implementation preferences in the same message
+- Write production code in this skill

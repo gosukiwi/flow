@@ -29,6 +29,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-patch-microspec-yes-skip-branch-gate.md` | `/flow-patch` | Micro-spec "yes" does not skip workspace gate — menu only, no git or TDD |
 | `flow-spec-skip-questions.md` | `/flow-spec` | Agent asks questions instead of jumping to code |
 | `flow-spec-structure-contradiction.md` | `/flow-spec` | Agent blocks user gate on path/tree contradictions; fixes spec first |
+| `flow-spec-yes-bundle-execute-prep.md` | `/flow-spec` | Spec "yes" does not skip to worktree/execute — Phase B plan only |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
 | `flow-brainstorm-small-scope-patch.md` | `/flow-brainstorm` | Agent hands off to `/flow-patch` for small bounded scope |
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |

@@ -162,6 +162,19 @@ else
   fail "flow-patch: must present numbered micro-spec gate menu"
 fi
 
+spec_file="$SKILLS_DIR/flow-spec/SKILL.md"
+if grep -qi 'spec approval does.*not.*satisfy\|"Yes".*spec approval only' "$spec_file"; then
+  pass "flow-spec: spec approval does not satisfy execute/workspace"
+else
+  fail "flow-spec: must state spec approval does not satisfy execute or workspace confirmation"
+fi
+
+if grep -q 'Approve spec' "$spec_file" && grep -q 'Request changes' "$spec_file"; then
+  pass "flow-spec: spec gate numbered menu"
+else
+  fail "flow-spec: must present numbered spec gate menu"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then
