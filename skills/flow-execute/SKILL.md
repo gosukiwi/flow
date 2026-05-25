@@ -90,7 +90,7 @@ Dispatch with implementer prompt. Handle status:
 
 #### Step 2 — Spec compliance review
 
-Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). Dispatch spec reviewer with both SHAs in the prompt. Loop: implementer fixes → refresh `HEAD_SHA` → re-review until ✅.
+Record `BASE_SHA` (commit before task) and `HEAD_SHA` (current). **SHAs are diff anchors only** — pass them to reviewers for `git diff BASE..HEAD`; never instruct subagents to `git checkout` a SHA. Dispatch spec reviewer with both SHAs in the prompt. Loop: implementer fixes → refresh `HEAD_SHA` → re-review until ✅.
 
 **Do not start step 3 or the next task until spec review is ✅.**
 
@@ -138,6 +138,7 @@ When all plan tasks are complete, **immediately continue into verify** — do no
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Create a worktree without user confirming option 2**
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)
+- **`git checkout <commit-sha>`** (implementer or reviewer) — detaches HEAD; commits miss the feature branch. Stay on the branch name; use SHAs only in `git diff`
 - Dispatch parallel subagents across tasks (different tasks or roles at once)
 - Make subagent read the plan file — provide full task text in prompts
 - Move to next task after implementer DONE but before both reviews ✅

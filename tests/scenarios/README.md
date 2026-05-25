@@ -38,6 +38,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-auto-verify.md` | `/flow-execute` | Agent auto-runs verify after all tasks; does not hand off when user asks to invoke verify themselves |
 | `flow-execute-skip-branch-gate.md` | `/flow-execute` | Agent sends branch ask only — no "Starting Task 1" in same message |
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
+| `flow-execute-checkout-base-sha.md` | `/flow-execute` | Implementer stays on branch; never `git checkout <BASE_SHA>` (detached HEAD) |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
 | `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
