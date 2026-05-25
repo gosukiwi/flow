@@ -23,9 +23,8 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 - **TDD by default** — each task starts with a failing test, then implementation, then green.
 - **Review built in** — each task is reviewed for spec fit and correctness before the next.
 - **Verify after work** — full test suite and code review before merge or push.
-- **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
 
-Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
+For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 
 ## Commands
 
@@ -40,7 +39,7 @@ Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/work
 | `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check |
 | `/flow-finish` | Merge locally, push, or close out — updates STATE, worktree cleanup, branch delete offer; use when user says "merge to main" outside the menu |
 
-### Example scenarios
+### Example usage
 
 **"I want to add OAuth login"** (new feature, multiple steps)  
 Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec` → `/flow-execute`. Verify runs when execution finishes; merge or push from the menu or `/flow-finish`.
