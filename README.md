@@ -22,7 +22,7 @@ Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 - **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
 - **TDD by default** — each task starts with a failing test, then implementation, then green.
 - **Review built in** — each task is reviewed for spec fit and correctness before the next.
-- **Verify before merge** — full tests and whole-branch code review when work finishes; merge or push when they pass.
+- **Verify after work** — full test suite and code review before merge or push.
 - **Artifacts** — specs, plans, and brainstorms are tracked in git; `STATE.md` is local resume state (gitignore it).
 
 Branch, worktree, and concurrent-session details: [`docs/workflow.md`](docs/workflow.md)
