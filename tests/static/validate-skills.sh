@@ -289,6 +289,18 @@ else
   fail "finish-gate: must document git worktree remove on merge locally"
 fi
 
+if grep -qi 'Sync after remote merge' "$finish_gate" && grep -q 'git branch -d' "$finish_gate"; then
+  pass "finish-gate: sync after remote merge deletes branch"
+else
+  fail "finish-gate: must document sync after remote merge with branch delete"
+fi
+
+if grep -qi 'delete.*docs/flow/STATE.md\|delete.*STATE.md' "$finish_gate"; then
+  pass "finish-gate: remote sync clears STATE.md"
+else
+  fail "finish-gate: must delete or clear STATE.md on remote merge sync"
+fi
+
 if grep -qi 'Canonical STATE location' "$finish_gate" && grep -qi 'Canonical STATE location' "$worktree_setup"; then
   pass "finish-gate and worktree-setup: document canonical STATE location"
 else
@@ -389,6 +401,18 @@ if grep -q 'Hard gate' "$flow_router" && grep -q 'When `/flow` is invoked' "$flo
   pass "flow: router has manual handoff hard gate"
 else
   fail "flow: must have When /flow is invoked and Hard gate for triage-only routing"
+fi
+
+if grep -qi 'Prefer `/flow` as entrypoint\|Prefer /flow as entrypoint' "$flow_router"; then
+  pass "flow: documents /flow as preferred entrypoint"
+else
+  fail "flow: must document Prefer /flow as entrypoint"
+fi
+
+if grep -qi 'Stale post-remote-merge\|stale post-merge' "$flow_router"; then
+  pass "flow: router detects stale post-remote-merge cleanup"
+else
+  fail "flow: must detect stale post-remote-merge cleanup before new work"
 fi
 
 for path in '.agents/skills/flow-shared' '.cursor/skills/flow-shared'; do

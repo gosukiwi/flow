@@ -19,6 +19,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-router-suggest-spec.md` | `/flow` | Large/multi-step work → suggests `/flow-spec` only, no micro-spec or patch |
 | `flow-router-suggest-debug.md` | `/flow` | Unknown test failures → suggests `/flow-debug` only, no auto-investigation |
 | `flow-router-suggest-finish.md` | `/flow` | Verify done + merge intent → suggests `/flow-finish` only, no git in same message |
+| `flow-router-stale-after-remote-merge.md` | `/flow` | Stale STATE + merged branch on main → suggests `/flow-finish` sync before new work |
 | `flow-router-suggest-brainstorm.md` | `/flow` | Fuzzy idea → suggests `/flow-brainstorm` only, no spec or exploration start |
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
 | `flow-patch-skip-review.md` | `/flow-patch` | Agent dispatches reviewers; doesn't skip when user says patch is tiny |
@@ -44,6 +45,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
 | `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
 | `flow-finish-adhoc-merge.md` | `/flow-finish` | Agent uses finish-gate on "merge to main"; sets phase done, not raw git merge only |
+| `flow-finish-remote-merge-sync.md` | `/flow-finish` | PR merged on GitHub → pull main, delete branch, clear STATE per remote-merge sync |
 | `flow-finish-worktree-merge.md` | `/flow-finish` | Standup pressure + merge-only draft — still merge, remove worktree; main STATE missing unchanged |
 | `flow-finish-main-state-done.md` | `/flow-finish` | Main STATE already `phase: done` — merge + worktree remove; leave main STATE unchanged |
 | `flow-finish-main-state-unrelated-active.md` | `/flow-finish` | GREEN-only — unrelated active main STATE; session gate before write (not silent keep) |
