@@ -65,11 +65,11 @@ See `worktree-setup.md` **Canonical STATE location** for the full lifecycle tabl
 
    Only after merge succeeded. Do not remove a worktree with unmerged or uncommitted work.
 
-   **Before step 4:** read worktree `docs/flow/STATE.md` for branch/artifact context only — do not copy it to main yet.
+   **Before step 4:** read worktree `docs/flow/STATE.md` for branch and artifact paths (`brainstorm`, `spec`, `plan`) — record paths for **Artifact cleanup gate**; do not copy STATE to main yet.
 
 5. **Update main workspace STATE** — after worktree remove (or immediately when `workspace: in-place`):
 
-   Read **main workspace** `docs/flow/STATE.md` (not the worktree copy — removed after step 4). Apply:
+   Read **main workspace** `docs/flow/STATE.md` (not the worktree copy — removed after step 4). **Record artifact paths** (`brainstorm`, `spec`, `plan`) for **Artifact cleanup gate** before applying the table. Apply:
 
    | Main STATE before finish | Action |
    |--------------------------|--------|
@@ -95,7 +95,9 @@ See `worktree-setup.md` **Canonical STATE location** for the full lifecycle tabl
 
    Do not delete without user confirmation unless they already asked to clean up.
 
-7. **Report** — base branch, merge commit/ref, worktree removed (if any), main STATE action taken (unchanged / updated / gated)
+7. **Artifact cleanup gate** — follow **Artifact cleanup gate (after integration)** below (paths recorded before STATE changes)
+
+8. **Report** — base branch, merge commit/ref, worktree removed (if any), main STATE action taken (unchanged / updated / gated), artifact gate outcome
 
 ## Option: Push branch
 
@@ -119,10 +121,12 @@ Use when the PR merged on GitHub (or remote) and integration did **not** happen 
 ### Prerequisites
 
 - User confirms the PR/feature is merged on the remote (or you verified the feature branch is an ancestor of the base branch after `git fetch` / `git pull`)
-- Read `docs/flow/STATE.md` for `branch`, `workspace`, `worktree`
+- Read `docs/flow/STATE.md` for `branch`, `workspace`, `worktree`, and artifact paths (`brainstorm`, `spec`, `plan`)
 - If verify never ran and integration is uncertain → confirm with user before deleting branch/STATE
 
 ### Steps (main workspace)
+
+**Record artifact paths** from STATE before step 6 (read worktree `STATE.md` before worktree remove if `workspace: worktree`). Keep the list for **Artifact cleanup gate (after integration)**.
 
 1. **Confirm base branch** with user (default `main`)
 2. **Checkout base and pull:**
@@ -147,15 +151,73 @@ Use when the PR merged on GitHub (or remote) and integration did **not** happen 
 
    Use `-D` only if user confirms force-delete. Do not delete unrelated branches.
 
-6. **Clear STATE** — **delete** `docs/flow/STATE.md` in the **main workspace** (do not leave `phase: done` with stale `branch` / `worktree` / artifact paths). Specs and plans under `docs/flow/` stay tracked in git.
+6. **Clear STATE** — **delete** `docs/flow/STATE.md` in the **main workspace** (do not leave `phase: done` with stale `branch` / `worktree` / artifact paths).
 
-7. **Report** — base updated, branch deleted, worktree removed (if any), `STATE.md` removed
+7. **Artifact cleanup gate** — follow **Artifact cleanup gate (after integration)** below (use paths recorded before step 6)
+
+8. **Report** — base updated, branch deleted, worktree removed (if any), `STATE.md` removed, artifact gate outcome
 
 **Forbidden in this path:**
 
 - `git merge <feature-branch>` on base when remote already merged
 - Reporting success after `git pull` only — branch delete and STATE clear are required
 - Leaving `docs/flow/STATE.md` with old `branch:` or `workspace: worktree` after sync
+
+## Artifact cleanup gate (after integration)
+
+Runs at the end of **merge locally** (step 7) and **sync after remote merge** (step 7) — not after **push branch** or **done for now**.
+
+### Record paths before STATE is cleared
+
+From `docs/flow/STATE.md` (or worktree copy before remove), collect every path that exists:
+
+- `brainstorm:` → `docs/flow/brainstorms/...`
+- `spec:` → `docs/flow/specs/...`
+- `plan:` → `docs/flow/plans/...`
+
+Deduplicate. If none exist on disk after integration → **skip** this gate.
+
+### Gate (required when any file exists)
+
+Send **only** this message — do not combine with integration report, branch delete offer, or file removal:
+
+```
+Feature integrated. Delete flow artifacts for this topic?
+
+1. Keep spec/plan/brainstorm (default)
+2. Delete flow artifacts from STATE — I'll remove files and commit on <base>
+
+Stop until the user picks 1 or 2.
+```
+
+Replace `<base>` with the integration base branch (e.g. `main`).
+
+### After user picks
+
+**Option 1 — Keep (default):** Done. Artifacts remain in the repo.
+
+**Option 2 — Delete and commit (agent performs commit):**
+
+1. On `<base>` checkout, for each recorded path that exists:
+   - Tracked: `git rm <path>`
+   - Untracked only: remove file; no commit needed if nothing staged
+2. If no staged deletions → report "nothing to remove" and stop
+3. **Commit on `<base>`** — do not ask the user to commit:
+
+   ```bash
+   git commit -m "Remove flow artifacts for <topic>"
+   ```
+
+   Use a short topic from the spec/plan filename or merged branch name.
+
+4. **Report** — list removed paths and commit SHA
+
+**Forbidden:**
+
+- Delete artifact files without user picking **2**
+- Tell the user to delete files or "commit when you're ready"
+- Bundle this gate with branch-delete confirmation or sync/merge report in the same message
+- Auto-pick option 2 because integration is complete
 
 ## Option: Done for now
 
@@ -177,6 +239,8 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 - Treat clean-code-reviewer **Suggest** items as blocking merge unless user asks to fix them first
 - **Sync after remote merge:** stop at pull only; skip branch delete or STATE removal
 - **Sync after remote merge:** set `phase: done` but keep stale `branch` / `worktree` fields — delete `STATE.md` instead
+- **Artifact cleanup:** delete flow docs or commit removal without user picking option **2**
+- **Artifact cleanup:** defer artifact-removal commit to the user — agent commits on option **2**
 
 ## Skills that use this reference
 

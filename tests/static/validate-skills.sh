@@ -301,6 +301,18 @@ else
   fail "finish-gate: must delete or clear STATE.md on remote merge sync"
 fi
 
+if grep -qi 'Artifact cleanup gate' "$finish_gate" && grep -q 'Keep spec/plan/brainstorm' "$finish_gate"; then
+  pass "finish-gate: artifact cleanup gate with keep default"
+else
+  fail "finish-gate: must have artifact cleanup gate with numbered menu"
+fi
+
+if grep -qi 'git commit' "$finish_gate" && grep -qi 'do not ask the user to commit' "$finish_gate"; then
+  pass "finish-gate: agent commits artifact removal on option 2"
+else
+  fail "finish-gate: must commit artifact removal on option 2 without asking user"
+fi
+
 if grep -qi 'Canonical STATE location' "$finish_gate" && grep -qi 'Canonical STATE location' "$worktree_setup"; then
   pass "finish-gate and worktree-setup: document canonical STATE location"
 else
