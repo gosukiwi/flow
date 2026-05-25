@@ -66,17 +66,17 @@ Single-task patches are fine. Multi-step work gets one review cycle per task, no
 
 ### 2. Micro-spec gate (required)
 
-Present the micro-spec and self-review, then send **only** this gate — do not combine with workspace setup or Task 1:
+Run micro-spec self-review internally (§1). **Do not proceed to §2 while blocked.** Then present the micro-spec and send **only** this gate — do not combine with workspace setup or Task 1:
 
 ```
-Micro-spec ready. Self-review: [N/N success criteria mapped]
+Micro-spec ready.
 
 1. Approve micro-spec — proceed to workspace setup
 2. Request changes — tell me what to revise
 3. Stop — no implementation
 ```
 
-Surface audit results only — do not ask the user to find internal contradictions.
+Do **not** expose internal self-review checklist names (criteria mapping counts, structure trees, Status/Blocked) in the gate message — the user reviews the micro-spec content, not the agent's audit worksheet. Do not ask the user to find contradictions you should have caught in self-review.
 
 **Stop until the user picks 1, approves the micro-spec explicitly, or requests changes (2).** Option 3 ends the patch. If they request changes, update micro-spec and re-run self-review.
 

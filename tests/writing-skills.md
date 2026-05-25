@@ -14,6 +14,7 @@ Rules for writing skills that agents actually follow under pressure:
 - **Mechanical rules → automate:** If grep can enforce it cheaply, add to `validate-skills.sh` after GREEN proved the rule matters — do not restate in prose alone.
 - **Supporting files:** Heavy reference or reusable tools only (`flow-shared/prompts/`, `references/`). Keep gates and process inline in the skill or shared refs.
 - **Cross-refs:** Reference other skills or shared refs by path/name; do not use `@` links that force-load files into context.
+- **User gates:** Show the artifact and numbered choices only — not internal self-review labels (criteria mapping counts, structure trees, Status/Blocked). Run those checks before the gate; block on failure.
 
 Pressure scenario design: combine realistic context with temptation to skip a gate (time pressure, sunk cost, bundling the next step). See the scenario recipe below.
 

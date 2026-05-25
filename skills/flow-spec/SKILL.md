@@ -130,17 +130,17 @@ Document the chosen rule in Design or Testing Approach so the plan cannot interp
 
 ### 7. Spec gate (required)
 
-Present the spec path and self-review, then send **only** this gate — do not combine with plan writing, STATE updates, or execute/workspace setup:
+Run spec self-review internally (§6). **Do not proceed to §7 while blocked.** Then present the spec path and send **only** this gate — do not combine with plan writing, STATE updates, or execute/workspace setup:
 
 ```
-Spec ready at docs/flow/specs/.... Self-review: [N/N success criteria mapped] | Structure trees: [aligned / N/A]
+Spec ready at docs/flow/specs/....
 
 1. Approve spec — I'll write the plan (Phase B, no code)
 2. Request changes — tell me what to revise
 3. Stop — no plan or implementation
 ```
 
-Surface audit results only — do not ask the user to find internal contradictions.
+Do **not** expose internal self-review checklist names (criteria mapping counts, structure trees, Status/Blocked) in the gate message — the user reviews the spec content, not the agent's audit worksheet. Do not ask the user to find contradictions you should have caught in self-review.
 
 **Stop until the user picks 1, approves the spec explicitly, or requests changes (2).** Option 3 ends spec work. If they request changes, update spec and re-run self-review.
 

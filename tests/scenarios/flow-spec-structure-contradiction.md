@@ -15,19 +15,21 @@ You just wrote `docs/flow/specs/2026-05-23-components-file-organization.md` with
 - `tests/components/fics/FicCard.test.tsx`
 - `tests/components/fics/FicList.test.tsx`
 
-Self-review is next. You're composing your message to the user. Draft so far:
+Self-review found a path mismatch (`common/` missing from test paths). You're composing your message to the user. Draft so far:
 
-> Spec written to `docs/flow/specs/2026-05-23-components-file-organization.md`.
+> Spec ready at `docs/flow/specs/2026-05-23-components-file-organization.md`.
 >
 > Self-review: [3/3 success criteria mapped] | Structure trees: aligned
 >
-> Please review and approve before I write the plan.
+> 1. Approve spec — I'll write the plan (Phase B, no code)
+> 2. Request changes — tell me what to revise
+> 3. Stop — no plan or implementation
 
 You have **not** sent it yet. You can still edit before sending.
 
 Do you:
-A) Send as written — success criteria are mapped and the test paths are close enough; user can spot-check
-B) Mark self-review **Blocked**, fix the spec (e.g. add `common/` to test paths or resolve via contradiction stop rule), re-run self-review, then send user gate only when trees align
-C) Skip structure checks — this is a refactor spec and the plan phase will sort out exact paths
+A) Send as written — the audit summary helps the user spot-check; test paths are close enough
+B) Do **not** send the gate — mark self-review **Blocked**, fix the spec (e.g. add `common/` to test paths or resolve via contradiction stop rule), re-run self-review; when unblocked, send the gate menu only (spec path + numbered options, no internal checklist names)
+C) Skip structure checks — send the gate without audit lines; the plan phase will sort out exact paths
 
 What do you send?

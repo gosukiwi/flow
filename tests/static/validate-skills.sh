@@ -175,6 +175,18 @@ else
   fail "flow-spec: must present numbered spec gate menu"
 fi
 
+if grep -q 'Structure trees' "$spec_file" && grep -A5 'Spec gate' "$spec_file" | grep -q 'Structure trees'; then
+  fail "flow-spec: must not expose structure trees in user gate template"
+else
+  pass "flow-spec: user gate hides internal structure tree audit"
+fi
+
+if grep -A8 'Micro-spec gate' "$patch_file" | grep -q 'Self-review:'; then
+  fail "flow-patch: must not expose self-review counts in user gate template"
+else
+  pass "flow-patch: user gate hides internal self-review audit"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then
