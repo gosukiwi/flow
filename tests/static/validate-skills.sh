@@ -150,6 +150,18 @@ else
   fail "flow-patch: must require verify user menu (not custom next steps)"
 fi
 
+if grep -qi 'micro-spec approval does.*not.*satisfy' "$patch_file"; then
+  pass "flow-patch: micro-spec approval does not satisfy branch gate"
+else
+  fail "flow-patch: must state micro-spec approval does not satisfy branch/workspace confirmation"
+fi
+
+if grep -q 'Approve micro-spec' "$patch_file" && grep -q 'Request changes' "$patch_file"; then
+  pass "flow-patch: micro-spec gate numbered menu"
+else
+  fail "flow-patch: must present numbered micro-spec gate menu"
+fi
+
 # flow-brainstorm: conditional handoff to patch or spec
 brainstorm_file="$SKILLS_DIR/flow-brainstorm/SKILL.md"
 if grep -q '/flow-patch' "$brainstorm_file" && grep -q '/flow-spec' "$brainstorm_file"; then
