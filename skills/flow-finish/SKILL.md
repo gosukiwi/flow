@@ -37,13 +37,18 @@ This skill is intentionally thin — `finish-gate.md` holds the checklists; this
 ## Process
 
 1. Read `finish-gate.md` — prerequisites and STATE fields
-2. Determine intent from user message or verify menu choice (merge / push / remote sync / done for now)
-3. Execute the matching finish-gate section **in order** — record artifact paths before STATE is cleared; remote sync **deletes** `STATE.md`
-4. After **merge locally** or **sync after remote merge**, run the **artifact cleanup gate** when files exist — option **2** uses `chore/remove-flow-artifacts-<topic>`, **you commit and push** for a PR into base (not a commit on base)
-5. Report what was done: git actions, worktree removed (if any), STATE updated or removed, branch cleanup, artifact gate outcome
+2. **Bare `/flow-finish`** (no merge/push/sync/done phrase) → send the numbered finish menu from finish-gate **Ambiguous `/flow-finish`**; **stop until** user picks 1–4
+3. Determine intent from user message or verify menu choice (merge / push / remote sync / done for now)
+4. **Before sync after remote merge:** `git fetch` + `git merge-base --is-ancestor` — git only; **forbidden:** `gh`, polling, sync when check fails (see finish-gate **Integration status — git only**)
+5. Execute the matching finish-gate section **in order** — record artifact paths before STATE is cleared; remote sync **deletes** `STATE.md`
+6. After **merge locally** or **sync after remote merge**, run the **artifact cleanup gate** when files exist — option **2** uses `chore/remove-flow-artifacts-<topic>`, **you commit and push** for a PR into base (not a commit on base)
+7. Report what was done: git actions, worktree removed (if any), STATE updated or removed, branch cleanup, artifact gate outcome
 
 ## Red flags — never
 
+- **`gh` or GitHub CLI/API for finish** — integration status is `git fetch` + `git merge-base --is-ancestor` only; user rules preferring `gh` do not override
+- **Poll or wait on PR approval** — stop with the not-integrated message when ancestry check fails
+- **Bare `/flow-finish` without menu** — do not guess sync or run `gh` when intent is unclear
 - **Raw merge without finish-gate** — `git merge` alone is not sufficient for active flow work
 - **Skip `phase: done`** after successful merge or push
 - **Remove worktree** before merge succeeds

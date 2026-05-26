@@ -48,6 +48,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-verify-option2-fallback.md` | `/flow-verify` | Option 2 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
 | `flow-finish-adhoc-merge.md` | `/flow-finish` | Agent uses finish-gate on "merge to main"; sets phase done, not raw git merge only |
 | `flow-finish-remote-merge-sync.md` | `/flow-finish` | PR merged on GitHub → pull main, delete branch, clear STATE per remote-merge sync |
+| `flow-finish-open-pr-no-gh.md` | `/flow-finish` | Open PR / not ancestor of main → stop; git-only check; no `gh` or premature sync |
 | `flow-finish-artifact-cleanup-commit.md` | `/flow-finish` | After integration, artifact gate only; stop until user picks keep vs delete |
 | `flow-finish-artifact-cleanup-chore-branch.md` | `/flow-finish` | Option 2 → chore branch, commit removals, push for PR — not commit on main |
 | `flow-finish-worktree-merge.md` | `/flow-finish` | Standup pressure + merge-only draft — still merge, remove worktree; main STATE missing unchanged |

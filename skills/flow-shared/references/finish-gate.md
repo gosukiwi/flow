@@ -36,6 +36,53 @@ From `docs/flow/STATE.md` (local/gitignored per `state-setup.md` — never commi
 
 Confirm `git branch --show-current` matches `STATE.branch` (or user is in the worktree path from STATE).
 
+## Integration status — git only
+
+PR merge status for finish paths is determined **only** with git after `git fetch`:
+
+```bash
+git merge-base --is-ancestor <feature-branch> <base>
+```
+
+Use `<base>` as the local base branch (default `main`; use `origin/main` when comparing to remote).
+
+**Hard gate — forbidden for finish:**
+
+- `gh`, GitHub CLI, or GitHub API calls to read PR state, approval, or merge status
+- Polling or waiting on PR approval in the agent session ("check again in a moment…")
+- Inferring merge status from open PR URLs or user rules that prefer `gh` for GitHub tasks
+
+User rules or habits that say "use `gh` for GitHub" do **not** override this gate. If git shows the feature branch is **not** an ancestor of base, **stop** — do not sync, poll, or run `gh`.
+
+## Ambiguous `/flow-finish` (bare command)
+
+When the user invokes `/flow-finish` **without** a clear intent phrase (no "merge locally", "push", "PR merged", "sync local", "done for now"), **stop** and send **only** this menu — do not guess sync, merge, or poll GitHub:
+
+```
+Flow finish — what should I do?
+
+1. Merge locally — merge <branch> into base (default main)
+2. Push branch — push without local merge
+3. Sync after remote merge — PR already merged on GitHub; pull base, delete local branch, clear STATE
+4. Done for now — pause; no git actions
+
+Stop until the user picks 1–4.
+```
+
+Replace `<branch>` with `STATE.branch`.
+
+**Before option 3:** run `git fetch` and `git merge-base --is-ancestor <feature-branch> <base>`. If it **fails**, do **not** run sync steps — send **only**:
+
+```
+Branch <branch> is not integrated into <base> yet (git ancestry check failed after fetch).
+
+Current status: branch pushed; STATE shows phase: done. Nothing to sync locally yet.
+
+When the PR merges on GitHub, run `/flow-finish` and pick **3**, or say "PR merged, sync local".
+```
+
+Do not combine this stop message with the numbered menu in the same turn.
+
 ## Canonical STATE location
 
 | `workspace` | Finish action | Update `STATE` in |
@@ -120,9 +167,11 @@ Use when the PR merged on GitHub (or remote) and integration did **not** happen 
 
 ### Prerequisites
 
-- User confirms the PR/feature is merged on the remote (or you verified the feature branch is an ancestor of the base branch after `git fetch` / `git pull`)
+- User confirms the PR/feature is merged on the remote **or** you verified the feature branch is an ancestor of the base branch after `git fetch` / `git pull` — **git only** (see **Integration status — git only** above)
 - Read `docs/flow/STATE.md` for `branch`, `workspace`, `worktree`, and artifact paths (`brainstorm`, `spec`, `plan`)
 - If verify never ran and integration is uncertain → confirm with user before deleting branch/STATE
+
+**Hard gate — before step 1:** `git fetch` then `git merge-base --is-ancestor <feature-branch> <base>`. If it **fails** → **stop**; send the not-integrated message from **Ambiguous `/flow-finish`** (or equivalent). Do **not** checkout base, pull, delete branch, clear STATE, or run `gh`.
 
 ### Steps (main workspace)
 
@@ -159,6 +208,9 @@ Use when the PR merged on GitHub (or remote) and integration did **not** happen 
 
 **Forbidden in this path:**
 
+- `gh`, GitHub CLI, or GitHub API for PR or merge status
+- Polling or waiting for PR approval in the agent session
+- Starting sync when `git merge-base --is-ancestor` fails after fetch
 - `git merge <feature-branch>` on base when remote already merged
 - Reporting success after `git pull` only — branch delete and STATE clear are required
 - Leaving `docs/flow/STATE.md` with old `branch:` or `workspace: worktree` after sync
@@ -253,6 +305,9 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 - Treat clean-code-reviewer **Suggest** items as blocking merge unless user asks to fix them first
 - **Sync after remote merge:** stop at pull only; skip branch delete or STATE removal
 - **Sync after remote merge:** set `phase: done` but keep stale `branch` / `worktree` fields — delete `STATE.md` instead
+- **Integration status:** use `gh`, GitHub CLI, or GitHub API for finish — git ancestry only
+- **Open PR / not integrated:** poll PR status or wait for approval instead of stopping with the not-integrated message
+- **Bare `/flow-finish`:** guess sync or merge without the numbered finish menu
 - **Artifact cleanup:** delete flow docs or commit removal without user picking option **2**
 - **Artifact cleanup:** defer artifact-removal commit to the user — agent commits and pushes on option **2**
 - **Artifact cleanup:** commit removals on `<base>` instead of `chore/remove-flow-artifacts-<topic>`
