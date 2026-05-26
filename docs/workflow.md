@@ -32,10 +32,10 @@ Do not run plan execution inline — that is what `/flow-patch` is for on small 
 - **`/flow-execute`** — subagents run plan tasks serially: implement → spec review → correctness review → next task.
 - **`/flow-patch`** — micro-spec approval, then inline TDD with the same review loop per task.
 - **`/flow-debug`** — root cause before fixes; routes to patch or spec.
-- **`/flow-verify`** — full test run + requirements checklist; user menu (merge / push / review / done).
+- **`/flow-verify`** — full test run + requirements checklist; user menu (push / review / merge / done).
 - **`/flow-finish`** — merge locally, push, sync after remote PR merge, or close out with STATE and worktree cleanup; use when the user says "merge to main" outside the verify menu.
 
-Per-task reviews run during execute and patch. `/flow-verify` is not a full diff review — optional **option 3** is a whole-branch review before merge or push (see [clean-code-skills](https://github.com/gosukiwi/clean-code-skills) in the README). Finish actions (merge, push, `phase: done`, worktree remove) live in `/flow-finish` and `finish-gate.md`.
+Per-task reviews run during execute and patch. `/flow-verify` is not a full diff review — optional **option 2** is a whole-branch review before merge or push (see [clean-code-skills](https://github.com/gosukiwi/clean-code-skills) in the README). Finish actions (merge, push, `phase: done`, worktree remove) live in `/flow-finish` and `finish-gate.md`.
 
 ## STATE.md
 

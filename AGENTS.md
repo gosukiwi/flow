@@ -217,7 +217,7 @@ When dogfooding Flow on real features, do that in a separate project with skills
 
 ## Optional integration
 
-**[clean-code-skills](https://github.com/gosukiwi/clean-code-skills)** enhances `/flow-verify` option 3. Without it, Flow uses the bundled `correctness-reviewer.md` (branch mode). Do not assume clean-code-skills is present when editing verify behavior.
+**[clean-code-skills](https://github.com/gosukiwi/clean-code-skills)** enhances `/flow-verify` option 2. Without it, Flow uses the bundled `correctness-reviewer.md` (branch mode). Do not assume clean-code-skills is present when editing verify behavior.
 
 ## Quick reference — skill commands
 

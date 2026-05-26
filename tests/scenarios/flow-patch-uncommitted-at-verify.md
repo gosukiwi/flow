@@ -21,9 +21,9 @@ The user is waiting. You're composing your **final message**. Draft so far:
 >
 > What would you like to do?
 >
-> 1. Merge locally
-> 2. Push the branch
-> 3. Review the diff
+> 1. Push the branch
+> 2. Review the diff
+> 3. Merge locally
 > 4. Done for now
 
 You have **not** sent it yet.

@@ -74,7 +74,7 @@ Installs to `.agents/skills/` (project). Add `-g` for global (`~/.cursor/skills/
 
 ### Optional: [clean-code-skills](https://github.com/gosukiwi/clean-code-skills)
 
-Enhances `/flow-verify` option 3 with full style + correctness review. Without it, Flow uses the bundled `correctness-reviewer` (branch mode).
+Enhances `/flow-verify` option 2 with full style + correctness review. Without it, Flow uses the bundled `correctness-reviewer` (branch mode).
 
 ```bash
 npx skills add gosukiwi/clean-code-skills -a cursor --skill '*' -y

@@ -151,7 +151,7 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 
 **Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim patch or verify complete. Commit per micro-spec task Step 5, then re-run verify steps 2–5.
 
-**Do not run verify option 3 (branch review) automatically** — only when the user chooses it from the menu.
+**Do not run verify option 2 (branch review) automatically** — only when the user chooses it from the menu.
 
 **Forbidden:** Stopping with a "Run `/flow-verify`" handoff when patch tasks succeeded.
 

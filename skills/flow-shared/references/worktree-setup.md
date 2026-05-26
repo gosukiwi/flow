@@ -167,4 +167,4 @@ Ready to implement <feature-name>
 
 ## Cleanup
 
-Worktree removal is handled by `/flow-finish` (merge locally) via `finish-gate.md`. See `flow-finish/SKILL.md` and `flow-verify/SKILL.md` option 1.
+Worktree removal is handled by `/flow-finish` (merge locally) via `finish-gate.md`. See `flow-finish/SKILL.md` and `flow-verify/SKILL.md` option 3.

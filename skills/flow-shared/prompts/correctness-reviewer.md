@@ -1,13 +1,13 @@
 # Correctness Reviewer Subagent Prompt
 
-Dispatch **after spec compliance review is ✅** (per-task), or for `/flow-verify` option 3 when `clean-code-reviewer` is not available (branch).
+Dispatch **after spec compliance review is ✅** (per-task), or for `/flow-verify` option 2 when `clean-code-reviewer` is not available (branch).
 
 ## Modes
 
 | Mode | When | `BASE_SHA` | Extra context |
 |------|------|------------|---------------|
 | **task** | Each task in `/flow-patch` or `/flow-execute` | Commit before task | Full task text |
-| **branch** | `/flow-verify` option 3 fallback | merge-base with main | Brief spec/plan/micro-spec summary |
+| **branch** | `/flow-verify` option 2 fallback | merge-base with main | Brief spec/plan/micro-spec summary |
 
 Set `{MODE}` to `task` or `branch` in the dispatch prompt below.
 
@@ -139,4 +139,4 @@ Task tool (generalPurpose):
 
 **Orchestrator after ❌ (task mode):** implementer or orchestrator fixes all Block and Fix items, then re-dispatch until ✅ Approved.
 
-**Orchestrator after ❌ (branch mode, verify option 3):** fix via `/flow-patch` or inline edits → re-run verify steps 2–3 if behavior changed → re-run option 3 until ✅ Approved. Re-present user menu when review passes.
+**Orchestrator after ❌ (branch mode, verify option 2):** fix via `/flow-patch` or inline edits → re-run verify steps 2–3 if behavior changed → re-run option 2 until ✅ Approved. Re-present user menu when review passes.

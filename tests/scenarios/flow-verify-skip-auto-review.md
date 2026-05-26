@@ -16,7 +16,7 @@ You have **not** sent it yet. You can still edit before sending.
 
 Do you:
 A) Send as written — branch correctness review before merge is safer even if the user didn't ask
-B) Present the verify user menu (merge / push / review / done); run option 3 **only** if the user chooses review — for merge, confirm option 1 and proceed without auto-review
+B) Present the verify user menu (push / review / merge / done); run option 2 **only** if the user chooses review — for merge, confirm option 3 and proceed without auto-review
 C) Merge immediately — per-task reviews were enough
 
 What do you send?

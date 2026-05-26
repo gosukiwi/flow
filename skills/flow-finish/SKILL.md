@@ -9,7 +9,7 @@ metadata:
 
 # Flow Finish
 
-**Triggered by:** `/flow-finish` — also when the user requests merge/push/done outside the verify menu, or when `/flow-verify` menu options 1, 2, or 4 are chosen.
+**Triggered by:** `/flow-finish` — also when the user requests merge/push/done outside the verify menu, or when `/flow-verify` menu options 1, 3, or 4 are chosen.
 
 Integrate completed work and run Flow cleanup. **Read and follow** `flow-shared/references/finish-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
@@ -23,9 +23,9 @@ This skill is intentionally thin — `finish-gate.md` holds the checklists; this
 | "Push the branch" | Push branch section |
 | "Done for now" / pause without git | Done for now section |
 | "PR merged on GitHub" / "sync local" / "clean up after PR" | Sync after remote merge section in finish-gate |
-| Chose verify menu option 1, 2, or 4 | Same sections — verify already passed |
+| Chose verify menu option 1 (push), 3 (merge), or 4 (done) | Same sections — verify already passed |
 
-**Do not use** for: running tests or requirements checklist (that's `/flow-verify`), or branch review (verify option 3 / clean-code-reviewer).
+**Do not use** for: running tests or requirements checklist (that's `/flow-verify`), or branch review (verify option 2 / clean-code-reviewer).
 
 ## Prerequisites
 
@@ -56,5 +56,5 @@ This skill is intentionally thin — `finish-gate.md` holds the checklists; this
 
 ## Integration
 
-- **`/flow-verify`** — options 1, 2, 4 read this skill or `finish-gate.md` for actions
+- **`/flow-verify`** — options 1, 3, 4 read this skill or `finish-gate.md` for actions
 - **`worktree-setup.md`** — worktree removal rules defer to finish-gate merge path

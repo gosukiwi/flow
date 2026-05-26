@@ -43,8 +43,8 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
 | `flow-execute-checkout-base-sha.md` | `/flow-execute` | Implementer stays on branch; never `git checkout <BASE_SHA>` (detached HEAD) |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
-| `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 3 when user wants merge |
-| `flow-verify-option3-fallback.md` | `/flow-verify` | Option 3 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
+| `flow-verify-skip-auto-review.md` | `/flow-verify` | Agent does not auto-run option 2 when user wants merge |
+| `flow-verify-option2-fallback.md` | `/flow-verify` | Option 2 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
 | `flow-finish-adhoc-merge.md` | `/flow-finish` | Agent uses finish-gate on "merge to main"; sets phase done, not raw git merge only |
 | `flow-finish-remote-merge-sync.md` | `/flow-finish` | PR merged on GitHub → pull main, delete branch, clear STATE per remote-merge sync |
 | `flow-finish-artifact-cleanup-commit.md` | `/flow-finish` | After integration, artifact gate only; stop until user picks keep vs delete |

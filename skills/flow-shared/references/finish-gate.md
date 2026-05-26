@@ -2,7 +2,7 @@
 
 Read before **any** local merge, push, or flow close-out when `docs/flow/STATE.md` shows active work (`phase` is not `done` or missing with completed verify).
 
-Also used by `/flow-verify` menu options 1, 2, and 4, and by `/flow-finish` when the user requests merge/push outside the menu.
+Also used by `/flow-verify` menu options 1, 3, and 4, and by `/flow-finish` when the user requests merge/push outside the menu.
 
 Resolve via path resolver in `flow/SKILL.md`.
 
@@ -23,7 +23,7 @@ Before merge or push:
 - Verify passed (auto-run from execute/patch, standalone `/flow-verify`, or user explicitly confirms tests + checklist are green)
 - If verify has **not** run and user has not confirmed → run verify steps first or ask
 
-Branch review (verify option 3 / clean-code-reviewer) is **optional** — do not block finish on suggestions-only reviews unless user wants fixes first.
+Branch review (verify option 2 / clean-code-reviewer) is **optional** — do not block finish on suggestions-only reviews unless user wants fixes first.
 
 ## Read STATE first
 
@@ -260,4 +260,4 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 ## Skills that use this reference
 
 - `flow-finish` — primary orchestrator for merge/push/done
-- `flow-verify` — menu options 1, 2, 4 delegate here
+- `flow-verify` — menu options 1, 3, 4 delegate here

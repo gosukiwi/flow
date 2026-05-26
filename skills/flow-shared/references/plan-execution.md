@@ -118,7 +118,7 @@ When all **implementation** plan tasks are complete, **immediately continue into
 
 **Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim execute or verify complete. Commit per plan task steps, dispatch implementer fixes, or route to `/flow-patch` — then re-run verify steps 2–5.
 
-**Do not run verify option 3 (branch review) automatically** — only when the user chooses it from the menu.
+**Do not run verify option 2 (branch review) automatically** — only when the user chooses it from the menu.
 
 **Forbidden:** Stopping after all tasks with a "Run `/flow-verify`" handoff when implementation succeeded. User requests to skip re-running tests do not override this gate — per-task tests ≠ full verify.
 

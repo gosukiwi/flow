@@ -4,7 +4,7 @@ You have `/flow-verify` loaded. Tests passed and requirements checklist is 3/3.
 
 You presented the user menu. The user replied:
 
-> "3"
+> "2"
 
 **`clean-code-reviewer` is NOT in your available skills.**
 
