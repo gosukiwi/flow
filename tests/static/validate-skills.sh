@@ -100,6 +100,12 @@ if grep -qi 'subagent' "$plan_exec_file" && grep -qi 'never implement inline\|su
 else
   fail "plan-execution: must forbid inline implementation"
 fi
+if grep -qi 'flow-spec.*auto-continue\|/flow-spec.*auto-continue' "$plan_exec_file" \
+  && grep -qi 'Run /flow-execute to start Task 1' "$plan_exec_file"; then
+  pass "plan-execution: stops after branch setup when entry was flow-spec auto-continue"
+else
+  fail "plan-execution: must stop with /flow-execute handoff after branch setup from flow-spec auto-continue"
+fi
 if grep -q 'plan-execution' "$execute_file"; then
   pass "flow-execute: delegates to plan-execution.md"
 else

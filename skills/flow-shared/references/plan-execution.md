@@ -31,7 +31,15 @@ After confirmation:
 - **Option 1 (in-place):** create or switch to the branch in the current workspace; record `workspace: in-place` in `docs/flow/STATE.md`
 - **Option 2 (worktree):** follow `flow-shared/references/worktree-setup.md`; all subsequent work happens in the worktree
 
-Then proceed to step 2.
+**Hard gate — stop after branch setup when entry was `/flow-spec` auto-continue:**
+
+If plan execution started from `/flow-spec` §6 auto-continue (plan just written; user has **not** invoked `/flow-execute` in this session), **stop after branch/worktree setup**. One short line: branch ready. Hand off: `Run /flow-execute to start Task 1.`
+
+**Forbidden in that message:** step 2, TodoWrite for tasks, Task 1, inline code, subagent dispatch, "Starting Task 1…"
+
+If the user **invoked `/flow-execute`** (direct invoke or resume), proceed to step 2 after branch setup — do not ask them to invoke `/flow-execute` again.
+
+If `STATE.md` already records a confirmed `branch` (and `workspace` when applicable) for this topic, skip the gate and begin at step 2.
 
 ### 2. Load plan
 
@@ -131,6 +139,7 @@ When all **implementation** plan tasks are complete, **immediately continue into
 - **Trust the implementer report for spec compliance** — spec reviewer must inspect the diff independently
 - **Skip spec review because tests pass** — spec and correctness are separate gates
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
+- **Start Task 1 after branch confirm during `/flow-spec` auto-continue** — stop with `/flow-execute` handoff; implementation belongs in an execute session
 - **Create a worktree without user confirming option 2**
 - **Start Task N+1 while Task N reviews are incomplete** (most common violation)
 - **`git checkout <commit-sha>`** (implementer or reviewer) — detaches HEAD; commits miss the feature branch. Stay on the branch name; use SHAs only in `git diff`

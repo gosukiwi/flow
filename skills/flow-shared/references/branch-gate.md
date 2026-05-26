@@ -75,9 +75,13 @@ Send **only** the gate question — do not combine with starting work.
 
 **Stop until the user responds.**
 
-Forbidden in the same message: "Starting Task 1…", dispatching subagents, editing files, creating branches, or creating worktrees.
+Forbidden in the same message: "Starting Task 1…", dispatching subagents, editing production code, creating branches, or creating worktrees.
+
+Forbidden after confirmation during `/flow-spec` auto-continue: TodoWrite for tasks, Task 1, inline code, or subagent dispatch — stop with `Run /flow-execute to start Task 1` instead.
 
 ## After confirmation
+
+Branch and workspace setup only in this turn — **not** Task 1, TodoWrite, subagents, or production code.
 
 ### Option 1 — in-place
 
@@ -86,6 +90,11 @@ Create or switch to the branch in the current workspace. Set `workspace: in-plac
 ### Option 2 — worktree
 
 Follow `flow-shared/references/worktree-setup.md` (resolve via path resolver in `flow/SKILL.md`). All subsequent work happens in the worktree.
+
+### Then stop or continue (plan-execution step 1)
+
+- **From `/flow-spec` auto-continue:** stop after setup — hand off `Run /flow-execute to start Task 1` (see `plan-execution.md`).
+- **From `/flow-execute`:** proceed to plan-execution step 2 after setup.
 
 ## Red flags — never
 
