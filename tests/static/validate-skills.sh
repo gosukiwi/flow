@@ -163,6 +163,12 @@ else
   fail "plan-execution: must check git status and block complete with uncommitted changes"
 fi
 
+if grep -qi 'uncommitted' "$patch_file" && grep -qi 'git status' "$patch_file"; then
+  pass "flow-patch: blocks complete with uncommitted changes"
+else
+  fail "flow-patch: must check git status and block complete with uncommitted changes"
+fi
+
 if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
   pass "flow-patch: auto-runs verify after all tasks"
 else

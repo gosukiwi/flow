@@ -126,11 +126,14 @@ For each task:
    - **Block or Fix present:** fix inline → re-review
    - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
    Reviewers do not edit code.
-6. Mark task completed in TodoWrite
+6. **Commit** per micro-spec task Step 5 — on the user-confirmed feature branch only. One commit per task (or as the micro-spec specifies). Refresh `HEAD_SHA` after commit.
+7. Mark task completed in TodoWrite
 
 **One task at a time.** Do not start Task N+1 until Task N passes both reviews.
 
 **Forbidden:** Starting verify or marking the task complete while Task N is still in spec or correctness review — even if tests pass or the user says the fix is tiny.
+
+**Forbidden:** Marking a task complete or starting the next task with **uncommitted changes** from that task — commit per micro-spec Step 5 first.
 
 **Fixes after ❌:** orchestrator implements fixes inline, then re-dispatches the reviewer — reviewers do not edit code.
 
@@ -145,6 +148,8 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 3. Update `docs/flow/STATE.md`: `phase: verify` when starting
 4. If verify fails → route to `/flow-debug` or fix inline; do not present the done menu
 5. If verify passes → present the verify user menu per `flow-verify/SKILL.md`
+
+**Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim patch or verify complete. Commit per micro-spec task Step 5, then re-run verify steps 2–5.
 
 **Do not run verify option 3 (branch review) automatically** — only when the user chooses it from the menu.
 
@@ -170,3 +175,4 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - Dispatch implementer subagent (patch is inline only)
 - **Hand off verify instead of running it** after all tasks complete
 - **Replace the verify user menu with custom next steps** — merge/PR/iterate lists are not substitutes for options 1–4
+- **Claim patch or verify complete with uncommitted changes** on the feature branch — commit per micro-spec task Step 5 first

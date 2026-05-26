@@ -27,6 +27,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-patch-test-after-fix.md` | `/flow-patch` | Agent rejects test-after-fix; requires RED→GREEN cycle |
 | `flow-patch-skip-branch-gate.md` | `/flow-patch` | Agent sends branch ask only — no starting TDD in same message |
 | `flow-patch-microspec-yes-skip-branch-gate.md` | `/flow-patch` | Micro-spec "yes" does not skip workspace gate — menu only, no git or TDD |
+| `flow-patch-uncommitted-at-verify.md` | `/flow-patch` | Uncommitted task changes do not replace verify finish — commit per task before numbered menu |
 | `flow-spec-skip-questions.md` | `/flow-spec` | Agent asks questions instead of jumping to code |
 | `flow-spec-design-gate-menu.md` | `/flow-spec` | Agent sends numbered design gate only — no freeform approve or spec writing in same message |
 | `flow-spec-structure-contradiction.md` | `/flow-spec` | Agent blocks user gate on path/tree contradictions; fixes spec first |
