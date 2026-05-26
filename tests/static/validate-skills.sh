@@ -367,6 +367,21 @@ else
   fail "finish-gate: must session-gate unrelated active main STATE on worktree merge"
 fi
 
+if grep -qi 'GitHub CLI' "$finish_gate" \
+  && grep -qi 'git merge-base --is-ancestor' "$finish_gate" \
+  && grep -q '`gh`' "$finish_gate" \
+  && grep -qi 'forbidden for finish\|Forbidden in this path' "$finish_gate"; then
+  pass "finish-gate: forbids gh/GitHub CLI for integration status"
+else
+  fail "finish-gate: must forbid gh/GitHub CLI for finish integration status"
+fi
+
+if grep -q 'Ambiguous `/flow-finish`' "$finish_gate" && grep -q 'Stop until the user picks 1–4' "$finish_gate"; then
+  pass "finish-gate: ambiguous flow-finish numbered menu"
+else
+  fail "finish-gate: must have numbered menu for bare /flow-finish"
+fi
+
 if grep -q 'finish-gate' "$finish_skill" && grep -q 'phase: done' "$finish_gate"; then
   pass "flow-finish: references finish-gate with phase done"
 else
