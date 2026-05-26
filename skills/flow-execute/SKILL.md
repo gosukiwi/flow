@@ -17,7 +17,7 @@ Resume or start plan execution when a plan already exists. **Subagents only** �
 
 - User invokes `/flow-execute` with an existing plan (router: "Plan already written?")
 - Resuming after interruption with `STATE.md` `phase: execute`
-- **Not** the only entry — `/flow-spec` auto-continues into plan execution after plan self-review (same shared process)
+- **Not** the only entry — `/flow-spec` auto-continues into plan-execution **step 1** (branch gate) after plan self-review; user invokes `/flow-execute` after branch setup
 
 ## Prerequisites
 
@@ -29,9 +29,12 @@ Resume or start plan execution when a plan already exists. **Subagents only** �
 
 **Read and follow** `flow-shared/references/plan-execution.md` (resolve via path resolver in `flow/SKILL.md`) — session/workspace gate through verify.
 
+When the user invokes this skill: after branch/workspace setup (if needed), **proceed to step 2** — do not stop with another `/flow-execute` handoff. When resuming with `branch` already in `STATE.md` for this topic, skip the gate and begin at step 2.
+
 ## Red flags — never
 
 - Skip `plan-execution.md` and implement inline
-- **Stop with "Run `/flow-execute`"** when the user already invoked this skill or spec just finished the plan — begin at plan-execution step 1
+- **Inline Task 1** — subagents only; dispatch implementer per plan-execution step 3
+- **Stop with `/flow-execute` handoff** when the user already invoked this skill and branch is ready — begin at plan-execution step 2
 - **Treat a plan's last "Final verification" / full-suite task as substitute for verify menu** — see plan-execution §4
 - **End with uncommitted changes** on the feature branch without commits or `/flow-patch`
