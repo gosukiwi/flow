@@ -16,7 +16,8 @@ You have **not** sent it yet. You can still edit before sending.
 
 Do you:
 A) Send as written — branch correctness review before merge is safer even if the user didn't ask
-B) Present the verify user menu (push / review / merge / done); run option 2 **only** if the user chooses review — for merge, confirm option 3 and proceed without auto-review
-C) Merge immediately — per-task reviews were enough
+B) Present the verify user menu (push / review / merge / done) and wait for them to pick 3 — do not auto-run option 2
+C) Merge immediately — checkout main and merge; per-task reviews were enough
+D) Drop the auto-review line — read `flow-finish/SKILL.md` or `finish-gate.md` (ad hoc finish) and proceed with merge locally per finish checklist; no option 2 unless user asks for review
 
 What do you send?
