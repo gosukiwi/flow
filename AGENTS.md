@@ -55,11 +55,39 @@ Makefile                   # test, test-static, test-scenarios, install
 
 **Dependencies:** `bash`, `python3`, `grep`, `find`. No Node build step in this repo (Node only for `npx skills` at install time).
 
+## Iron Law (any change under `skills/`)
+
+From `tests/writing-skills.md`: **no skill change without a failing scenario first.** If you already edited `SKILL.md` or `flow-shared/` before RED, that edit is **invalid** — revert or stash, run RED on the **committed (pre-change)** skills, then proceed.
+
+**Mandatory order — do not reorder or skip steps:**
+
+| Step | Action | Done when |
+|------|--------|-----------|
+| **1 — RED (write)** | Add or update `tests/scenarios/flow-<skill>-<violation>.md`; register in `tests/scenarios/README.md` | Scenario traps one specific rationalization (not abstract A/B/C) |
+| **2 — RED (run)** | Launch a **Task subagent** with only the relevant skills at **pre-change** commit; paste the scenario; return the agent’s choice **verbatim** | Subagent picks the **non-compliant** option or rationalizes the violation |
+| **3 — GREEN (edit)** | Edit `skills/` only after step 2 passes | Skill text blocks the rationalization you saw in RED |
+| **4 — GREEN (run)** | Same subagent setup with **current** tree skills; paste the same scenario | Subagent picks the compliant option and cites the rule or gate |
+
+Then run `make test`. Optional REFACTOR: tighten skill text or add a grep invariant in `validate-skills.sh`; re-run step 4.
+
+**Forbidden before step 2 completes:**
+
+- Editing `skills/**` or `flow-shared/**` for the behavior under test
+- Treating “the skill text looks correct” as RED
+- Skipping Layer 2 because scenarios are manual
+- Weakening a scenario so it passes on old skills
+
+**Subagent RED/GREEN (default in maintainer sessions):** Use the Task tool — do not rely on this chat’s prior context. Install only relevant skills (`flow-<skill>`, `flow-shared`, and `flow` only when routing is under test). For RED, point the subagent at pre-change files (`git show HEAD:skills/...` or stash local edits). For GREEN, use the working tree after your edits.
+
+**Exceptions (no scenario):** Pure wording with no gate/discipline change; new `flow-shared` prompts/refs with no new behavior — still run `make test`. When unsure, treat it as discipline and follow all four steps.
+
+Full detail: `tests/writing-skills.md` (authoring principles, scenario recipe, REFACTOR).
+
 ## What to read first
 
 | Task | Read |
 |------|------|
-| Any skill edit | `tests/writing-skills.md` |
+| Any skill edit | `tests/writing-skills.md` — **Iron Law section first** |
 | Understand user-facing workflow | `README.md`, `docs/workflow.md` |
 | Router / STATE / path resolver | `skills/flow/SKILL.md` |
 | Branch, session, worktree gates | `skills/flow-shared/references/{branch-gate,session-gate,worktree-setup}.md` |
@@ -100,75 +128,56 @@ Every invokable skill under `skills/<name>/`:
 | Layer | Command | When |
 |-------|---------|------|
 | **1 — Static** | `make test` | Every skill change, before commit |
-| **2 — Scenarios** | Manual: paste `tests/scenarios/flow-*.md` into fresh agent session | Before release; when hardening discipline |
+| **2 — Scenarios** | **Iron Law:** Task subagent + scenario (maintainer); or fresh session (human, before release) | Every discipline/gate change — not optional |
 | **3 — Dogfood** | Use `/flow-*` on real work in Cursor | Ongoing |
 
-Discipline skills (gates, TDD, review loops) require the **RED → GREEN → REFACTOR** cycle below — not just static checks. See also `tests/writing-skills.md`.
+Discipline skills require **Iron Law** (four steps) — not just `make test`. See `tests/writing-skills.md`.
 
-## RED → GREEN → REFACTOR (skill changes)
+## RED → GREEN → REFACTOR (detail)
 
-**Required for any discipline or gate change.** Do not edit skills first and write the scenario afterward — the scenario must fail on the old behavior before you change anything.
+Same four steps as **Iron Law** above. This section adds mechanics; the table there is the contract.
 
-### 1. RED — create the scenario test
+### Scenario file (step 1)
 
-Write `tests/scenarios/flow-<skill>-<violation>.md` using the recipe in `tests/writing-skills.md`. Register it in `tests/scenarios/README.md`.
+Write `tests/scenarios/flow-<skill>-<violation>.md` using the recipe in `tests/writing-skills.md`. Register in `tests/scenarios/README.md`. Trap a **specific rationalization** (same-turn bundling, "no commit yet", skipping a gate) — not an abstract A/B/C quiz.
 
-The scenario must trap a **specific rationalization** (same-turn bundling, "no commit yet", skipping a gate, etc.) — not an abstract A/B/C quiz.
+### Subagent run (steps 2 and 4)
 
-### 2. RED — run the scenario and see it fail
-
-1. Open a **fresh Cursor agent session** (no prior context from this edit) **or** launch a Task subagent with only the relevant skills at the pre-change commit — see **When you cannot open a fresh session** below.
-2. Install **only the relevant skills** — not unrelated skills that could override Flow behavior:
+1. **Task subagent** — required in maintainer/agent sessions (no prior chat context). Fresh user session is an alternative when the human runs Layer 2 manually before release.
+2. Install **only** relevant skills (unrelated skills can override Flow):
    ```bash
    npx skills add ./skills -a cursor --skill 'flow-<skill>' --skill flow-shared -y --copy
    ```
-   Add `flow` (router) only when the scenario tests routing. For execute/patch scenarios, include `flow-shared` (shared gates/refs).
-3. Paste the scenario file content as the user message. Invoke the matching `/flow-*` command if the scenario expects it.
-4. **Confirm RED:** the agent chooses the non-compliant option or rationalizes the violation. Record the choice (notes or PR — optional). If the agent already passes, the scenario is too weak — sharpen it before proceeding.
+   Add `flow` only when the scenario tests routing.
+3. Prompt the subagent with: scenario file content; which `/flow-*` to invoke; for RED, explicit instruction to use **pre-change** skill text (`git show HEAD:skills/...` paths or “stash local edits first”); for GREEN, use current `skills/` after your edit.
+4. Require the subagent to return **verbatim** what it would do (choice letter, gate cited, or draft message) — that output is the RED/GREEN evidence.
 
-Use the **committed (pre-change) skills** for this run — stash local edits or test from the last good commit (`git show <base>:skills/...` for subagent runs).
+**RED:** pre-change skills only. If the subagent already passes, sharpen the scenario — do not edit skills yet.
 
-### 3. GREEN — update skills
+**GREEN:** current skills. If the subagent still fails, iterate on skill text — do not weaken the scenario.
 
-Edit `SKILL.md` and/or `flow-shared/references/*.md` to block the rationalization you observed in RED.
+Run `make test` after GREEN. Before release: `make test-scenarios` and re-run affected scenarios.
 
-Reinstall the changed skills:
+### If you cannot run a subagent
 
-```bash
-npx skills add ./skills -a cursor --skill 'flow-<skill>' --skill flow-shared -y --copy
-```
+Stop before commit; ask the user to run the scenario in a fresh session, or run it yourself in the next turn via Task. Do not skip RED/GREEN.
 
-### 4. GREEN — run the scenario again and see it pass
+### REFACTOR (optional)
 
-Same setup as step 2 (fresh session or subagent, **only relevant skills**). Paste the same scenario.
-
-**Confirm GREEN:** the agent chooses the compliant option and cites the rule or gate. If it still fails, iterate on the skill text — do not weaken the scenario to match sloppy behavior.
-
-Run `make test` after GREEN. Re-run the scenario manually before release (`make test-scenarios` lists files).
-
-### When you cannot open a fresh session
-
-1. **Task subagent** — paste the scenario; point the subagent at skills via `git show <base>:skills/...` (RED) or current tree (GREEN); return choice verbatim.
-2. **Ask the user** — stop before commit and request a manual Layer 2 run (`make test-scenarios` lists files).
-
-Never skip RED/GREEN because Layer 2 is manual or because the skill text "looks correct."
-
-### 5. REFACTOR — plug remaining holes (optional)
-
-- New rationalization in the GREEN run → add counter (red flag, forbidden same-turn action) and re-run the scenario.
-- If the rule is cheap to grep and the scenario proved it matters, add an invariant to `tests/static/validate-skills.sh`.
-- Re-run the scenario; stay GREEN.
+- New rationalization in GREEN → counter in skill text; re-run step 4.
+- Cheap grep invariant → `tests/static/validate-skills.sh` after GREEN proved the rule matters.
 
 ## Typical maintainer workflow
 
 1. Identify which skill(s) and shared references need changes.
-2. **Discipline/gate changes:** follow **RED → GREEN → REFACTOR** during development — scenario first, fail on old skills, then edit skills, then pass. Run affected scenarios manually before release.
-3. **Non-discipline changes** (wording, docs in skills): edit directly, then `make test`.
+2. **Any discipline or gate change:** follow **Iron Law** — scenario → subagent RED → edit skills → subagent GREEN → `make test`. Never edit `skills/` first.
+3. **Non-discipline changes** (wording only, no new gates): edit directly, then `make test`.
 4. Reinstall locally when iterating: `npx skills add ./skills -a cursor --skill '*' -y --copy`.
 5. Commit only when the user asks.
 
 ## Editing guidelines
 
+- **Iron Law first.** See table at top — subagent RED before any `skills/` edit for discipline changes.
 - **Minimize scope.** Skill changes should be precise — one gate, one rationalization, one handoff at a time when hardening discipline.
 - **Prefer hard gates** over soft suggestions for rules agents rationalize away ("just this once", "no commit yet", same-turn bundling).
 - **Use existing patterns:** `Hard gate`, `Stop until`, `Forbidden in the same message`, red-flag tables — copy from `branch-gate.md` / `session-gate.md`.
@@ -187,12 +196,7 @@ Never skip RED/GREEN because Layer 2 is manual or because the skill text "looks 
 
 ### Add or tighten a gate
 
-Follow **RED → GREEN → REFACTOR** in order:
-
-1. Write the pressure scenario → run in a fresh agent with only relevant skills → **see RED**.
-2. Update `flow-shared/references/*.md` or skill `SKILL.md` → reinstall → run scenario again → **see GREEN**.
-3. Optionally add a grep invariant to `tests/static/validate-skills.sh` (REFACTOR).
-4. `make test`.
+Follow **Iron Law** (four steps): scenario → **Task subagent RED** on pre-change skills → edit `flow-shared/references/*.md` or `SKILL.md` → **Task subagent GREEN** → optional REFACTOR in `validate-skills.sh` → `make test`.
 
 ### Add a new shared prompt or reference
 
