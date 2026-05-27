@@ -93,11 +93,9 @@ Forbidden in the same message: proposing `feature/<new-topic>` switch/worktree 1
 
 Forbidden in the same message: "Starting Task 1…", dispatching subagents, editing production code, creating branches, or creating worktrees.
 
-Forbidden after confirmation during `/flow-spec` auto-continue: TodoWrite for tasks, Task 1, inline code, or subagent dispatch — stop with `Run /flow-execute to start Task 1` instead.
-
 ## After confirmation
 
-Branch and workspace setup only in this turn — **not** Task 1, TodoWrite, subagents, or production code.
+Branch and workspace setup only in this turn — **not** Task 1, TodoWrite, subagents, production code, or artifact commit.
 
 ### Option 1 — in-place
 
@@ -107,10 +105,10 @@ Create or switch to the branch in the current workspace. Set `workspace: in-plac
 
 Follow `flow-shared/references/worktree-setup.md` (resolve via path resolver in `flow/SKILL.md`). All subsequent work happens in the worktree.
 
-### Then stop or continue (plan-execution step 1)
+### Then continue (execute or patch only)
 
-- **From `/flow-spec` auto-continue:** stop after setup — hand off `Run /flow-execute to start Task 1` (see `plan-execution.md`).
-- **From `/flow-execute`:** proceed to plan-execution step 2 after setup.
+- **From `/flow-spec` auto-continue or `/flow-execute`:** proceed to `plan-execution.md` step 2 after setup — no `/flow-execute` handoff, no Task 1 in the branch-setup turn
+- **From `/flow-patch`:** proceed to save micro-spec + artifact commit (patch §4), then inline execution
 
 ## Red flags — never
 

@@ -2,7 +2,7 @@
 
 Read before **any** write to `docs/flow/STATE.md` when the file is not gitignored. Runs alongside `session-gate.md` (resolve via path resolver in `flow/SKILL.md`).
 
-`STATE.md` is a **local session bookmark** — phase, workspace, artifact paths. Specs, plans, and brainstorms under `docs/flow/` stay **tracked** in git.
+`STATE.md` is a **local session bookmark** — phase, workspace, artifact paths. Specs, plans, patches, and brainstorms under `docs/flow/` stay **tracked** in git.
 
 ## Hard gate
 

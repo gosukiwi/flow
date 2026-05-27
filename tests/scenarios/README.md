@@ -32,7 +32,11 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-spec-design-gate-menu.md` | `/flow-spec` | Agent sends numbered design gate only — no freeform approve or spec writing in same message |
 | `flow-spec-structure-contradiction.md` | `/flow-spec` | Agent blocks user gate on path/tree contradictions; fixes spec first |
 | `flow-spec-yes-bundle-execute-prep.md` | `/flow-spec` | Spec "yes" does not skip to worktree/execute — Phase B plan only |
-| `flow-spec-handoff-auto-execute.md` | `/flow-spec` | After plan self-review, auto-continue to execute branch gate — no manual `/flow-execute` handoff |
+| `flow-spec-handoff-after-plan.md` | `/flow-spec` | After plan self-review, auto-continue to branch gate only — no `/flow-execute` handoff or git before confirm |
+| `flow-spec-continue-after-branch-confirm.md` | `/flow-spec` | After branch confirm during spec auto-continue, artifact commit + Task 1 subagent — no `/flow-execute` handoff or inline code |
+| `flow-spec-worktree-artifact-copy.md` | `/flow-spec` | Worktree selected — copy spec/plan from main workspace into worktree before artifact commit; no commit from main |
+| `flow-execute-artifact-commit-before-task1.md` | `/flow-execute` | After branch confirm, commit flow artifacts on feature branch before Task 1 — not on `main` |
+| `flow-patch-artifact-commit-before-task1.md` | `/flow-patch` | Save micro-spec to `docs/flow/patches/`, artifact commit on branch, then Task 1 |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
 | `flow-brainstorm-small-scope-patch.md` | `/flow-brainstorm` | Agent hands off to `/flow-patch` for small bounded scope |
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |
@@ -40,7 +44,6 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-auto-verify.md` | `/flow-execute` | Agent auto-runs verify after all tasks; does not hand off when user asks to invoke verify themselves |
 | `flow-execute-final-task-not-verify-menu.md` | `/flow-execute` | Plan "Final verification" task + uncommitted changes do not replace verify menu or completion claim |
 | `flow-execute-skip-branch-gate.md` | `/flow-execute` | Agent sends branch ask only — no "Starting Task 1" in same message |
-| `flow-execute-stop-after-branch-confirm.md` | `/flow-spec` → execute | After branch confirm during spec auto-continue, stop with `/flow-execute` — no Task 1, inline code, or subagents |
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
 | `flow-execute-checkout-base-sha.md` | `/flow-execute` | Implementer stays on branch; never `git checkout <BASE_SHA>` (detached HEAD) |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |

@@ -111,7 +111,25 @@ After confirmation:
 
 Update `phase: patch` in `docs/flow/STATE.md`, then proceed to step 4.
 
-### 4. Inline execution (per task)
+### 4. Save micro-spec and artifact commit (required)
+
+After branch/workspace confirmation — **before** Task 1 or TDD:
+
+1. Save the approved micro-spec to:
+
+```
+docs/flow/patches/YYYY-MM-DD-<topic>.md
+```
+
+Use the same markdown structure as the inline micro-spec (Problem, Success criteria, Files, Out of scope, Testing, tasks).
+
+2. Record `patch:` path in `docs/flow/STATE.md`.
+
+3. **Read and follow** `flow-shared/references/artifact-commit-gate.md` (resolve via path resolver in `flow/SKILL.md`) — commit brainstorm (if any) and patch file on the confirmed feature branch. Include `brainstorm:` from STATE when present.
+
+If resuming with artifacts already committed on the branch, skip to step 5.
+
+### 5. Inline execution (per task)
 
 **Implement in this session** — do not dispatch an implementer subagent. User should see edits and test runs live.
 
@@ -150,7 +168,7 @@ For each task:
 
 Stop when blocked, ambiguous, or verify steps complete and user menu presented. Do not guess.
 
-### 5. Verify (auto-run)
+### 6. Verify (auto-run)
 
 When all micro-spec tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
 
@@ -185,6 +203,7 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - **Skip spec or correctness review** — including when the user says the patch is tiny or done
 - **`git checkout <commit-sha>`** — detaches HEAD; commits miss the feature branch. Stay on the branch name; use SHAs only in `git diff`
 - **Trust self-review or passing tests instead of dispatching reviewers**
+- **Skip artifact commit before Task 1** when flow artifact files exist uncommitted on the branch
 - Dispatch implementer subagent (patch is inline only)
 - **Hand off verify instead of running it** after all tasks complete
 - **Replace the verify user menu with custom next steps** — merge/PR/iterate lists are not substitutes for options 1–4
