@@ -298,32 +298,32 @@ Fix issues inline. **Do not ask user to approve the plan.**
 
 If a plan gap requires a spec decision, stop and ask the user to update the spec.
 
-### 6. Handoff — auto-continue execute
+### 6. Handoff — planned
 
 When plan self-review passes:
 
-1. Update `docs/flow/STATE.md`: `phase: execute`, add plan path
-2. **Immediately continue** into plan execution — **Read and follow** `flow-shared/references/plan-execution.md` (resolve via path resolver in `flow/SKILL.md`). Begin at step 1 (session and workspace gate)
+1. Update `docs/flow/STATE.md`: `phase: planned`, record `spec:` and `plan:` paths
+2. **Stop** — one short line noting the plan path, then hand off only:
 
-You may note the plan path in one short line, then send **only** the branch/workspace gate — do not bundle plan summary with Task 1 or git mutations.
+```
+Run `/flow-execute` to implement.
+```
 
-**Hard gate — after plan is written:**
+**Hard gate — spec session ends here:**
 
-- **Forbidden:** "Run `/flow-execute` to implement" or stopping for the user to invoke `/flow-execute`
-- **Forbidden:** Starting Task 1, creating branches/worktrees, or dispatching subagents before plan-execution step 1 is confirmed
+- **Forbidden:** Branch/workspace gate, `git checkout -b`, worktree creation, artifact commit, `plan-execution.md`, Task 1, TodoWrite, subagents, or production code in this skill
+- **Forbidden:** Setting `phase: execute` — use `phase: planned` until the user invokes `/flow-execute`
 
-**Do not implement tasks** until branch/workspace gate is confirmed (plan-execution step 1).
-
-**After branch/workspace confirmation during spec auto-continue:** create branch or worktree, update STATE, then **stop** — hand off `Run /flow-execute to start Task 1`. Do not proceed to Task 1, TodoWrite, subagents, or inline code in the spec session.
+If the user bundled workspace preferences at spec approval (e.g. "yes, use a worktree when we implement"), note them in your handoff message — `/flow-execute` applies them at its branch gate.
 
 ## Red flags — never
 
 - **Use freeform "reply approve" at design time** — send the numbered design gate (§3); spec gate (§7) is a separate step after the spec file exists
 - **Bundle spec writing, spec path preview, STATE update, or session gate with the design gate message** — send design gate only; wait for approval before §4–§5
 - **Skip design gate** because clarifying questions are done or the design looks solid
-- **Treat spec "yes" as execute or workspace confirmation** — Phase B is plan-only; branch/worktree is plan-execution step 1 after auto-continue
-- **Stop with manual `/flow-execute` handoff** after plan self-review — auto-continue to plan-execution step 1 only (branch gate); hand off execute after branch setup, not after plan
-- **Start Task 1 after branch confirm during spec auto-continue** — branch setup ends the spec session; user invokes `/flow-execute`
+- **Treat spec "yes" as execute or workspace confirmation** — Phase B is plan-only; branch/worktree and artifact commit are `/flow-execute` only
+- **Auto-continue into branch gate or plan-execution after plan** — spec ends at `phase: planned` with `/flow-execute` handoff only
+- **Run branch gate, git mutations, or Task 1 in `/flow-spec`** — implementation belongs in `/flow-execute`
 - **Bundle plan outline, STATE update, worktree, or Task 1 with the spec gate message** — send spec gate only; wait for approval before Phase B
 - **Skip spec gate** because the user asked for implementation preferences in the same message
 - Write production code in this skill

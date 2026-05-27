@@ -74,7 +74,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(plan-execution tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup)
+REFS=(plan-execution tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup artifact-commit-gate)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -100,11 +100,15 @@ if grep -qi 'subagent' "$plan_exec_file" && grep -qi 'never implement inline\|su
 else
   fail "plan-execution: must forbid inline implementation"
 fi
-if grep -qi 'flow-spec.*auto-continue\|/flow-spec.*auto-continue' "$plan_exec_file" \
-  && grep -qi 'Run /flow-execute to start Task 1' "$plan_exec_file"; then
-  pass "plan-execution: stops after branch setup when entry was flow-spec auto-continue"
+if grep -qi 'artifact-commit-gate' "$plan_exec_file" && grep -qi 'before.*Task 1\|before loading the plan' "$plan_exec_file"; then
+  pass "plan-execution: artifact commit before Task 1"
 else
-  fail "plan-execution: must stop with /flow-execute handoff after branch setup from flow-spec auto-continue"
+  fail "plan-execution: must reference artifact-commit-gate before Task 1"
+fi
+if ! grep -qi 'flow-spec.*auto-continue\|/flow-spec.*auto-continue' "$plan_exec_file"; then
+  pass "plan-execution: no flow-spec auto-continue stop gate"
+else
+  fail "plan-execution: must not stop for /flow-execute handoff from flow-spec auto-continue"
 fi
 if grep -q 'plan-execution' "$execute_file"; then
   pass "flow-execute: delegates to plan-execution.md"
@@ -211,6 +215,18 @@ else
   fail "flow-patch: must default to patch continuing gate on feature branch when phase done or no STATE"
 fi
 
+if grep -q 'docs/flow/patches/' "$patch_file" && grep -qi 'artifact-commit-gate' "$patch_file"; then
+  pass "flow-patch: saves micro-spec to patches/ and references artifact commit"
+else
+  fail "flow-patch: must save micro-spec to docs/flow/patches/ and run artifact-commit-gate before Task 1"
+fi
+
+if grep -qi 'artifact commit' "$execute_file" && grep -q 'plan-execution' "$execute_file"; then
+  pass "flow-execute: plan-execution with artifact commit before tasks"
+else
+  fail "flow-execute: must delegate to plan-execution with artifact commit before Task 1"
+fi
+
 spec_file="$SKILLS_DIR/flow-spec/SKILL.md"
 if grep -qi 'spec approval does.*not.*satisfy\|"Yes".*spec approval only' "$spec_file"; then
   pass "flow-spec: spec approval does not satisfy execute/workspace"
@@ -230,17 +246,16 @@ else
   fail "flow-spec: must present numbered design gate menu"
 fi
 
-if grep -q 'plan-execution' "$spec_file" && grep -qi 'auto-continue\|Immediately continue' "$spec_file"; then
-  pass "flow-spec: auto-continues to plan-execution after plan"
+if grep -q 'phase: planned' "$spec_file" && grep -q 'Run `/flow-execute` to implement' "$spec_file"; then
+  pass "flow-spec: handoff to /flow-execute after plan with phase planned"
 else
-  fail "flow-spec: must auto-continue to plan-execution.md after plan self-review"
+  fail "flow-spec: must set phase planned and hand off Run /flow-execute to implement after plan"
 fi
 
-if grep -q 'Terminal state is handoff to `/flow-execute`' "$spec_file" \
-  || grep -q 'Run `/flow-execute` to implement\.$' "$spec_file"; then
-  fail "flow-spec: must not hand off with Run /flow-execute"
+if grep -qi 'Immediately continue.*plan-execution\|auto-continue into plan execution' "$spec_file"; then
+  fail "flow-spec: must not auto-continue into plan-execution or branch gate"
 else
-  pass "flow-spec: no manual /flow-execute handoff"
+  pass "flow-spec: no auto-continue to branch gate"
 fi
 
 if grep -qi 'Final verification\|verification-only' "$spec_file" && grep -qi 'Verify in plan\|verify auto-runs' "$spec_file"; then

@@ -11,13 +11,13 @@ metadata:
 
 **Triggered by:** `/flow-execute`
 
-Resume or start plan execution when a plan already exists. **Subagents only** — never implement tasks inline in the orchestrator session.
+Run an approved plan when spec and plan artifacts exist. **Subagents only** — never implement tasks inline in the orchestrator session.
 
 ## When to use
 
-- User invokes `/flow-execute` with an existing plan (router: "Plan already written?")
-- Resuming after interruption with `STATE.md` `phase: execute`
-- **Not** the only entry — `/flow-spec` auto-continues into plan-execution **step 1** (branch gate) after plan self-review; user invokes `/flow-execute` after branch setup
+- User invokes `/flow-execute` after `/flow-spec` handoff (`phase: planned`)
+- Plan already written at `docs/flow/plans/...`
+- Resuming after interruption with `STATE.md` `phase: execute` and partial task progress
 
 ## Prerequisites
 
@@ -29,12 +29,15 @@ Resume or start plan execution when a plan already exists. **Subagents only** �
 
 **Read and follow** `flow-shared/references/plan-execution.md` (resolve via path resolver in `flow/SKILL.md`) — session/workspace gate through verify.
 
-When the user invokes this skill: after branch/workspace setup (if needed), **proceed to step 2** — do not stop with another `/flow-execute` handoff. When resuming with `branch` already in `STATE.md` for this topic, skip the gate and begin at step 2.
+When the user invokes this skill: run branch gate (if needed) → artifact commit → load plan → tasks → verify. **Do not stop** mid-lane for another `/flow-execute` handoff.
+
+When resuming with `branch` already in `STATE.md` for this topic: skip branch gate; run artifact commit if artifacts are still uncommitted; then continue from the next task.
 
 ## Red flags — never
 
 - Skip `plan-execution.md` and implement inline
-- **Inline Task 1** — subagents only; dispatch implementer per plan-execution step 3
-- **Stop with `/flow-execute` handoff** when the user already invoked this skill and branch is ready — begin at plan-execution step 2
-- **Treat a plan's last "Final verification" / full-suite task as substitute for verify menu** — see plan-execution §4
+- **Inline Task 1** — subagents only; dispatch implementer per plan-execution step 4
+- **Stop with `/flow-execute` handoff** when the user already invoked this skill
+- **Skip artifact commit** before Task 1 when flow artifacts exist uncommitted on the branch
+- **Treat a plan's last "Final verification" / full-suite task as substitute for verify menu** — see plan-execution §5
 - **End with uncommitted changes** on the feature branch without commits or `/flow-patch`

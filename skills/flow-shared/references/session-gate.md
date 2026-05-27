@@ -23,7 +23,7 @@ When session is confirmed (or no session gate needed), run the ignore check in `
 
 Treat STATE as **occupied** when `phase` is:
 
-`brainstorm`, `spec`, `execute`, `patch`, `debug`, `verify`
+`brainstorm`, `spec`, `planned`, `execute`, `patch`, `debug`, `verify`
 
 `phase: done` or missing STATE → new work allowed.
 
@@ -78,7 +78,7 @@ Follow `branch-gate.md` + `worktree-setup.md` for branch name and worktree path.
 ## Intentional handoffs (do not block)
 
 - brainstorm → `/flow-spec` or `/flow-patch` when brief matches
-- spec → plan execution (auto-continue to branch gate after plan; `/flow-execute` when resuming)
+- spec → `/flow-execute` when plan exists (`phase: planned`)
 - debug → `/flow-patch` for same bug
 - execute → `/flow-verify` for same plan
 - verify → `/flow-finish` for merge/push/done on same branch

@@ -26,6 +26,7 @@ metadata:
 - `flow-shared/references/root-cause-tracing.md`
 - `flow-shared/references/finish-gate.md`
 - `flow-shared/references/state-setup.md`
+- `flow-shared/references/artifact-commit-gate.md`
 
 ## Usage
 

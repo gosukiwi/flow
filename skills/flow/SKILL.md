@@ -68,7 +68,7 @@ Update `docs/flow/STATE.md` when starting or finishing a phase. **Gitignore reco
 ```markdown
 # Flow State
 
-phase: brainstorm | spec | execute | patch | debug | verify | done
+phase: brainstorm | spec | planned | execute | patch | debug | verify | done
 brainstorm: docs/flow/brainstorms/YYYY-MM-DD-topic.md
 spec: docs/flow/specs/YYYY-MM-DD-topic.md
 plan: docs/flow/plans/YYYY-MM-DD-topic.md

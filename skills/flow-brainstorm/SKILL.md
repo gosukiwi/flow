@@ -175,7 +175,7 @@ At handoff, default to `/flow-patch` when scope meets patch criteria; use `/flow
 - One question at a time
 - Mark **`(Recommended)`** on multiple-choice options
 - Incremental validation — get approval before going deeper
-- Brainstorm explores; patch or spec commits
+- Brainstorm explores; patch or spec commits; patch saves micro-spec to `docs/flow/patches/`
 
 ## Red flags — never
 
