@@ -107,10 +107,8 @@ Follow `flow-shared/references/worktree-setup.md` (resolve via path resolver in 
 
 ### Then continue (execute or patch only)
 
-- **From `/flow-execute`:** proceed to `plan-execution.md` step 2 (artifact commit) after setup — do not stop for another `/flow-execute` handoff.
-- **From `/flow-patch`:** proceed to save micro-spec + artifact commit (patch §4), then inline execution.
-
-**`/flow-spec` does not use this gate** — branch/workspace belongs in execute and patch only.
+- **From `/flow-spec` auto-continue or `/flow-execute`:** proceed to `plan-execution.md` step 2 after setup — no `/flow-execute` handoff, no Task 1 in the branch-setup turn
+- **From `/flow-patch`:** proceed to save micro-spec + artifact commit (patch §4), then inline execution
 
 ## Red flags — never
 

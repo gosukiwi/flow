@@ -105,10 +105,16 @@ if grep -qi 'artifact-commit-gate' "$plan_exec_file" && grep -qi 'before.*Task 1
 else
   fail "plan-execution: must reference artifact-commit-gate before Task 1"
 fi
-if ! grep -qi 'flow-spec.*auto-continue\|/flow-spec.*auto-continue' "$plan_exec_file"; then
-  pass "plan-execution: no flow-spec auto-continue stop gate"
+if grep -q 'After branch confirm.*proceed to step 2' "$plan_exec_file" \
+  && grep -qi 'Stop with.*Run /flow-execute.*after branch confirm' "$plan_exec_file"; then
+  pass "plan-execution: spec auto-continue proceeds after branch confirm without /flow-execute stop"
 else
-  fail "plan-execution: must not stop for /flow-execute handoff from flow-spec auto-continue"
+  fail "plan-execution: must proceed steps 2-5 after branch confirm from spec auto-continue (no /flow-execute handoff)"
+fi
+if grep -qi 'Used by.*flow-spec' "$plan_exec_file"; then
+  pass "plan-execution: used by flow-spec auto-continue"
+else
+  fail "plan-execution: must document use by flow-spec after plan"
 fi
 if grep -q 'plan-execution' "$execute_file"; then
   pass "flow-execute: delegates to plan-execution.md"
@@ -222,9 +228,15 @@ else
 fi
 
 if grep -qi 'artifact commit' "$execute_file" && grep -q 'plan-execution' "$execute_file"; then
-  pass "flow-execute: plan-execution with artifact commit before tasks"
+  pass "flow-execute: delegates to plan-execution"
 else
-  fail "flow-execute: must delegate to plan-execution with artifact commit before Task 1"
+  fail "flow-execute: must delegate to plan-execution.md"
+fi
+
+if grep -qi 'Not required.*flow-spec\|resume' "$execute_file"; then
+  pass "flow-execute: resume entry not required after every flow-spec"
+else
+  fail "flow-execute: must state not required on happy path after flow-spec"
 fi
 
 spec_file="$SKILLS_DIR/flow-spec/SKILL.md"
@@ -246,16 +258,17 @@ else
   fail "flow-spec: must present numbered design gate menu"
 fi
 
-if grep -q 'phase: planned' "$spec_file" && grep -q 'Run `/flow-execute` to implement' "$spec_file"; then
-  pass "flow-spec: handoff to /flow-execute after plan with phase planned"
+if grep -q 'phase: planned' "$spec_file" && grep -qi 'plan-execution' "$spec_file" \
+  && grep -qi 'auto-continue\|step 1.*branch gate' "$spec_file"; then
+  pass "flow-spec: auto-continues to plan-execution branch gate after plan"
 else
-  fail "flow-spec: must set phase planned and hand off Run /flow-execute to implement after plan"
+  fail "flow-spec: must auto-continue to plan-execution step 1 after plan with phase planned"
 fi
 
-if grep -qi 'Immediately continue.*plan-execution\|auto-continue into plan execution' "$spec_file"; then
-  fail "flow-spec: must not auto-continue into plan-execution or branch gate"
+if grep -q 'Run `/flow-execute` to implement' "$spec_file"; then
+  fail "flow-spec: must not hand off with Run /flow-execute after plan"
 else
-  pass "flow-spec: no auto-continue to branch gate"
+  pass "flow-spec: no Run /flow-execute stop after plan"
 fi
 
 if grep -qi 'Final verification\|verification-only' "$spec_file" && grep -qi 'Verify in plan\|verify auto-runs' "$spec_file"; then

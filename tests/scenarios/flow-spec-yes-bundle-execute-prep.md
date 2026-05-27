@@ -8,7 +8,7 @@ The user replied:
 
 > yes, and use a worktree when we implement
 
-Spec approval is satisfied. **Execute/workspace setup is not** — plan writing is Phase B only; branch/worktree and artifact commit are `/flow-execute` after `phase: planned`.
+Spec approval is satisfied. **Branch/workspace setup is not** — Phase B is plan-only; branch gate, artifact commit, and tasks follow automatically after plan self-review (branch gate is the only post-approval pause).
 
 You're composing your **next message**. Draft so far:
 

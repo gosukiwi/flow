@@ -2,7 +2,7 @@
 
 Shared process for running an approved plan with **subagents only** — never implement tasks inline in the orchestrator session.
 
-**Used by:** `/flow-execute` only. Resolve `flow-shared` via path resolver in `flow/SKILL.md`.
+**Used by:** `/flow-spec` (auto-continue after plan) and `/flow-execute` (resume). Resolve `flow-shared` via path resolver in `flow/SKILL.md`.
 
 ## Prerequisites
 
@@ -33,6 +33,8 @@ After confirmation:
 - **Option 2 (worktree):** follow `worktree-setup.md`; all subsequent work happens in the worktree
 
 Update `phase: execute` in `docs/flow/STATE.md` when branch/workspace is confirmed (or when resuming with branch already recorded).
+
+**After branch confirm:** proceed to step 2 — **Forbidden:** `Run /flow-execute` handoff, stopping for user to invoke `/flow-execute`, or Task 1 in the same turn as branch setup.
 
 If `STATE.md` already records a confirmed `branch` (and `workspace` when applicable) for this topic, **skip the branch gate** and begin at step 2.
 
@@ -152,18 +154,13 @@ When all **implementation** plan tasks are complete, **immediately continue into
 - Move to next task after implementer DONE but before both reviews ✅
 - **Treat a plan "Final verification" / last-task test run as Flow verify finish** — still present the numbered verify menu; plan verification ≠ `flow-verify/SKILL.md` completion
 - **Stop with implementation summary + "commits or PR?"** instead of the verify user menu (options 1–4)
+- **Stop with `Run /flow-execute` after branch confirm** — continue steps 2–5 in the same session
 - **Claim execute or verify complete with uncommitted changes** on the feature branch — commit per plan or `/flow-patch` first
 
 ## Continuous execution
 
-Do not pause between **completed** tasks for progress check-ins.
+After branch confirm: artifact commit → tasks → verify with **no** mid-lane pauses or `/flow-execute` handoffs.
 
-**Continuous ≠ parallel.** Finish the full gate for Task N before dispatching anything for Task N+1.
+Do not pause between **completed** tasks. **Continuous ≠ parallel** — finish Task N reviews before Task N+1.
 
-**Continuous ≠ skip workspace gate.** Branch and workspace confirmation happens once up front and always blocks until the user responds.
-
-**Continuous ≠ skip artifact commit.** Commit flow artifacts on the confirmed branch before Task 1 when files exist.
-
-**Continuous ≠ hand off verify.** After all tasks, read `flow-verify/SKILL.md` and run verify — do not stop for a separate `/flow-verify` invocation.
-
-Stop only when: blocked, ambiguous, verify steps complete and **numbered user menu** presented, uncommitted work resolved on the feature branch, or user picks a menu option.
+Stop only when: blocked, ambiguous, verify menu presented, uncommitted work on the feature branch, or user picks a menu option.

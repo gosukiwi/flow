@@ -78,7 +78,7 @@ Follow `branch-gate.md` + `worktree-setup.md` for branch name and worktree path.
 ## Intentional handoffs (do not block)
 
 - brainstorm → `/flow-spec` or `/flow-patch` when brief matches
-- spec → `/flow-execute` when plan exists (`phase: planned`)
+- spec → plan, branch gate, and execute in the same `/flow-spec` session; `/flow-execute` for resume only
 - debug → `/flow-patch` for same bug
 - execute → `/flow-verify` for same plan
 - verify → `/flow-finish` for merge/push/done on same branch

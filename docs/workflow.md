@@ -8,7 +8,7 @@ Reference for users who want more than the [README](../README.md). Agents read t
 |-----------|------|
 | Small fix (≤3 files, one concern) | `/flow-patch` → verify → `/flow-finish` (merge/push) |
 | Bug or failing test | `/flow-debug` → `/flow-patch` → verify → `/flow-finish` |
-| New feature (multi-step) | `/flow-brainstorm` (optional) → `/flow-spec` → `/flow-execute` → verify → `/flow-finish` |
+| New feature (multi-step) | `/flow-brainstorm` (optional) → `/flow-spec` (spec gate → plan → branch gate → implement → verify) → `/flow-finish` |
 | Plan already written | `/flow-execute` → verify → `/flow-finish` |
 | Tests done, ready to merge/push | `/flow-finish` (or verify menu options 1–4) |
 | Not sure where to start | `/flow` — suggests one command; you invoke it |
@@ -28,8 +28,8 @@ Do not run plan execution inline — that is what `/flow-patch` is for on small 
 ## What happens in each phase
 
 - **`/flow-brainstorm`** — explore options; no production code. Saves brief to `docs/flow/brainstorms/`.
-- **`/flow-spec`** — user-approved spec + AI self-reviewed plan. No production code. Hand off to `/flow-execute`.
-- **`/flow-execute`** — branch gate, artifact commit, then subagents run plan tasks serially: implement → spec review → correctness review → next task → verify.
+- **`/flow-spec`** — user-approved spec + AI self-reviewed plan; auto-continues through branch gate, artifact commit, subagent tasks, and verify. No production code in the orchestrator.
+- **`/flow-execute`** — resume or cold start when the plan exists and the spec session ended (`phase: planned` or partial `execute`).
 - **`/flow-patch`** — micro-spec approval, then inline TDD with the same review loop per task.
 - **`/flow-debug`** — root cause before fixes; routes to patch or spec.
 - **`/flow-verify`** — full test run + requirements checklist; user menu (push / review / merge / done).
