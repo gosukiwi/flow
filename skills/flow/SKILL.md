@@ -19,8 +19,8 @@ Explicit workflow for spec-driven development with TDD, subagents, and verificat
 | Command | When to use |
 |---------|-------------|
 | `/flow-brainstorm` | Fuzzy idea — explore options and design before spec |
-| `/flow-spec` | New feature or multi-step change — needs spec + plan |
-| `/flow-execute` | Approved spec exists; run the plan with subagents |
+| `/flow-spec` | New feature or multi-step change — spec + plan + branch gate → subagent tasks → verify |
+| `/flow-execute` | Resume or cold start when plan exists and spec session ended (`phase: planned` or partial execute) |
 | `/flow-patch` | Single bounded change (≤3 files, one concern) |
 | `/flow-debug` | Bug, test failure, or unexpected behavior |
 | `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes |
@@ -36,7 +36,7 @@ New work?
 │   ├─ Small bounded scope? → /flow-patch
 │   └─ Multi-step or multi-concern? → /flow-spec
 ├─ Direction clear, ready to lock requirements? → /flow-spec
-└─ Plan already written? → /flow-execute
+└─ Plan exists, spec session ended (`phase: planned`)? → /flow-execute
 
 Implementation done?
 ├─ Tests/checklist not confirmed? → /flow-verify
@@ -60,10 +60,11 @@ docs/flow/
   brainstorms/   # tracked — optional exploration briefs
   specs/         # tracked — approved requirements
   plans/         # tracked — self-reviewed implementation plans
+  patches/       # tracked — patch micro-specs
   STATE.md       # local only — gitignore (session bookmark; see state-setup.md)
 ```
 
-Update `docs/flow/STATE.md` when starting or finishing a phase. **Gitignore recommended** — read `flow-shared/references/state-setup.md` before first write if not ignored. Specs, plans, and brainstorms stay in version control.
+Update `docs/flow/STATE.md` when starting or finishing a phase. **Gitignore recommended** — read `flow-shared/references/state-setup.md` before first write if not ignored. Specs, plans, patches, and brainstorms stay in version control.
 
 ```markdown
 # Flow State
@@ -92,7 +93,7 @@ Implementation skills (`flow-execute`, `flow-patch`) must follow `flow-shared/re
 4. Apply the decision tree above — ask **one clarifying question at a time** if the route is unclear (skip if intent is obvious)
 5. **Merge/push/done with verify already passed** (`phase: verify`, or user confirms tests green) → recommend **`/flow-finish`**, not another `/flow-verify`
 6. Recommend **one** `/flow-*` command with a short **why** and, if helpful, what **not** to use
-7. If `STATE.md` shows work in progress, mention **resume** (e.g. plan exists → suggest `/flow-execute`)
+7. If `STATE.md` shows work in progress, mention **resume** (e.g. `phase: planned` or partial execute → suggest `/flow-execute`; active spec session → user continues in `/flow-spec`)
 8. **Stop.** Wait for the user to manually invoke the suggested command
 
 **Hard gate:** Do not proceed to §How to Start for a child skill in the same turn as your suggestion. Do not read child `SKILL.md` files, write micro-specs, write specs/plans, edit code, or run tests while triaging under `/flow`.

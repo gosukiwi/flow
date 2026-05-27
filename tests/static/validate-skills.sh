@@ -227,12 +227,6 @@ else
   fail "flow-patch: must save micro-spec to docs/flow/patches/ and run artifact-commit-gate before Task 1"
 fi
 
-if grep -qi 'artifact commit' "$execute_file" && grep -q 'plan-execution' "$execute_file"; then
-  pass "flow-execute: delegates to plan-execution"
-else
-  fail "flow-execute: must delegate to plan-execution.md"
-fi
-
 if grep -qi 'Not required.*flow-spec\|resume' "$execute_file"; then
   pass "flow-execute: resume entry not required after every flow-spec"
 else

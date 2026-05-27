@@ -1,6 +1,6 @@
 # Artifact Commit Gate
 
-Runs in **`/flow-execute`** and **`/flow-patch`** after branch/workspace confirmation — **before** Task 1 or any TDD step. Resolve via path resolver in `flow/SKILL.md`.
+Runs after branch/workspace confirmation — **before** Task 1 or any TDD step. Invoked from **`/flow-spec`** auto-continue and **`/flow-execute`** resume via `plan-execution.md` step 2, and from **`/flow-patch`** step 4. Resolve via path resolver in `flow/SKILL.md`.
 
 Specs, plans, brainstorms, and patch micro-specs under `docs/flow/` are **tracked** artifacts (`state-setup.md`). `STATE.md` stays local/gitignored.
 
@@ -70,5 +70,6 @@ Proceed to next step (`plan-execution` load plan / patch inline execution). Do n
 
 ## Skills that use this reference
 
-- `flow-execute` — via `plan-execution.md` step 2
+- `flow-spec` — auto-continue via `plan-execution.md` step 2 (after branch confirm)
+- `flow-execute` — resume via `plan-execution.md` step 2
 - `flow-patch` — step 4 before inline execution

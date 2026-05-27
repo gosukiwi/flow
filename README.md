@@ -34,15 +34,15 @@ For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 | `/flow-debug` | Bug, test failure, or unexpected behavior — root cause before fixes |
 | `/flow-patch` | Small bounded change (≤3 files, one concern) — micro-spec + **inline** TDD + per-task review |
 | `/flow-brainstorm` | Idea still fuzzy — explore options and design before formal spec |
-| `/flow-spec` | Clear feature or multi-step change — user-approved spec + AI self-reviewed plan |
-| `/flow-execute` | Plan already approved — **subagents** run tasks with two-stage review per task |
-| `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when execute or patch finishes; invoke standalone to re-check |
+| `/flow-spec` | Clear feature or multi-step change — spec gate → plan → branch gate → **subagent** tasks → verify (one session) |
+| `/flow-execute` | Resume or cold start when the plan exists but the spec session ended (`phase: planned` or partial execute) |
+| `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when spec implement or patch finishes; invoke standalone to re-check |
 | `/flow-finish` | Merge locally, push, sync after GitHub PR merge, or close out — STATE, worktree, branch cleanup |
 
 ### Example usage
 
 **"I want to add OAuth login"** (new feature, multiple steps)  
-Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec`. Verify runs when execution finishes; merge or push from the menu or `/flow-finish`.
+Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec` — spec runs through branch gate, artifact commit, subagent tasks, and verify. Merge or push from the verify menu or `/flow-finish`.
 
 **"Fix a typo in the error message"** (small, one concern)  
 `/flow-patch` → verify → `/flow-finish`.
@@ -50,8 +50,8 @@ Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec`.
 **"This test started failing after the deploy"**  
 `/flow-debug` to find root cause → `/flow-patch` to fix → verify → `/flow-finish`.
 
-**"The spec and plan are already approved"**  
-Skip straight to `/flow-execute` → verify → `/flow-finish`.
+**"The spec and plan are already approved but I closed the session"**  
+`/flow-execute` to resume from branch gate or Task 1 → verify → `/flow-finish`.
 
 **"Tests pass — merge to main"**  
 `/flow-finish`, or use the merge/push options from the verify menu.
@@ -89,10 +89,11 @@ docs/flow/
   brainstorms/   # optional exploration briefs (tracked)
   specs/         # approved requirements (tracked)
   plans/         # self-reviewed implementation plans (tracked)
+  patches/       # patch micro-specs (tracked)
   STATE.md       # local session bookmark — add to .gitignore (agent offers on first write)
 ```
 
-Specs, plans, and brainstorms belong in git. `STATE.md` is a per-checkout resume pointer (phase, branch, workspace) — gitignore it so worktree sessions do not pollute `main`. Flow offers to add the gitignore entry before the first STATE write.
+Specs, plans, patches, and brainstorms belong in git. `STATE.md` is a per-checkout resume pointer (phase, branch, workspace) — gitignore it so worktree sessions do not pollute `main`. Flow offers to add the gitignore entry before the first STATE write.
 
 ## Contributing
 

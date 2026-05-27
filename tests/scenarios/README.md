@@ -34,6 +34,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-spec-yes-bundle-execute-prep.md` | `/flow-spec` | Spec "yes" does not skip to worktree/execute — Phase B plan only |
 | `flow-spec-handoff-after-plan.md` | `/flow-spec` | After plan self-review, auto-continue to branch gate only — no `/flow-execute` handoff or git before confirm |
 | `flow-spec-continue-after-branch-confirm.md` | `/flow-spec` | After branch confirm during spec auto-continue, artifact commit + Task 1 subagent — no `/flow-execute` handoff or inline code |
+| `flow-spec-worktree-artifact-copy.md` | `/flow-spec` | Worktree selected — copy spec/plan from main workspace into worktree before artifact commit; no commit from main |
 | `flow-execute-artifact-commit-before-task1.md` | `/flow-execute` | After branch confirm, commit flow artifacts on feature branch before Task 1 — not on `main` |
 | `flow-patch-artifact-commit-before-task1.md` | `/flow-patch` | Save micro-spec to `docs/flow/patches/`, artifact commit on branch, then Task 1 |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
