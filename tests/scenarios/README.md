@@ -57,6 +57,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-verify-adhoc-merge.md` | `/flow-verify` | Ad hoc "merge to main" reads finish-gate via path resolver; does not raw merge or defer to /flow-finish only |
 | `flow-execute-worktree-skip-gate.md` | `/flow-execute` | Agent sends workspace gate only — no worktree creation or Task 1 in same message |
 | `flow-patch-concurrent-unrelated-work.md` | `/flow-patch` | Unrelated work on active feature branch → worktree recommended, not branch switch |
+| `flow-patch-done-lane-stay-on-branch.md` | `/flow-patch` | `phase: done` on feature branch → stay on branch; "work here" is not switch/worktree menu |
 | `flow-execute-resume-no-worktree.md` | `/flow-execute` | Continuing matched STATE work → resume on current branch, no worktree |
 | `flow-worktree-ignore-check.md` | `/flow-execute` | Agent adds worktree dir to `.gitignore` before `git worktree add` |
 | `flow-worktree-selected-ignore-check.md` | `/flow-execute` | Agent verifies the selected worktree directory is ignored, not any project-local worktree dir |
