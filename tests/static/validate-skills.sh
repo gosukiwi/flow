@@ -205,6 +205,12 @@ else
   fail "flow-patch: must present numbered micro-spec gate menu"
 fi
 
+if grep -q 'phase: done' "$patch_file" && grep -q 'Continuing on current feature branch (patch)' "$patch_file"; then
+  pass "flow-patch: feature branch with done lane uses patch continuing gate"
+else
+  fail "flow-patch: must default to patch continuing gate on feature branch when phase done or no STATE"
+fi
+
 spec_file="$SKILLS_DIR/flow-spec/SKILL.md"
 if grep -qi 'spec approval does.*not.*satisfy\|"Yes".*spec approval only' "$spec_file"; then
   pass "flow-spec: spec approval does not satisfy execute/workspace"
@@ -282,6 +288,12 @@ if grep -q 'worktree' "$branch_gate" && grep -q 'Detection matrix' "$branch_gate
   pass "branch-gate: has workspace gate with worktree detection matrix"
 else
   fail "branch-gate: must include workspace gate and detection matrix for worktrees"
+fi
+
+if grep -q '/flow-patch` on feature branch' "$branch_gate" && grep -q 'phase: done' "$branch_gate"; then
+  pass "branch-gate: patch on feature branch with done lane skips switch/worktree menu"
+else
+  fail "branch-gate: must document patch on feature branch with phase done (no 1/2 switch menu)"
 fi
 
 worktree_setup="$SKILLS_DIR/flow-shared/references/worktree-setup.md"
