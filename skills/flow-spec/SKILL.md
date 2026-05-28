@@ -11,7 +11,7 @@ metadata:
 
 **Triggered by:** `/flow-spec`
 
-Create a clear spec (user-approved) and implementation plan (AI self-reviewed). Do not write production code in this skill.
+Create a clear spec (user-approved) and implementation plan (AI self-reviewed). The **orchestrator** does not implement plan tasks — no edits to `src/`, `tests/`, or app code for Task N. After branch confirm, auto-continue dispatches **implementer subagents** per `plan-execution.md` (same session; no `/flow-execute` handoff).
 
 If a brainstorm brief exists at `docs/flow/brainstorms/`, read it first and carry forward agreed direction. If requirements are still fuzzy, redirect to `/flow-brainstorm`. If the brief's scope is small and bounded (≤3 files, one concern), redirect to `/flow-patch` instead of writing a spec.
 
@@ -155,10 +155,12 @@ Run spec self-review internally (§6). **Do not proceed to §7 while blocked.** 
 ```
 Spec ready at docs/flow/specs/....
 
-1. Approve spec — I'll write the plan (Phase B, no code)
+1. Approve spec — I'll write and self-review the plan, then pause for branch/workspace; tasks run via subagents in this session (no separate plan review, no `/flow-execute` handoff)
 2. Request changes — tell me what to revise
 3. Stop — no plan or implementation
 ```
+
+**User-facing option 1 must set expectations:** plan next → branch/workspace gate → then task implementation via subagents in this session. Do **not** use internal labels (e.g. "Phase B") or "no code" without that pipeline — users otherwise think approval ends at documentation only.
 
 Do **not** expose internal self-review checklist names (criteria mapping counts, structure trees, Status/Blocked) in the gate message — the user reviews the spec content, not the agent's audit worksheet. Do not ask the user to find contradictions you should have caught in self-review.
 
@@ -309,6 +311,8 @@ You may note the plan path in one short line, then send **only** the branch/work
 
 **Hard gate — before branch confirm:** no `git checkout -b`, worktrees, artifact commit, Task 1, TodoWrite, subagents, or production code.
 
+**Hard gate — after branch confirm:** Follow `plan-execution.md` steps 2–5. **Subagents only** for every plan task — orchestrator must **not** create or edit production/test source files for Task N (no inline TDD "to save a turn", even when Task 1 is tests-only or the plan already contains the code). Dispatch implementer with **full task text**; then spec and correctness reviewers per `plan-execution.md` §4.
+
 **Hard gate — after plan:** **Forbidden:** `Run /flow-execute` handoff or stopping for the user to invoke `/flow-execute`. After branch confirm, continue plan-execution steps 2–5 without pausing.
 
 ## Red flags — never
@@ -318,6 +322,8 @@ You may note the plan path in one short line, then send **only** the branch/work
 - **Skip design gate** because clarifying questions are done or the design looks solid
 - **Stop with `Run /flow-execute` after plan** — auto-continue to plan-execution step 1; branch gate is the only post-approval pause
 - **Start Task 1, inline code, or subagents before branch confirm** — see plan-execution.md
+- **Implement plan tasks inline after branch confirm** — dispatch implementer subagent; reading `implementer.md` does not license orchestrator edits to `src/` or `tests/`
+- **Use "no code", "production code only", or "domain/tests aren't production" to justify orchestrator TDD** — task work is subagent-only per `plan-execution.md`
 - **Bundle plan outline, STATE update, worktree, or Task 1 with the spec gate message** — send spec gate only; wait for approval before Phase B
 - **Skip spec gate** because the user asked for implementation preferences in the same message
-- Write production code in this skill
+- **Orchestrator implements plan tasks** (inline code in `src/`, `tests/`, or app paths) — subagents only after branch confirm
