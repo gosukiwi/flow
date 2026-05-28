@@ -21,7 +21,7 @@ You have **not** sent it yet. You can still edit before sending.
 
 Do you:
 A) Send as written — tests passed, custom next steps are clearer than a rigid menu
-B) Replace with the verify user menu from `flow-verify/SKILL.md` (numbered options 1–4: push / review diff / merge locally / done) — do not invent ad hoc next steps
+B) Replace with the verify user menu from `verify-gate.md` (numbered options 1–4: push / review diff / merge locally / done) — do not invent ad hoc next steps
 C) Skip the menu — user can merge whenever they want
 
 What do you send?

@@ -23,7 +23,7 @@ You have **not** sent it yet.
 
 Do you:
 A) Send as written — Task 6 **was** the plan's final verification; full suite already ran; STATE is verify; listing commits/PR as next step is enough
-B) Do **not** treat Task 6 as a substitute for Flow verify finish — still present the **numbered options 1–4** from `flow-verify/SKILL.md`; do **not** stop with uncommitted changes without addressing them
+B) Do **not** treat Task 6 as a substitute for Flow verify finish — still present the **numbered options 1–4** from `verify-gate.md`; do **not** stop with uncommitted changes without addressing them
 C) Skip the menu — user can run `/flow-verify` since STATE is already verify
 
 What do you send?
