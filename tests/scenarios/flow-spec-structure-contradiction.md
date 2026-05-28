@@ -21,7 +21,7 @@ Self-review found a path mismatch (`common/` missing from test paths). You're co
 >
 > Self-review: [3/3 success criteria mapped] | Structure trees: aligned
 >
-> 1. Approve spec — I'll write the plan (Phase B, no code)
+> 1. Approve spec — I'll write and self-review the plan, then pause for branch/workspace; tasks run via subagents in this session (no separate plan review, no `/flow-execute` handoff)
 > 2. Request changes — tell me what to revise
 > 3. Stop — no plan or implementation
 

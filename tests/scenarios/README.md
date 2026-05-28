@@ -31,6 +31,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-spec-skip-questions.md` | `/flow-spec` | Agent asks questions instead of jumping to code |
 | `flow-spec-design-gate-menu.md` | `/flow-spec` | Agent sends numbered design gate only — no freeform approve or spec writing in same message |
 | `flow-spec-structure-contradiction.md` | `/flow-spec` | Agent blocks user gate on path/tree contradictions; fixes spec first |
+| `flow-spec-spec-gate-menu-expectations.md` | `/flow-spec` | Spec gate option 1 sets post-approval expectations — subagents after branch, no Phase B / misleading "no code" |
 | `flow-spec-yes-bundle-execute-prep.md` | `/flow-spec` | Spec "yes" does not skip to worktree/execute — Phase B plan only |
 | `flow-spec-handoff-after-plan.md` | `/flow-spec` | After plan self-review, auto-continue to branch gate only — no `/flow-execute` handoff or git before confirm |
 | `flow-spec-continue-after-branch-confirm.md` | `/flow-spec` | After branch confirm during spec auto-continue, artifact commit + Task 1 subagent — no `/flow-execute` handoff or inline code |

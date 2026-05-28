@@ -246,6 +246,24 @@ else
   fail "flow-spec: must present numbered spec gate menu"
 fi
 
+if awk '/Spec ready at docs\/flow\/specs/,/^```$/' "$spec_file" | grep -q 'Phase B'; then
+  fail "flow-spec: spec gate user menu must not use Phase B"
+else
+  pass "flow-spec: spec gate menu has no Phase B label"
+fi
+
+if grep 'Approve spec' "$spec_file" | grep -qi 'subagent'; then
+  pass "flow-spec: spec gate option 1 sets subagent execution expectation"
+else
+  fail "flow-spec: spec gate option 1 must mention subagent task execution"
+fi
+
+if grep -qi 'Implement plan tasks inline after branch confirm' "$spec_file"; then
+  pass "flow-spec: forbids inline plan tasks after branch confirm"
+else
+  fail "flow-spec: must forbid inline plan task implementation after branch confirm"
+fi
+
 if grep -q 'Approve design' "$spec_file" && grep -q 'Design gate' "$spec_file"; then
   pass "flow-spec: design gate numbered menu"
 else
