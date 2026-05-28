@@ -1,5 +1,7 @@
 # Verification Gate
 
+Universal Iron Law for **any** completion claim. For the full Flow verify phase (test suite, requirements checklist, user menu), read `verify-gate.md`.
+
 ## Iron Law
 
 ```

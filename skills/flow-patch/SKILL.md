@@ -174,11 +174,11 @@ Stop when blocked, ambiguous, or verify steps complete and user menu presented. 
 
 When all micro-spec tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
 
-1. Read `flow-verify/SKILL.md` (resolve via path resolver in `flow/SKILL.md`)
-2. Follow verify process: `verification-gate.md`, full test suite, requirements checklist against micro-spec
-3. Update `docs/flow/STATE.md`: `phase: verify` when starting
+1. Read `flow-verify/SKILL.md` and `flow-shared/references/verify-gate.md` (resolve via path resolver in `flow/SKILL.md`)
+2. Follow verify-gate process — full test suite, requirements checklist against micro-spec
+3. Update `docs/flow/STATE.md`: `phase: verify` when starting (per verify-gate)
 4. If verify fails → route to `/flow-debug` or fix inline; do not present the done menu
-5. If verify passes → present the verify user menu per `flow-verify/SKILL.md`
+5. If verify passes → present the verify user menu per `verify-gate.md`
 
 **Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim patch or verify complete. Commit per micro-spec task Step 5, then re-run verify steps 2–5.
 
@@ -186,7 +186,7 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 
 **Forbidden:** Stopping with a "Run `/flow-verify`" handoff when patch tasks succeeded.
 
-**Forbidden:** Presenting ad hoc "next steps" or a custom merge/PR menu — use the **exact** verify user menu from `flow-verify/SKILL.md` (numbered options 1–4). Manual QA notes may appear **above** the menu, not instead of it.
+**Forbidden:** Presenting ad hoc "next steps" or a custom merge/PR menu — use the **exact** verify user menu from `verify-gate.md` (numbered options 1–4). Manual QA notes may appear **above** the menu, not instead of it.
 
 ## Redirect rules
 

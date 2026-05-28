@@ -20,6 +20,7 @@ metadata:
 - `flow-shared/references/plan-execution.md`
 - `flow-shared/references/tdd-red-green.md`
 - `flow-shared/references/verification-gate.md`
+- `flow-shared/references/verify-gate.md`
 - `flow-shared/references/branch-gate.md`
 - `flow-shared/references/session-gate.md`
 - `flow-shared/references/worktree-setup.md`
