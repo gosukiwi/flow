@@ -33,7 +33,7 @@ For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 | `/flow` | Not sure where to start — triage only; suggests one command, **you invoke it** |
 | `/flow-debug` | Bug, test failure, or unexpected behavior — root cause before fixes |
 | `/flow-patch` | Small bounded change (≤3 files, one concern) — micro-spec + **inline** TDD + per-task review |
-| `/flow-brainstorm` | Idea still fuzzy — explore options and design before formal spec |
+| `/flow-brainstorm` | Idea still fuzzy — explore options and design; then numbered handoff gate (patch, spec, or stop) — continues in-session after you pick |
 | `/flow-spec` | Clear feature or multi-step change — spec gate → plan → branch gate → **subagent** tasks → verify (one session) |
 | `/flow-execute` | Resume or cold start when the plan exists but the spec session ended (`phase: planned` or partial execute) |
 | `/flow-verify` | Full test suite + requirements checklist + merge/push menu — auto-runs when spec implement or patch finishes; invoke standalone to re-check |
@@ -42,7 +42,7 @@ For full workflow details: [`docs/workflow.md`](docs/workflow.md)
 ### Example usage
 
 **"I want to add OAuth login"** (new feature, multiple steps)  
-Start with `/flow-brainstorm` if the approach is still fuzzy, then `/flow-spec` — spec runs through branch gate, artifact commit, subagent tasks, and verify. Merge or push from the verify menu or `/flow-finish`.
+Start with `/flow-brainstorm` if the approach is still fuzzy — after the brief, pick **continue to spec** on the handoff gate (or patch if you prefer a micro-spec path). Spec runs through branch gate, artifact commit, subagent tasks, and verify. Merge or push from the verify menu or `/flow-finish`.
 
 **"Fix a typo in the error message"** (small, one concern)  
 `/flow-patch` → verify → `/flow-finish`.

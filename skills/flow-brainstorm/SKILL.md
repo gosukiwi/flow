@@ -73,10 +73,10 @@ After clarifying purpose and constraints, evaluate scope using the same criteria
 | Design direction settled | Needs formal plan with many tasks |
 
 - **Clearly small from the start** (no real design ambiguity left): redirect immediately to `/flow-patch` — skip the brainstorm brief; the micro-spec in patch replaces it.
-- **Still exploring but likely small**: continue with a lightweight brainstorm, then hand off to `/flow-patch`.
-- **Multi-step or multi-concern**: continue full brainstorm, then hand off to `/flow-spec`.
+- **Still exploring but likely small**: continue with a lightweight brainstorm, then §7 handoff gate (patch recommended).
+- **Multi-step or multi-concern**: continue full brainstorm, then §7 handoff gate (spec recommended).
 
-Re-assess scope before handoff. If scope grew during brainstorm, route to `/flow-spec`. If scope is small and bounded, route to `/flow-patch`.
+Re-assess scope before handoff. If scope grew during brainstorm, recommend **spec** on the gate; if small and bounded, recommend **patch**.
 
 ### 3. Propose approaches
 
@@ -128,7 +128,7 @@ Use the **Next Step** that matches scope assessment — pick one, not both:
 ## Out of Scope (for now)
 ## Open Questions
 ## Next Step
-→ Run `/flow-patch` — small bounded scope; use this brief as context for the micro-spec
+→ Handoff gate: continue to **patch** (recommended) or spec — agent sends §7 menu after save; use this brief for the micro-spec if patch
 ```
 
 **Multi-step or multi-concern → spec:**
@@ -146,7 +146,7 @@ Use the **Next Step** that matches scope assessment — pick one, not both:
 ## Out of Scope (for now)
 ## Open Questions
 ## Next Step
-→ Run `/flow-spec` — multi-step change; lock requirements and generate implementation plan
+→ Handoff gate: continue to **spec** (recommended) or patch — agent sends §7 menu after save; lock requirements and plan if spec
 ```
 
 Self-review the brief before saving: no contradictions, open questions resolved or listed explicitly.
@@ -182,6 +182,8 @@ What's next?
 ```
 
 **Stop until the user picks 1, 2, or 3.** Option 3 ends brainstorm handoff. Do not tell them to invoke `/flow-patch` or `/flow-spec` manually — continuation happens in this session after they pick.
+
+**"Yes" / "approve" / "proceed" / "1" after this gate counts as that handoff pick only** — a single-word reply without a number means **option 1 (recommended)**. Not micro-spec approval, spec approval, plan writing, branch/workspace confirmation, or code.
 
 #### After handoff gate
 

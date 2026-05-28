@@ -13,7 +13,14 @@ metadata:
 
 Create a clear spec (user-approved) and implementation plan (AI self-reviewed). The **orchestrator** does not implement plan tasks — no edits to `src/`, `tests/`, or app code for Task N. After branch confirm, auto-continue dispatches **implementer subagents** per `plan-execution.md` (same session; no `/flow-execute` handoff).
 
-If a brainstorm brief exists at `docs/flow/brainstorms/`, read it first and carry forward agreed direction. If requirements are still fuzzy, redirect to `/flow-brainstorm`. If the brief's scope is small and bounded (≤3 files, one concern), redirect to `/flow-patch` instead of writing a spec.
+If a brainstorm brief exists at `docs/flow/brainstorms/`, read it first and carry forward agreed direction.
+
+| Situation | Action |
+|-----------|--------|
+| Requirements still fuzzy | Tell the user to invoke `/flow-brainstorm` — do not write a spec yet |
+| Brief scope small and bounded (≤3 files, one concern) | Read `flow-patch/SKILL.md` via path resolver and follow patch — do **not** write a spec or tell the user to invoke `/flow-patch` |
+| Same-topic continuation after brainstorm handoff (user picked **1** or **2** for spec on §7 menu) | Continue Phase A here — session gate skipped per §4 |
+| User invoked `/flow-spec` cold with no brief | Normal Phase A flow |
 
 ## Phase A — Spec
 

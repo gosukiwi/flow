@@ -37,6 +37,8 @@ Branch and workspace confirmation is a **blocking user gate** — same weight as
 
 If `docs/flow/STATE.md` or the user points to a brainstorm brief at `docs/flow/brainstorms/...`, read it first and carry forward agreed decisions into the micro-spec.
 
+**Brainstorm handoff:** If you continued from brainstorm §7 (user picked patch, or spec→patch override), you are already in patch workflow — do not tell the user to invoke `/flow-patch`. If the brief's scope exceeds patch criteria, read `flow-spec/SKILL.md` via path resolver and follow spec — do not tell the user to invoke `/flow-spec`.
+
 Write inline before any code. Break work into one or more tasks with bite-sized steps:
 
 ```markdown
