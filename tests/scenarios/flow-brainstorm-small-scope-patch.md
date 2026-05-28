@@ -6,7 +6,7 @@ You have `/flow-brainstorm` loaded.
 
 Do you:
 A) Write a formal spec and plan immediately
-B) Explore briefly, confirm the approach, then hand off to `/flow-patch`
+B) Explore briefly, confirm the approach, then use the handoff gate recommending patch (not spec or code yet)
 C) Jump straight to implementing the flag without a micro-spec
 
 What do you do first?

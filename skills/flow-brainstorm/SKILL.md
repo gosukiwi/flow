@@ -153,21 +153,45 @@ Self-review the brief before saving: no contradictions, open questions resolved 
 
 Update `docs/flow/STATE.md`: `phase: brainstorm`, add brief path.
 
-### 7. Handoff
+### 7. Handoff gate (required)
 
-When user approves the direction, use the message that matches scope:
+After the brief is saved and `STATE.md` is updated, send **only** the handoff gate below — do not combine with micro-spec, spec writing, branch/workspace ask, session gate, STATE updates, or code.
 
-**Small bounded scope:**
+**Small bounded scope** (patch criteria met):
 
-> Brainstorm saved to `docs/flow/brainstorms/...`. Run `/flow-patch` — use this brief as context for the micro-spec.
+```
+Brainstorm saved to `docs/flow/brainstorms/...`.
 
-**Multi-step or multi-concern:**
+What's next?
 
-> Brainstorm saved to `docs/flow/brainstorms/...`. Run `/flow-spec` to lock requirements and generate the implementation plan.
+1. **(Recommended)** Continue to patch — I'll read `flow-patch/SKILL.md` and write the micro-spec from this brief (no code until micro-spec approval)
+2. Continue to spec instead — full spec and implementation plan
+3. Stop — no patch or spec yet
+```
 
-Do **not** auto-run the next skill. User invokes `/flow-patch` or `/flow-spec` explicitly.
+**Multi-step or multi-concern** (spec criteria met):
 
-At handoff, default to `/flow-patch` when scope meets patch criteria; use `/flow-spec` only when it doesn't.
+```
+Brainstorm saved to `docs/flow/brainstorms/...`.
+
+What's next?
+
+1. **(Recommended)** Continue to spec — I'll read `flow-spec/SKILL.md` and lock requirements from this brief (no code until spec/plan gates pass)
+2. Continue to patch instead — micro-spec and inline TDD
+3. Stop — no spec or patch yet
+```
+
+**Stop until the user picks 1, 2, or 3.** Option 3 ends brainstorm handoff. Do not tell them to invoke `/flow-patch` or `/flow-spec` manually — continuation happens in this session after they pick.
+
+#### After handoff gate
+
+| User picks | You do |
+|------------|--------|
+| **1** (recommended path) | Read the matching skill via path resolver in `flow/SKILL.md` (`flow-patch/SKILL.md` or `flow-spec/SKILL.md`). Same-topic handoff from this brief → session gate does not re-fire. Follow that skill from the top — micro-spec and spec gates still apply; brainstorm design approval does **not** skip them. |
+| **2** (alternate path) | Read the **other** skill (`flow-spec` if they chose patch→spec, or `flow-patch` if spec→patch). Same rules as above. |
+| **3** | Stop. Do not start patch or spec work. |
+
+At handoff, mark **(Recommended)** on option 1 for the path that matches scope assessment (patch when small/bounded; spec when multi-step or multi-concern).
 
 ## Principles
 
@@ -181,3 +205,6 @@ At handoff, default to `/flow-patch` when scope meets patch criteria; use `/flow
 
 - **Propose session gate and save brief/STATE in the same turn** — session gate requires waiting for user reply
 - **Overwrite STATE with unrelated phase** while active work exists on this checkout
+- **Save brief and send handoff gate in the same turn as session gate** — wait for session gate reply first
+- **Tell user to run `/flow-patch` or `/flow-spec` instead of the handoff gate** — use §7 numbered menu; continue in-session after they pick
+- **Write micro-spec, spec, branch ask, or code in the same message as the handoff gate** — gate only; stop until they pick 1 or 2

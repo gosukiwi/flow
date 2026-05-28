@@ -317,6 +317,15 @@ else
   fail "flow-brainstorm: must list forbidden gate/STATE actions as red flags, not principles"
 fi
 
+if grep -qi 'Handoff gate' "$brainstorm_file" \
+  && grep -q 'Stop until the user picks 1, 2, or 3' "$brainstorm_file" \
+  && grep -q 'Continue to patch' "$brainstorm_file" \
+  && grep -q 'Continue to spec instead' "$brainstorm_file"; then
+  pass "flow-brainstorm: numbered handoff gate with stop-until"
+else
+  fail "flow-brainstorm: must have numbered handoff gate (patch/spec/stop) with stop-until user pick"
+fi
+
 branch_gate="$SKILLS_DIR/flow-shared/references/branch-gate.md"
 if grep -q 'Hard gate' "$branch_gate" && grep -q 'Stop until' "$branch_gate"; then
   pass "branch-gate: has hard gate with stop-until language"
