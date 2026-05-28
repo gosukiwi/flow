@@ -108,10 +108,12 @@ Refresh `HEAD_SHA` if the implementer committed fixes after spec review. Reuse `
 
 Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
 
-- **Block or Fix present:** implementer (subagent) fixes all Block and Fix items → re-review
+- **Block or Fix present:** implementer (subagent) fixes all Block and Fix items → refresh `HEAD_SHA` → return to **Step 2 — Spec compliance review** on the updated diff → then rerun correctness
 - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
 
 Reviewers do not edit code.
+
+Any code change after spec compliance approval invalidates that approval. Do not rerun correctness alone after a Block/Fix cleanup, even when the cleanup was requested by the correctness reviewer and tests pass.
 
 #### Step 4 — Complete task
 
@@ -143,6 +145,7 @@ When all **implementation** plan tasks are complete, **immediately continue into
 - **Wait for `/flow-verify` invocation** before running the full test suite or requirements checklist
 - **Trust the implementer report for spec compliance** — spec reviewer must inspect the diff independently
 - **Skip spec review because tests pass** — spec and correctness are separate gates
+- **Rerun only correctness after correctness-review fixes** — any changed diff needs spec compliance again before correctness can approve
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Skip artifact commit** before Task 1 when flow artifact files exist uncommitted on the branch
 - **Commit flow artifacts on `main`/`master`** during execute

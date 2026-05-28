@@ -142,6 +142,14 @@ else
   fail "spec-reviewer: must require Do not trust report and git diff inspection"
 fi
 
+correctness_reviewer="$SKILLS_DIR/flow-shared/prompts/correctness-reviewer.md"
+if grep -qi 'reruns spec compliance on the updated diff' "$correctness_reviewer" \
+  && grep -qi 'equivalent reviewed patch task' "$correctness_reviewer"; then
+  pass "correctness-reviewer: orchestrator fixes preserve review rails"
+else
+  fail "correctness-reviewer: must require spec compliance after task fixes and reviewed patch task for branch fixes"
+fi
+
 implementer="$SKILLS_DIR/flow-shared/prompts/implementer.md"
 if grep -qi 'detached HEAD\|detach' "$implementer" && grep -qi 'never.*checkout.*commit-sha\|checkout.*commit-sha' "$implementer"; then
   pass "implementer: forbids checkout by SHA (detached HEAD)"
@@ -179,10 +187,24 @@ else
   fail "plan-execution: must check git status and block complete with uncommitted changes"
 fi
 
+if grep -qi 'Any code change after spec compliance approval invalidates that approval' "$plan_exec_file" \
+  && grep -qi 'Rerun only correctness after correctness-review fixes' "$plan_exec_file"; then
+  pass "plan-execution: correctness-review fixes rerun spec compliance"
+else
+  fail "plan-execution: must rerun spec compliance after correctness-review fixes"
+fi
+
 if grep -qi 'uncommitted' "$patch_file" && grep -qi 'git status' "$patch_file"; then
   pass "flow-patch: blocks complete with uncommitted changes"
 else
   fail "flow-patch: must check git status and block complete with uncommitted changes"
+fi
+
+if grep -qi 'Any code change after spec compliance approval invalidates that approval' "$patch_file" \
+  && grep -qi 'Rerun only correctness after correctness-review fixes' "$patch_file"; then
+  pass "flow-patch: correctness-review fixes rerun spec compliance"
+else
+  fail "flow-patch: must rerun spec compliance after correctness-review fixes"
 fi
 
 if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'verify-gate' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
@@ -195,6 +217,13 @@ if grep -qi 'skip spec or correctness review' "$patch_file"; then
   pass "flow-patch: forbids skipping per-task review"
 else
   fail "flow-patch: must forbid skipping spec or correctness review"
+fi
+
+if grep -qi 'Fix verify failures with unreviewed inline edits' "$patch_file" \
+  && grep -qi 'reviewed patch task' "$patch_file"; then
+  pass "flow-patch: verify failures require reviewed patch task"
+else
+  fail "flow-patch: must forbid unreviewed inline fixes for verify failures"
 fi
 
 if grep -qi 'verify user menu' "$patch_file"; then
@@ -478,6 +507,13 @@ if grep -qi 'Do not run option 2 automatically' "$verify_gate"; then
   pass "verify-gate: option 2 not automatic"
 else
   fail "verify-gate: must forbid auto-run of option 2 branch review"
+fi
+
+if grep -qi 'Patch option 2 findings with unreviewed inline edits' "$verify_gate" \
+  && grep -qi 'equivalent reviewed patch task' "$verify_gate"; then
+  pass "verify-gate: option 2 fixes require reviewed patch task"
+else
+  fail "verify-gate: must forbid unreviewed inline fixes after option 2 findings"
 fi
 
 state_setup="$SKILLS_DIR/flow-shared/references/state-setup.md"
