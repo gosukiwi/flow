@@ -50,6 +50,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-final-task-not-verify-menu.md` | `/flow-execute` | Plan "Final verification" task + uncommitted changes do not replace verify menu or completion claim |
 | `flow-execute-skip-branch-gate.md` | `/flow-execute` | Agent sends branch ask only — no "Starting Task 1" in same message |
 | `flow-execute-overlap-tasks.md` | `/flow-execute` | Agent waits for Task N reviews before Task N+1 |
+| `flow-execute-midplan-review-bypass.md` | `/flow-execute` | Agent does not skip correctness or parallel Task N+1 after mid-plan spec ✅ |
 | `flow-execute-checkout-base-sha.md` | `/flow-execute` | Implementer stays on branch; never `git checkout <BASE_SHA>` (detached HEAD) |
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Ad hoc merge uses finish-gate directly; no auto option 2 and no raw merge |

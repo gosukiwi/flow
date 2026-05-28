@@ -30,3 +30,7 @@ Skip branch gate when STATE already has confirmed `branch` for this topic; still
 
 - Skip `plan-execution.md` and implement inline
 - **Stop with `/flow-execute` handoff** when this skill is already active and branch is ready
+- **Skip per-task spec or correctness review** after Task 1 (every task: implementer → spec ✅ → correctness ✅)
+- **Dispatch Task N+1 implementer** before Task N correctness ✅ Approved
+- **Treat full verify** as a substitute for per-task reviews
+- **Proceed without re-reading** `plan-execution.md` §4 task gate before each Task N dispatch

@@ -18,7 +18,7 @@ else
 fi
 
 if [[ -f "$CONTROL_PLANE" ]]; then
-  for invariant in {1..15}; do
+  for invariant in {1..17}; do
     if grep -q "| I${invariant} |" "$CONTROL_PLANE"; then
       pass "control-plane: invariant I${invariant} listed"
     else
@@ -209,6 +209,27 @@ if grep -qi 'Any code change after spec compliance approval invalidates that app
   pass "plan-execution: correctness-review fixes rerun spec compliance"
 else
   fail "plan-execution: must rerun spec compliance after correctness-review fixes"
+fi
+
+if grep -qi 'Hard gate — per task' "$plan_exec_file" \
+  && grep -qi 'Verify does \*\*not\*\* replace per-task' "$plan_exec_file" \
+  && grep -qi 'continuous ≠ skip reviews' "$plan_exec_file"; then
+  pass "plan-execution: per-task hard gate and verify does not replace reviews"
+else
+  fail "plan-execution: must have per-task hard gate; verify must not replace per-task reviews"
+fi
+
+if grep -qi 'Before every Task N dispatch' "$plan_exec_file" \
+  && grep -qi 'Same pattern as Task 1' "$plan_exec_file"; then
+  pass "plan-execution: checkpoint before each task and Task 2+ skip rationalization"
+else
+  fail "plan-execution: must require re-read task gate before each dispatch and counter Task 2+ skip"
+fi
+
+if grep -qi 'Skip per-task spec or correctness review' "$execute_file"; then
+  pass "flow-execute: forbids skipping per-task reviews"
+else
+  fail "flow-execute: must forbid skipping per-task spec/correctness reviews"
 fi
 
 if grep -qi 'uncommitted' "$patch_file" && grep -qi 'git status' "$patch_file"; then

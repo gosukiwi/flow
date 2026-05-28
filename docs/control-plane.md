@@ -125,8 +125,10 @@ plan-execution.md (skip branch gate if STATE.branch confirmed for topic)
   1. session + branch gate (if needed)
   2. artifact commit
   3. load plan
-  4. per-task subagent loop
-  5. verify auto-run
+  4. per-task loop (strictly serial — see Per-task review loop)
+       each task: implementer → spec ✅ → correctness ✅ → TodoWrite complete
+       forbidden: Task N+1 (any role) until Task N both reviews approved
+  5. verify auto-run (does not replace step 4 reviews)
 ```
 
 ### `/flow-patch`
@@ -184,7 +186,7 @@ finish-gate.md:
 | `branch-gate.md` | Before git mutation / Task 1 | No implementation until branch + workspace confirmed |
 | `worktree-setup.md` | User picks worktree | Gitignore dir before `git worktree add` |
 | `artifact-commit-gate.md` | After branch confirm, before Task 1 | Commit flow artifacts on feature branch only |
-| `plan-execution.md` | spec auto-continue, `/flow-execute` | Subagents only; serial tasks; auto verify |
+| `plan-execution.md` | spec auto-continue, `/flow-execute` | Subagents only; **dual review per task**; serial tasks; auto verify **after** all task reviews |
 | `verify-gate.md` | end of execute/patch, `/flow-verify` | Fresh full suite; numbered menu only |
 | `finish-gate.md` | `/flow-finish`, verify menu 1/3/4 | No raw merge; git-only remote sync check |
 | `tdd-red-green.md` | patch inline, plan tasks | Behavior → RED-GREEN; presentation → manual |
@@ -228,6 +230,16 @@ Both:
   Never git checkout SHA (diff anchors only)
   One commit per task (patch: per micro-spec step 5)
 ```
+
+**Not valid (no exceptions):**
+
+- Implementer DONE or per-task tests green → skip spec or correctness review
+- Spec ✅ only → start Task N+1 before correctness ✅ Approved
+- Parallel Task N+1 implementer while Task N review still running
+- End verify (full suite) → substitute for per-task diff reviews
+- Auto-continue / continuous execution → skip reviews or parallel tasks (continue **gates**, not throughput)
+
+**Orchestrator:** Re-read `plan-execution.md` §4 task gate checklist before **each** Task N dispatch.
 
 ---
 
@@ -335,8 +347,10 @@ Edit these only with scenario RED → skill GREEN → `make test`.
 | I13 | Never `git checkout <SHA>` for task work (detached HEAD) |
 | I14 | `flow-shared` not invoked directly — path resolver only |
 | I15 | Brainstorm handoff continues **in-session** — no "run `/flow-patch`" text |
+| I16 | Task N+1 (any subagent role) only after Task N spec ✅ and correctness ✅ Approved |
+| I17 | Execute/patch auto-verify does **not** waive per-task spec + correctness reviews |
 
-**Checked by:** `tests/static/validate-skills.sh` verifies this map exists and lists I1-I15. Behavioral enforcement lives in skill text plus `tests/scenarios/` pressure cases.
+**Checked by:** `tests/static/validate-skills.sh` verifies this map exists and lists I1-I17. Behavioral enforcement lives in skill text plus `tests/scenarios/` pressure cases.
 
 ---
 
@@ -368,12 +382,14 @@ Edit these only with scenario RED → skill GREEN → `make test`.
 
 ## When you change Flow
 
+**Maintainer order (see `AGENTS.md`):** Step 1 — review or update **this file with the user** (unless a Step 1 exception applies). **Halt until the human confirms** the map; do not proceed to scenarios or `skills/` in the same turn. Then Iron Law scenario RED → skill GREEN for discipline/gate changes.
+
 | Change type | Edit first | Then | Test |
 |-------------|------------|------|------|
-| Routing / handoff | This file | `flow/SKILL.md` + affected skills | scenario RED/GREEN if behavior changes |
-| New gate | This file gate order | shared ref + orchestrator skill | scenario RED/GREEN |
-| Wording only | `SKILL.md` or ref directly | — | `make test` |
-| New invariant | This table | skill prose + `validate-skills.sh` if grep-able | scenario RED/GREEN |
+| Routing / handoff | This file (user review) | `flow/SKILL.md` + affected skills | scenario RED/GREEN if behavior changes |
+| New gate | This file gate order (user review) | shared ref + orchestrator skill | scenario RED/GREEN |
+| Wording only | Confirm no map change with user | `SKILL.md` or ref directly | `make test` |
+| New invariant | This table (user review) | skill prose + `validate-skills.sh` if grep-able | scenario RED/GREEN |
 
 **Do not** regenerate all skills from this map in one AI pass — sync surgical slices, review diff.
 
@@ -399,7 +415,7 @@ stateDiagram-v2
 
   Spec --> Planned: spec+plan approved
   Planned --> Execute: branch confirmed
-  Execute --> Verify: tasks done
+  Execute --> Verify: tasks done + per-task reviews complete
   Patch --> Verify: tasks done
   Verify --> Finish: menu 1,3,4 or ad hoc
   Finish --> [*]: phase done

@@ -54,6 +54,18 @@ Raise concerns to user before starting if plan has critical gaps.
 
 ### 4. Per task (strictly serial)
 
+## Hard gate — per task
+
+```
+NO TASK N+1 (ANY ROLE) UNTIL TASK N SPEC ✅ AND CORRECTNESS ✅ APPROVED
+```
+
+Applies to **every** task including Task 2 onward. Task 1 completing both reviews does **not** waive reviews on later tasks.
+
+End-of-lane **verify** (full test suite + requirements menu) runs **after** all tasks pass this gate. Verify does **not** replace per-task spec or correctness review.
+
+**Auto-continue** (after branch confirm) means continue **this gate sequence** without handoffs — not skip reviews, not parallel tasks, not “ship the plan” at throughput speed.
+
 **One task at a time. One subagent role at a time.**
 
 Do not dispatch Task N+1 — implementer, reviewer, or any role — while Task N is still in progress.
@@ -70,6 +82,18 @@ Only then start Task N+1 step 1.
 ```
 
 **Forbidden:** Starting Task N+1 while Task N is still in spec or correctness review — even if the implementer already finished. Reviews are blocking gates, not background work.
+
+**Stop until — before every Task N dispatch (including N ≥ 2):** Re-read the Task N gate checklist in this section. Confirm which step you are on (implementer / spec / correctness / complete). If you cannot point to spec ✅ and correctness ✅ Approved for Task N−1, do **not** dispatch Task N’s implementer.
+
+| Rationalization | Response |
+|-----------------|----------|
+| “Same pattern as Task 1 — skip reviews on 2–5” | Every task gets full dual review; pattern reuse is not an exception |
+| “Tests pass / implementer DONE — good enough” | Tests do not waive spec or correctness |
+| “Spec ✅ — start next task; correctness can run in parallel” | Forbidden — one role at a time; correctness must finish before Task N+1 |
+| “Full verify after Task 5 covers the branch” | Verify is additional; per-task diff reviews are mandatory |
+| “Auto-continue / user said yes — keep momentum” | Continue gates, not skip them |
+| “Task 1 review fatigue — only review the big tasks” | No task-size exception |
+| “Correctness fix subagent — skip re-review” | Any post–spec-approval diff → spec again, then correctness |
 
 **Before each dispatch:** Read prompt templates (resolve via path resolver in `flow/SKILL.md`):
 
@@ -140,7 +164,11 @@ When all **implementation** plan tasks are complete, **immediately continue into
 ## Red flags — never
 
 - Skip subagents and implement inline
-- Skip spec or correctness review
+- Skip spec or correctness review on **any** task (including Task 2+)
+- **Skip reviews after Task 1** because later tasks look repetitive or small
+- **Run Task N+1 implementer while Task N correctness is pending** (parallel roles or tasks)
+- **Treat end verify as substitute** for per-task spec + correctness
+- **Read auto-continue as “finish the plan”** instead of “finish each task gate”
 - **Hand off verify instead of running it** after all tasks complete
 - **Wait for `/flow-verify` invocation** before running the full test suite or requirements checklist
 - **Trust the implementer report for spec compliance** — spec reviewer must inspect the diff independently
@@ -162,8 +190,10 @@ When all **implementation** plan tasks are complete, **immediately continue into
 
 ## Continuous execution
 
-After branch confirm: artifact commit → tasks → verify with **no** mid-lane pauses or `/flow-execute` handoffs.
+After branch confirm: artifact commit → **each task’s full gate** (implementer → spec → correctness) → verify with **no** mid-lane pauses or `/flow-execute` handoffs.
 
-Do not pause between **completed** tasks. **Continuous ≠ parallel** — finish Task N reviews before Task N+1.
+Do not pause between **completed** tasks for user approval. **Continuous ≠ parallel** and **continuous ≠ skip reviews** — finish Task N’s spec and correctness before Task N+1’s implementer.
+
+**Forbidden:** Batching implementers for tasks 2–5 then “catching up” reviews once, or only reviewing Task 1.
 
 Stop only when: blocked, ambiguous, verify menu presented, uncommitted work on the feature branch, or user picks a menu option.

@@ -56,22 +56,48 @@ Makefile                   # test, test-static, test-scenarios, install
 
 **Dependencies:** `bash`, `python3`, `grep`, `find`. No Node build step in this repo (Node only for `npx skills` at install time).
 
-## Iron Law (any change under `skills/`)
+## Maintainer change order
 
-From `tests/writing-skills.md`: **no skill change without a failing scenario first.** If you already edited `SKILL.md` or `flow-shared/` before RED, that edit is **invalid** — revert or stash, run RED on the **committed (pre-change)** skills, then proceed.
+**Default:** every skillset change starts with the control plane, then proceeds to skills/scenarios/tests. Do not edit `skills/` or `flow-shared/` for a behavior change until the **human has reviewed and confirmed** the map (when the map applies).
+
+| Step | Action | Done when |
+|------|--------|-----------|
+| **1 — Control plane** | Propose or edit `docs/control-plane.md` (gate order, invariants, handoffs, delegation); present the diff for review | **Human explicitly confirms** (e.g. approve, yes, continue) — or confirms no map change needed |
+| **2+ — Iron Law** | **Only after Step 1 confirmation** — if discipline/gates/routing in shippable skills changed: scenario RED → skill GREEN | Per Iron Law table |
+| **Last** | `make test`; reinstall locally when iterating skills | Static checks pass |
+
+**Hard gate — after control-plane edits:** When you change `docs/control-plane.md`, **halt and wait for human confirmation** in the same session. Do **not** in the same turn or follow-up without approval: write scenarios, run subagent RED/GREEN, edit `skills/` or `flow-shared/`, or run `make test` for behavior tied to the new map. Proposing the map is not confirmation; the user must review and reply.
+
+**Step 1 exceptions (skip map edit; still run `make test`):**
+
+- Pure wording in `skills/` or `flow-shared/` with **no** gate, routing, handoff, or invariant change
+- Mechanical fixes (e.g. `validate-skills.sh`, fixtures, typos) unrelated to Flow behavior
+- New `flow-shared` prompt/ref with **no** new behavior (list in `flow-shared/SKILL.md` only)
+
+When unsure whether the map applies, treat it as **yes** — propose control-plane updates first.
+
+## Iron Law (discipline / gate changes under `skills/`)
+
+Runs **after Step 1 (control plane)** when behavior changes. From `tests/writing-skills.md`: **no skill change without a failing scenario first.** If you already edited `SKILL.md` or `flow-shared/` before RED, that edit is **invalid** — revert or stash, run RED on the **committed (pre-change)** skills, then proceed.
 
 **Mandatory order — do not reorder or skip steps:**
 
 | Step | Action | Done when |
 |------|--------|-----------|
-| **1 — RED (write)** | Add or update `tests/scenarios/flow-<skill>-<violation>.md`; register in `tests/scenarios/README.md` | Scenario traps one specific rationalization (not abstract A/B/C) |
-| **2 — RED (run)** | Launch a **Task subagent** with only the relevant skills at **pre-change** commit; paste the scenario; return the agent’s choice **verbatim** | Subagent picks the **non-compliant** option or rationalizes the violation |
-| **3 — GREEN (edit)** | Edit `skills/` only after step 2 passes | Skill text blocks the rationalization you saw in RED |
-| **4 — GREEN (run)** | Same subagent setup with **current** tree skills; paste the same scenario | Subagent picks the compliant option and cites the rule or gate |
+| **2 — RED (write)** | Add or update `tests/scenarios/flow-<skill>-<violation>.md`; register in `tests/scenarios/README.md` | Scenario traps one specific rationalization (not abstract A/B/C) |
+| **3 — RED (run)** | Launch a **Task subagent** with only the relevant skills at **pre-change** commit; paste the scenario; return the agent’s choice **verbatim** | Subagent picks the **non-compliant** option or rationalizes the violation |
+| **4 — GREEN (edit)** | Edit `skills/` only after step 3 passes | Skill text blocks the rationalization you saw in RED; aligns with approved control plane |
+| **5 — GREEN (run)** | Same subagent setup with **current** tree skills; paste the same scenario | Subagent picks the compliant option and cites the rule or gate |
 
-Then run `make test`. Optional REFACTOR: tighten skill text or add a grep invariant in `validate-skills.sh`; re-run step 4.
+Then run `make test`. Optional REFACTOR: tighten skill text or add a grep invariant in `validate-skills.sh`; re-run step 5.
 
-**Forbidden before step 2 completes:**
+**Forbidden before Step 1 human confirmation:**
+
+- Editing `skills/**` or `flow-shared/**` for routing, gates, handoffs, or invariants without **explicit human approval** of the control-plane diff (when the map applies)
+- Continuing to Iron Law (scenario or `skills/` edits) in the same turn as a control-plane change
+- Treating user “go” on the overall task as approval of the map without a **reviewed** control-plane step (when the map was edited or proposed in that thread)
+
+**Forbidden before Iron Law step 3 (RED run) completes:**
 
 - Editing `skills/**` or `flow-shared/**` for the behavior under test
 - Treating “the skill text looks correct” as RED
@@ -80,7 +106,7 @@ Then run `make test`. Optional REFACTOR: tighten skill text or add a grep invari
 
 **Subagent RED/GREEN (default in maintainer sessions):** Use the Task tool — do not rely on this chat’s prior context. Install only relevant skills (`flow-<skill>`, `flow-shared`, and `flow` only when routing is under test). For RED, point the subagent at pre-change files (`git show HEAD:skills/...` or stash local edits). For GREEN, use the working tree after your edits.
 
-**Exceptions (no scenario):** Pure wording with no gate/discipline change; new `flow-shared` prompts/refs with no new behavior — still run `make test`. When unsure, treat it as discipline and follow all four steps.
+**Exceptions (no scenario):** Pure wording with no gate/discipline change; new `flow-shared` prompts/refs with no new behavior — still run `make test`. When unsure, treat it as discipline and follow Maintainer change order + Iron Law steps 2–5.
 
 Full detail: `tests/writing-skills.md` (authoring principles, scenario recipe, REFACTOR).
 
@@ -88,7 +114,8 @@ Full detail: `tests/writing-skills.md` (authoring principles, scenario recipe, R
 
 | Task | Read |
 |------|------|
-| Any skill edit | `tests/writing-skills.md` — **Iron Law section first** |
+| Any skillset behavior change | `docs/control-plane.md` **first** (with user review), then `tests/writing-skills.md` — Iron Law |
+| Discipline / gate edit only | `tests/writing-skills.md` — after control plane Step 1 |
 | **See how everything fits (maintainer map)** | `docs/control-plane.md` — routing, gates, invariants |
 | Understand user-facing workflow | `README.md`, `docs/workflow.md` |
 | Router / STATE / path resolver | `skills/flow/SKILL.md` |
@@ -97,16 +124,18 @@ Full detail: `tests/writing-skills.md` (authoring principles, scenario recipe, R
 
 ## Control plane (`docs/control-plane.md`)
 
-Use `docs/control-plane.md` as the maintainer map for routing, gate order, handoffs, delegation, and invariants (I1-I15). It is **not** installed to consumer projects; runtime agents read `skills/**/SKILL.md` and `flow-shared/`.
+Use `docs/control-plane.md` as the maintainer map for routing, gate order, handoffs, delegation, and invariants (I1–I17). It is **not** installed to consumer projects; runtime agents read `skills/**/SKILL.md` and `flow-shared/`.
 
-For structural Flow changes, work in this order:
+**This is Maintainer change order Step 1** (see above) — not optional for routing, gate, handoff, or invariant work.
 
-1. Review or update `docs/control-plane.md` first.
-2. Get user agreement on the structure when the user is steering the design.
-3. Sync only the affected `SKILL.md` / `flow-shared` files.
-4. If behavior changes, follow Iron Law: scenario RED → skill GREEN → `make test`.
+**Stop until the human confirms:** After you edit or propose changes to this file, **halt**. Present what changed (or the proposed diff). The human reviews; you proceed to scenarios and `skills/` only after they explicitly confirm. No self-approval, no “map looks fine — continuing.”
 
-Do not regenerate the skillset from the map in one pass, put maintainer-only map prose into shippable skills, or edit the control plane for wording-only skill tweaks.
+After **human confirmation** on the map (when it changed):
+
+1. Sync only the affected `SKILL.md` / `flow-shared` files (and scenarios per Iron Law if discipline changed).
+2. Run `make test`.
+
+Do not regenerate the skillset from the map in one pass or put maintainer-only map prose into shippable skills. Skip control-plane edits only for the **Step 1 exceptions** listed under Maintainer change order.
 
 ## Skill authoring conventions
 
@@ -146,17 +175,17 @@ Every invokable skill under `skills/<name>/`:
 | **2 — Scenarios** | **Iron Law:** Task subagent + scenario (maintainer); or fresh session (human, before release) | Every discipline/gate change — not optional |
 | **3 — Dogfood** | Use `/flow-*` on real work in Cursor | Ongoing |
 
-Discipline skills require **Iron Law** (four steps) — not just `make test`. See `tests/writing-skills.md`.
+Discipline skills require **control plane Step 1** then **Iron Law** (steps 2–5) — not just `make test`. See `tests/writing-skills.md`.
 
 ## RED → GREEN → REFACTOR (detail)
 
-Same four steps as **Iron Law** above. This section adds mechanics; the table there is the contract.
+Iron Law steps 2–5 above; this section adds mechanics.
 
-### Scenario file (step 1)
+### Scenario file (Iron Law step 2)
 
 Write `tests/scenarios/flow-<skill>-<violation>.md` using the recipe in `tests/writing-skills.md`. Register in `tests/scenarios/README.md`. Trap a **specific rationalization** (same-turn bundling, "no commit yet", skipping a gate) — not an abstract A/B/C quiz.
 
-### Subagent run (steps 2 and 4)
+### Subagent run (Iron Law steps 3 and 5)
 
 1. **Task subagent** — required in maintainer/agent sessions (no prior chat context). Fresh user session is an alternative when the human runs Layer 2 manually before release.
 2. Install **only** relevant skills (unrelated skills can override Flow):
@@ -179,21 +208,20 @@ Stop before commit; ask the user to run the scenario in a fresh session, or run 
 
 ### REFACTOR (optional)
 
-- New rationalization in GREEN → counter in skill text; re-run step 4.
+- New rationalization in GREEN → counter in skill text; re-run Iron Law step 5.
 - Cheap grep invariant → `tests/static/validate-skills.sh` after GREEN proved the rule matters.
 
 ## Typical maintainer workflow
 
-1. Read `docs/control-plane.md` if the change affects routing, gates, or handoffs; identify affected skill(s) and shared refs.
-2. **Structural change:** update control plane → user approves → sync affected skills only.
-3. **Any discipline or gate change:** follow **Iron Law** — scenario → subagent RED → edit skills → subagent GREEN → `make test`. Never edit `skills/` first.
-4. **Non-discipline changes** (wording only, no new gates): edit directly, then `make test`.
-5. Reinstall locally when iterating: `npx skills add ./skills -a cursor --skill '*' -y --copy`.
-6. Commit only when the user asks.
+1. **Control plane (Step 1):** read `docs/control-plane.md`; propose or edit the map; **halt for human review and confirmation** before any scenario or `skills/` work.
+2. **Discipline or gate change (after Step 1 confirmed):** Iron Law steps 2–5 — scenario → subagent RED → edit skills (matching approved map) → subagent GREEN → `make test`. Never edit `skills/` before RED run.
+3. **Non-discipline changes** (wording only, no map impact): edit `skills/` directly after Step 1 confirms no map change, then `make test`.
+4. Reinstall locally when iterating: `npx skills add ./skills -a cursor --skill '*' -y --copy`.
+5. Commit only when the user asks.
 
 ## Editing guidelines
 
-- **Iron Law first.** See table at top — subagent RED before any `skills/` edit for discipline changes.
+- **Control plane first, then halt.** Edit or propose the map, **stop for human confirmation**, then Iron Law; subagent RED before any `skills/` edit for discipline changes (Iron Law steps 2–5).
 - **Minimize scope.** Skill changes should be precise — one gate, one rationalization, one handoff at a time when hardening discipline.
 - **Prefer hard gates** over soft suggestions for rules agents rationalize away ("just this once", "no commit yet", same-turn bundling).
 - **Use existing patterns:** `Hard gate`, `Stop until`, `Forbidden in the same message`, red-flag tables — copy from `branch-gate.md` / `session-gate.md`.
@@ -212,8 +240,8 @@ Stop before commit; ask the user to run the scenario in a fresh session, or run 
 
 ### Add or tighten a gate
 
-0. Update `docs/control-plane.md` gate order and invariants (I1–I15) if the flow changes.
-1. Follow **Iron Law** (four steps): scenario → **Task subagent RED** on pre-change skills → edit `flow-shared/references/*.md` or `SKILL.md` → **Task subagent GREEN** → optional REFACTOR in `validate-skills.sh` → `make test`.
+1. **Control plane:** update gate order and invariants (I1–I17); **halt until human confirms** (Maintainer change order Step 1).
+2. **Iron Law:** scenario → **Task subagent RED** on pre-change skills → edit `flow-shared/references/*.md` or `SKILL.md` → **Task subagent GREEN** → optional REFACTOR in `validate-skills.sh` → `make test`.
 
 ### Add a new shared prompt or reference
 
