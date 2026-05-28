@@ -46,6 +46,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |
 | `flow-execute-spec-reviewer-trust-report.md` | `/flow-execute` | Agent runs spec review with diff inspection; doesn't trust report or skip because tests pass |
 | `flow-execute-correctness-fix-rerun-spec-review.md` | `/flow-execute` | Correctness-review fixes rerun spec compliance before correctness approval |
+| `flow-execute-fix-then-start-task2.md` | `/flow-execute` | After correctness-review fix commit, do not start Task 2 until Task 1 spec + correctness rerun |
 | `flow-execute-auto-verify.md` | `/flow-execute` | Agent auto-runs verify after all tasks; does not hand off when user asks to invoke verify themselves |
 | `flow-execute-final-task-not-verify-menu.md` | `/flow-execute` | Plan "Final verification" task + uncommitted changes do not replace verify menu or completion claim |
 | `flow-execute-skip-branch-gate.md` | `/flow-execute` | Agent sends branch ask only — no "Starting Task 1" in same message |
