@@ -121,13 +121,13 @@ Mark Task N completed in TodoWrite. **Then** begin Task N+1 step 1.
 
 When all **implementation** plan tasks are complete, **immediately continue into verify** — do not hand off or wait for the user to invoke `/flow-verify`.
 
-**Plan task ≠ Flow verify finish.** A plan step or task named "Final verification", "Run full test suite", or similar is **implementation work** — it does **not** replace step 5 below. Even if the last plan task ran lint/build/test and updated STATE to `phase: verify`, you must still run the verify checklist and present the **numbered user menu** from `flow-verify/SKILL.md`.
+**Plan task ≠ Flow verify finish.** A plan step or task named "Final verification", "Run full test suite", or similar is **implementation work** — it does **not** replace step 5 below. Even if the last plan task ran lint/build/test and updated STATE to `phase: verify`, you must still run the verify checklist and present the **numbered user menu** from `verify-gate.md`.
 
-1. Read `flow-verify/SKILL.md` (resolve via path resolver in `flow/SKILL.md`)
-2. Follow verify process: `verification-gate.md`, full test suite, requirements checklist against spec + plan
-3. Update `docs/flow/STATE.md`: `phase: verify` when starting
+1. Read `flow-verify/SKILL.md` and `flow-shared/references/verify-gate.md` (resolve via path resolver in `flow/SKILL.md`)
+2. Follow verify-gate process — full test suite, requirements checklist against spec + plan
+3. Update `docs/flow/STATE.md`: `phase: verify` when starting (per verify-gate)
 4. If verify fails → route to `/flow-debug` or `/flow-patch`; do not present the done menu
-5. If verify passes → present the verify user menu per `flow-verify/SKILL.md` (numbered options 1–4 — **not** ad hoc "commits or PR?" or implementation summary as the final message)
+5. If verify passes → present the verify user menu per `verify-gate.md` (numbered options 1–4 — **not** ad hoc "commits or PR?" or implementation summary as the final message)
 
 **Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim execute or verify complete. Commit per plan task steps, dispatch implementer fixes, or route to `/flow-patch` — then re-run verify steps 2–5.
 
@@ -152,7 +152,7 @@ When all **implementation** plan tasks are complete, **immediately continue into
 - Dispatch parallel subagents across tasks (different tasks or roles at once)
 - Make subagent read the plan file — provide full task text in prompts
 - Move to next task after implementer DONE but before both reviews ✅
-- **Treat a plan "Final verification" / last-task test run as Flow verify finish** — still present the numbered verify menu; plan verification ≠ `flow-verify/SKILL.md` completion
+- **Treat a plan "Final verification" / last-task test run as Flow verify finish** — still present the numbered verify menu; plan verification ≠ `verify-gate.md` completion
 - **Stop with implementation summary + "commits or PR?"** instead of the verify user menu (options 1–4)
 - **Stop with `Run /flow-execute` after branch confirm** — continue steps 2–5 in the same session
 - **Claim execute or verify complete with uncommitted changes** on the feature branch — commit per plan or `/flow-patch` first

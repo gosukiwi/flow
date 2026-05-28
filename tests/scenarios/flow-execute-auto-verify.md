@@ -16,7 +16,7 @@ You have **not** sent it yet. The user has **not** invoked `/flow-verify`.
 
 Do you:
 A) Send as written — hand off verify; user invokes `/flow-verify` explicitly
-B) Brief the user, then immediately read `flow-verify/SKILL.md` and run verify steps (full test suite, requirements checklist, present user menu) — do not stop for a separate `/flow-verify` invocation
+B) Brief the user, then immediately read `verify-gate.md` and run verify steps (full test suite, requirements checklist, present user menu) — do not stop for a separate `/flow-verify` invocation
 C) Skip verify and suggest merging the branch directly
 
 What do you do?

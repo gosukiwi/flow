@@ -74,7 +74,7 @@ for prompt in "${PROMPTS[@]}"; do
 done
 
 # flow-shared references
-REFS=(plan-execution tdd-red-green verification-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup artifact-commit-gate)
+REFS=(plan-execution tdd-red-green verification-gate verify-gate branch-gate session-gate worktree-setup root-cause-tracing finish-gate state-setup artifact-commit-gate)
 for ref in "${REFS[@]}"; do
   r="$SKILLS_DIR/flow-shared/references/${ref}.md"
   if [[ -f "$r" ]]; then
@@ -161,10 +161,10 @@ else
   fail "plan-execution: must record BASE_SHA before spec compliance review"
 fi
 
-if grep -qi 'flow-verify/SKILL.md' "$plan_exec_file" && grep -qi 'auto-run\|immediately continue into verify' "$plan_exec_file"; then
+if grep -qi 'flow-verify/SKILL.md' "$plan_exec_file" && grep -qi 'verify-gate' "$plan_exec_file" && grep -qi 'auto-run\|immediately continue into verify' "$plan_exec_file"; then
   pass "plan-execution: auto-runs verify after all tasks"
 else
-  fail "plan-execution: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
+  fail "plan-execution: must auto-run verify (read flow-verify/SKILL.md and verify-gate.md after all tasks)"
 fi
 
 if grep -qi 'Final verification\|Plan task.*Flow verify' "$plan_exec_file" && grep -qi 'numbered user menu\|numbered verify menu\|options 1–4\|options 1-4' "$plan_exec_file"; then
@@ -185,10 +185,10 @@ else
   fail "flow-patch: must check git status and block complete with uncommitted changes"
 fi
 
-if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
+if grep -qi 'flow-verify/SKILL.md' "$patch_file" && grep -qi 'verify-gate' "$patch_file" && grep -qi 'auto-run\|immediately continue into verify' "$patch_file"; then
   pass "flow-patch: auto-runs verify after all tasks"
 else
-  fail "flow-patch: must auto-run verify (read flow-verify/SKILL.md after all tasks)"
+  fail "flow-patch: must auto-run verify (read flow-verify/SKILL.md and verify-gate.md after all tasks)"
 fi
 
 if grep -qi 'skip spec or correctness review' "$patch_file"; then
@@ -365,13 +365,20 @@ else
 fi
 
 verify_file="$SKILLS_DIR/flow-verify/SKILL.md"
+verify_gate="$SKILLS_DIR/flow-shared/references/verify-gate.md"
 finish_gate="$SKILLS_DIR/flow-shared/references/finish-gate.md"
 finish_skill="$SKILLS_DIR/flow-finish/SKILL.md"
 
-if grep -qi 'worktree remove\|finish-gate' "$verify_file"; then
-  pass "flow-verify: documents worktree cleanup on merge via finish-gate"
+if grep -q 'verify-gate' "$verify_file"; then
+  pass "flow-verify: references verify-gate"
 else
-  fail "flow-verify: must document worktree cleanup for merge option (finish-gate)"
+  fail "flow-verify: must reference verify-gate.md"
+fi
+
+if grep -qi 'worktree remove\|finish-gate' "$verify_gate"; then
+  pass "verify-gate: documents worktree cleanup on merge via finish-gate"
+else
+  fail "verify-gate: must document worktree cleanup for merge option (finish-gate)"
 fi
 
 if grep -q 'git worktree remove' "$finish_gate"; then
@@ -449,16 +456,28 @@ else
   fail "flow-finish: must reference finish-gate and phase done cleanup"
 fi
 
-if grep -qi 'flow-finish\|finish-gate' "$verify_file"; then
-  pass "flow-verify: delegates finish actions to flow-finish/finish-gate"
+if grep -qi 'flow-finish\|finish-gate' "$verify_gate"; then
+  pass "verify-gate: delegates finish actions to flow-finish/finish-gate"
 else
-  fail "flow-verify: must delegate merge/push/done to flow-finish or finish-gate"
+  fail "verify-gate: must delegate merge/push/done to flow-finish or finish-gate"
 fi
 
-if grep -qi 'raw git merge\|finish-gate' "$verify_file"; then
-  pass "flow-verify: forbids ad hoc merge without finish-gate"
+if grep -qi 'raw git merge\|finish-gate' "$verify_gate"; then
+  pass "verify-gate: forbids ad hoc merge without finish-gate"
 else
-  fail "flow-verify: must forbid raw merge without finish-gate for ad hoc requests"
+  fail "verify-gate: must forbid raw merge without finish-gate for ad hoc requests"
+fi
+
+if grep -q 'Stop until the user picks 1–4\|What would you like to do' "$verify_gate"; then
+  pass "verify-gate: numbered user menu"
+else
+  fail "verify-gate: must have numbered user menu"
+fi
+
+if grep -qi 'Do not run option 2 automatically' "$verify_gate"; then
+  pass "verify-gate: option 2 not automatic"
+else
+  fail "verify-gate: must forbid auto-run of option 2 branch review"
 fi
 
 state_setup="$SKILLS_DIR/flow-shared/references/state-setup.md"

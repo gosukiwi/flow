@@ -315,4 +315,4 @@ Pause without merge or push. **`phase: done` closes the flow lane** — branch a
 ## Skills that use this reference
 
 - `flow-finish` — primary orchestrator for merge/push/done
-- `flow-verify` — menu options 1, 3, 4 delegate here
+- `flow-verify` / `verify-gate.md` — menu options 1, 3, 4 delegate here
