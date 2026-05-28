@@ -137,6 +137,6 @@ Task tool (generalPurpose):
     Do not edit code yourself — report issues only.
 ```
 
-**Orchestrator after ❌ (task mode):** implementer or orchestrator fixes all Block and Fix items, then re-dispatch until ✅ Approved.
+**Orchestrator after ❌ (task mode):** implementer or orchestrator fixes all Block and Fix items, then reruns spec compliance on the updated diff before re-dispatching correctness. Correctness-review fixes can change spec behavior, so correctness must not be rerun alone.
 
-**Orchestrator after ❌ (branch mode, verify option 2):** fix via `/flow-patch` or inline edits → re-run verify steps 2–3 if behavior changed → re-run option 2 until ✅ Approved. Re-present user menu when review passes.
+**Orchestrator after ❌ (branch mode, verify option 2):** fix via `/flow-patch` or an equivalent reviewed patch task with task-level spec compliance and correctness review → re-run verify steps 2–3 → re-run option 2 until ✅ Approved. Re-present user menu when review passes.

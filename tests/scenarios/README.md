@@ -22,8 +22,10 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-router-suggest-brainstorm.md` | `/flow` | Fuzzy idea → suggests `/flow-brainstorm` only, no spec or exploration start |
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
 | `flow-patch-skip-review.md` | `/flow-patch` | Agent dispatches reviewers; doesn't skip when user says patch is tiny |
+| `flow-patch-correctness-fix-rerun-spec-review.md` | `/flow-patch` | Correctness-review fixes rerun spec compliance before correctness approval |
 | `flow-patch-custom-finish-menu.md` | `/flow-patch` | Agent presents flow-verify numbered menu; no ad hoc merge/PR next steps |
 | `flow-patch-auto-verify.md` | `/flow-patch` | Agent auto-runs verify after all tasks; does not hand off when user says patch is tiny |
+| `flow-patch-verify-failure-review-bypass.md` | `/flow-patch` | Verify failures do not get unreviewed inline fixes before returning to the verify menu |
 | `flow-patch-test-after-fix.md` | `/flow-patch` | Agent rejects test-after-fix; requires RED→GREEN cycle |
 | `flow-patch-skip-branch-gate.md` | `/flow-patch` | Agent sends branch ask only — no starting TDD in same message |
 | `flow-patch-microspec-yes-skip-branch-gate.md` | `/flow-patch` | Micro-spec "yes" does not skip workspace gate — menu only, no git or TDD |
@@ -43,6 +45,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-brainstorm-handoff-gate.md` | `/flow-brainstorm` | After brief saved, numbered handoff gate only — no `/flow-patch` invoke text, no micro-spec until user picks |
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |
 | `flow-execute-spec-reviewer-trust-report.md` | `/flow-execute` | Agent runs spec review with diff inspection; doesn't trust report or skip because tests pass |
+| `flow-execute-correctness-fix-rerun-spec-review.md` | `/flow-execute` | Correctness-review fixes rerun spec compliance before correctness approval |
 | `flow-execute-auto-verify.md` | `/flow-execute` | Agent auto-runs verify after all tasks; does not hand off when user asks to invoke verify themselves |
 | `flow-execute-final-task-not-verify-menu.md` | `/flow-execute` | Plan "Final verification" task + uncommitted changes do not replace verify menu or completion claim |
 | `flow-execute-skip-branch-gate.md` | `/flow-execute` | Agent sends branch ask only — no "Starting Task 1" in same message |
@@ -51,6 +54,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-verify-without-run.md` | `/flow-verify` | Agent runs tests before claiming done |
 | `flow-verify-skip-auto-review.md` | `/flow-verify` | Ad hoc merge uses finish-gate directly; no auto option 2 and no raw merge |
 | `flow-verify-option2-fallback.md` | `/flow-verify` | Option 2 uses correctness-reviewer (branch mode) when clean-code-reviewer absent |
+| `flow-verify-option2-inline-fix-review-bypass.md` | `/flow-verify` | Branch-review fixes do not use unreviewed inline edits before returning to verify menu |
 | `flow-finish-adhoc-merge.md` | `/flow-finish` | Agent uses finish-gate on "merge to main"; sets phase done, not raw git merge only |
 | `flow-finish-remote-merge-sync.md` | `/flow-finish` | PR merged on GitHub → pull main, delete branch, clear STATE per remote-merge sync |
 | `flow-finish-open-pr-no-gh.md` | `/flow-finish` | Open PR / not ancestor of main → stop; git-only check; no `gh` or premature sync |

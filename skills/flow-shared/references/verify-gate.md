@@ -79,7 +79,7 @@ Optional extra pass before merge or push. Per-task reviews already ran during im
 1. Determine git range: `BASE_SHA` = merge-base with main (or first commit on branch); `HEAD_SHA` = `HEAD`
 2. **If `clean-code-reviewer` is in available skills:** read and follow its `SKILL.md` on the full branch diff
 3. **If not available:** dispatch a subagent using `flow-shared/prompts/correctness-reviewer.md` (branch mode) (resolve via path resolver in `flow/SKILL.md`) with `BASE_SHA`, `HEAD_SHA`, and brief spec/plan/micro-spec context
-4. If review returns ❌ Needs changes: fix via `/flow-patch` or inline edits → re-run verify process steps 2–3 if behavior changed → re-run option 2 until ✅ Approved
+4. If review returns ❌ Needs changes: route the fix through `/flow-patch` (or reopen a reviewed patch task in the active patch lane). The fix must get task-level spec compliance and correctness review before returning here. Then re-run verify process steps 2–3 and re-run option 2 until ✅ Approved
 5. When ✅ Approved, re-present the user menu (options 1–4). No git actions unless the user picks 1 or 3.
 
 Flow does not run a branch review unless the user chooses option 2.
@@ -96,6 +96,7 @@ When the user asks to merge, push, or close out **without** picking from the men
 - Claim done from an earlier test run without re-running the full suite after changes
 - "Should work", "probably", "seems to" — see `verification-gate.md`
 - **Auto-run option 2** when the user asks to merge or push — present the menu or follow ad hoc finish
+- **Patch option 2 findings with unreviewed inline edits** — branch-review fixes go through `/flow-patch` or an equivalent reviewed patch task, then verify reruns
 - **Hand off verify** instead of running it after execute/patch tasks complete
 - **Wait for `/flow-verify` invocation** after execute/patch when implementation succeeded
 - **Treat a plan "Final verification" / last-task test run as Flow verify finish** — still present the numbered verify menu

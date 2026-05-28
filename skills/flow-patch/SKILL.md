@@ -154,9 +154,11 @@ For each task:
    **Forbidden:** Approving from your own implementer report without an independent diff review. Passing tests do not replace spec review.
 
 5. Refresh `HEAD_SHA` if fixes landed after spec review. Reuse `BASE_SHA`. Dispatch **correctness reviewer** (task mode) — read `flow-shared/prompts/correctness-reviewer.md` (resolve via path resolver in `flow/SKILL.md`). Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
-   - **Block or Fix present:** fix inline → re-review
+   - **Block or Fix present:** fix inline → refresh `HEAD_SHA` → return to spec compliance review on the updated diff → then rerun correctness
    - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
    Reviewers do not edit code.
+
+   Any code change after spec compliance approval invalidates that approval. Do not rerun correctness alone after a Block/Fix cleanup, even when the cleanup was requested by the correctness reviewer and tests pass.
 6. **Commit** per micro-spec task Step 5 — on the user-confirmed feature branch only. One commit per task (or as the micro-spec specifies). Refresh `HEAD_SHA` after commit.
 7. Mark task completed in TodoWrite
 
@@ -177,7 +179,7 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 1. Read `flow-verify/SKILL.md` and `flow-shared/references/verify-gate.md` (resolve via path resolver in `flow/SKILL.md`)
 2. Follow verify-gate process — full test suite, requirements checklist against micro-spec
 3. Update `docs/flow/STATE.md`: `phase: verify` when starting (per verify-gate)
-4. If verify fails → route to `/flow-debug` or fix inline; do not present the done menu
+4. If verify fails → route to `/flow-debug` if root cause is unclear, or reopen/create a reviewed patch task for same-topic fixes. The fix must run spec compliance and correctness review, then commit, before verify is rerun. Do not present the done menu while verify is failing
 5. If verify passes → present the verify user menu per `verify-gate.md`
 
 **Before presenting the menu:** on the feature branch, run `git status`. If there are **uncommitted changes** from any task → do **not** claim patch or verify complete. Commit per micro-spec task Step 5, then re-run verify steps 2–5.
@@ -203,10 +205,12 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - **Map "work here" to switching to a proposed new branch** — on patch continuing gate it means stay on current branch
 - Skip micro-spec approval or branch/workspace confirmation
 - **Skip spec or correctness review** — including when the user says the patch is tiny or done
+- **Rerun only correctness after correctness-review fixes** — any changed diff needs spec compliance again before correctness can approve
 - **`git checkout <commit-sha>`** — detaches HEAD; commits miss the feature branch. Stay on the branch name; use SHAs only in `git diff`
 - **Trust self-review or passing tests instead of dispatching reviewers**
 - **Skip artifact commit before Task 1** when flow artifact files exist uncommitted on the branch
 - Dispatch implementer subagent (patch is inline only)
 - **Hand off verify instead of running it** after all tasks complete
+- **Fix verify failures with unreviewed inline edits** — same-topic fixes need a reviewed patch task before verify can pass
 - **Replace the verify user menu with custom next steps** — merge/PR/iterate lists are not substitutes for options 1–4
 - **Claim patch or verify complete with uncommitted changes** on the feature branch — commit per micro-spec task Step 5 first
