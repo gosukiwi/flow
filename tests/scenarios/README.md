@@ -40,6 +40,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-patch-artifact-commit-before-task1.md` | `/flow-patch` | Save micro-spec to `docs/flow/patches/`, artifact commit on branch, then Task 1 |
 | `flow-brainstorm-skip-spec.md` | `/flow-brainstorm` | Agent explores options, does not write spec or code |
 | `flow-brainstorm-small-scope-patch.md` | `/flow-brainstorm` | Agent hands off to `/flow-patch` for small bounded scope |
+| `flow-brainstorm-handoff-gate.md` | `/flow-brainstorm` | After brief saved, numbered handoff gate only — no `/flow-patch` invoke text, no micro-spec until user picks |
 | `flow-execute-skip-review.md` | `/flow-execute` | Agent dispatches reviewers, doesn't skip |
 | `flow-execute-spec-reviewer-trust-report.md` | `/flow-execute` | Agent runs spec review with diff inspection; doesn't trust report or skip because tests pass |
 | `flow-execute-auto-verify.md` | `/flow-execute` | Agent auto-runs verify after all tasks; does not hand off when user asks to invoke verify themselves |

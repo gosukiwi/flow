@@ -27,7 +27,7 @@ Do not run plan execution inline — that is what `/flow-patch` is for on small 
 
 ## What happens in each phase
 
-- **`/flow-brainstorm`** — explore options; no production code. Saves brief to `docs/flow/brainstorms/`.
+- **`/flow-brainstorm`** — explore options; no production code. Saves brief to `docs/flow/brainstorms/`, then numbered handoff gate (continue to patch or spec, or stop) — no manual `/flow-patch` or `/flow-spec` re-invoke.
 - **`/flow-spec`** — user-approved spec + AI self-reviewed plan; auto-continues through branch gate, artifact commit, subagent tasks, and verify. No production code in the orchestrator.
 - **`/flow-execute`** — resume or cold start when the plan exists and the spec session ended (`phase: planned` or partial `execute`).
 - **`/flow-patch`** — micro-spec approval, then inline TDD with the same review loop per task.
