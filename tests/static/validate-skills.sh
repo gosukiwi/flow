@@ -3,12 +3,29 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 SKILLS_DIR="$ROOT/skills"
+CONTROL_PLANE="$ROOT/docs/control-plane.md"
 FAILED=0
 
 pass() { echo "  ✓ $1"; }
 fail() { echo "  ✗ $1"; FAILED=1; }
 
 echo "=== validate-skills ==="
+
+if [[ -f "$CONTROL_PLANE" ]]; then
+  pass "docs/control-plane.md exists"
+else
+  fail "Missing $CONTROL_PLANE"
+fi
+
+if [[ -f "$CONTROL_PLANE" ]]; then
+  for invariant in {1..15}; do
+    if grep -q "| I${invariant} |" "$CONTROL_PLANE"; then
+      pass "control-plane: invariant I${invariant} listed"
+    else
+      fail "control-plane: missing invariant I${invariant}"
+    fi
+  done
+fi
 
 REQUIRED_SKILLS=(
   flow
