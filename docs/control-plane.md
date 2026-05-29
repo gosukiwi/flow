@@ -138,8 +138,10 @@ micro-spec → micro-spec self-review *(internal)* → micro-spec gate
   → session gate → branch gate
   → save patch file + STATE (phase: patch)
   → artifact commit
-  → inline TDD + dual review per task
-  → verify auto-run
+  → per-task loop (strictly serial — see Per-task review loop)
+       each task: inline TDD (micro-spec steps) → spec ✅ → correctness ✅ → commit → TodoWrite complete
+       forbidden: Task N+1 until Task N both reviews approved (incl. multi-task code-review patches)
+  → verify auto-run (does not replace per-task reviews)
 ```
 
 ### `/flow-debug`
@@ -239,7 +241,7 @@ Both:
 - End verify (full suite) → substitute for per-task diff reviews
 - Auto-continue / continuous execution → skip reviews or parallel tasks (continue **gates**, not throughput)
 
-**Orchestrator:** Re-read `plan-execution.md` §4 task gate checklist before **each** Task N dispatch.
+**Orchestrator:** Re-read the per-task gate before **each** Task N — `plan-execution.md` §4 (execute) or `flow-patch/SKILL.md` §5 (patch). Multi-task micro-specs (e.g. code-review follow-ups) get the **same** dual-review loop as execute; Task 1 ✅ does not waive Task 2+.
 
 ---
 

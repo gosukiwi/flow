@@ -257,6 +257,27 @@ else
   fail "flow-patch: must forbid skipping spec or correctness review"
 fi
 
+if grep -qi 'Hard gate — per task' "$patch_file" \
+  && grep -qi 'Verify does \*\*not\*\* replace per-task' "$patch_file" \
+  && grep -qi 'continuous patch execution' "$patch_file"; then
+  pass "flow-patch: per-task hard gate and verify does not replace reviews"
+else
+  fail "flow-patch: must have per-task hard gate; verify must not replace per-task reviews"
+fi
+
+if grep -qi 'before every Task N' "$patch_file" \
+  && grep -qi 'Same pattern as Task 1' "$patch_file"; then
+  pass "flow-patch: checkpoint before each task and Task 2+ skip rationalization"
+else
+  fail "flow-patch: must require re-read task gate before each task and counter Task 2+ skip"
+fi
+
+if grep -qi 'Skip reviews after Task 1' "$patch_file"; then
+  pass "flow-patch: forbids skipping reviews after Task 1"
+else
+  fail "flow-patch: must forbid skipping per-task reviews after Task 1"
+fi
+
 if grep -qi 'Fix verify failures with unreviewed inline edits' "$patch_file" \
   && grep -qi 'reviewed patch task' "$patch_file"; then
   pass "flow-patch: verify failures require reviewed patch task"
