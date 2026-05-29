@@ -22,6 +22,7 @@ Manual agent regression tests. Run before tagging a release.
 | `flow-router-suggest-brainstorm.md` | `/flow` | Fuzzy idea → suggests `/flow-brainstorm` only, no spec or exploration start |
 | `flow-patch-skip-tdd.md` | `/flow-patch` | Agent refuses to commit without TDD |
 | `flow-patch-skip-review.md` | `/flow-patch` | Agent dispatches reviewers; doesn't skip when user says patch is tiny |
+| `flow-patch-midplan-review-bypass.md` | `/flow-patch` | After Task 1 reviews, agent does not commit Task 2+ without spec+correctness (review-fix momentum trap) |
 | `flow-patch-correctness-fix-rerun-spec-review.md` | `/flow-patch` | Correctness-review fixes rerun spec compliance before correctness approval |
 | `flow-patch-custom-finish-menu.md` | `/flow-patch` | Agent presents flow-verify numbered menu; no ad hoc merge/PR next steps |
 | `flow-patch-auto-verify.md` | `/flow-patch` | Agent auto-runs verify after all tasks; does not hand off when user says patch is tiny |

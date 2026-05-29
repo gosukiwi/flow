@@ -137,10 +137,49 @@ If resuming with artifacts already committed on the branch, skip to step 5.
 
 Read `flow-shared/references/tdd-red-green.md` (resolve via path resolver in `flow/SKILL.md`).
 
+## Hard gate — per task
+
+```
+NO TASK N+1 UNTIL TASK N SPEC ✅ AND CORRECTNESS ✅ APPROVED
+```
+
+Applies to **every** task including Task 2 onward on multi-task micro-specs (e.g. code-review follow-ups). Task 1 completing both reviews does **not** waive reviews on later tasks.
+
+End-of-lane **verify** runs **after** all tasks pass this gate. Verify does **not** replace per-task spec or correctness review.
+
+**Continuous patch execution** means continue **this gate sequence** without handoffs — not skip reviews, not batch commits then "catch up" reviews once.
+
+**One task at a time. One reviewer role at a time.**
+
+```
+Task N gate (all steps required, in order):
+
+  [ ] 1. Inline TDD — micro-spec steps 1–4 (RED → verify RED → implement → verify GREEN)
+  [ ] 2. Self-review
+  [ ] 3. Spec compliance reviewer    → ✅
+  [ ] 4. Correctness reviewer        → ✅ Approved
+  [ ] 5. Commit (micro-spec step 5)
+  [ ] 6. Mark Task N complete in TodoWrite
+
+Only then start Task N+1 step 1.
+```
+
+**Stop until — before every Task N (including N ≥ 2):** Re-read this gate checklist. Confirm which step you are on. If you cannot point to spec ✅ and correctness ✅ Approved for Task N−1, do **not** start Task N TDD or mark Task N in_progress.
+
+| Rationalization | Response |
+|-----------------|----------|
+| "Same pattern as Task 1 — skip reviews on 2–5" | Every task gets full dual review; pattern reuse is not an exception |
+| "Code-review follow-up / review-fix patch — verify covers it" | Verify is additional; per-task diff reviews are mandatory |
+| "Tests pass / TodoWrite complete — good enough" | Tests and TodoWrite do not waive spec or correctness |
+| "Spec ✅ — start next task; correctness can wait" | Forbidden — one role at a time; both reviews before Task N+1 |
+| "User said keep going / finish the patch" | Continue gates, not skip them |
+| "Task 5 is test-only — skip backfill on 2–4" | No task-size exception; backfill missing reviews before new work |
+| "Combined branch review instead of per-task" | Branch review is verify menu option 2 — not a patch shortcut |
+
 For each task:
 
 1. Mark task in_progress in TodoWrite
-2. Follow each step exactly; run verifications as specified
+2. Follow each micro-spec step exactly; run verifications as specified (Step 2 must show RED failure before Step 3)
 3. **Self-review** before dispatching reviewers:
 
    - All task requirements implemented, nothing extra (YAGNI)
@@ -153,20 +192,27 @@ For each task:
 
    **Forbidden:** Approving from your own implementer report without an independent diff review. Passing tests do not replace spec review.
 
+   **Do not start step 5 or the next task until spec review is ✅.**
+
 5. Refresh `HEAD_SHA` if fixes landed after spec review. Reuse `BASE_SHA`. Dispatch **correctness reviewer** (task mode) — read `flow-shared/prompts/correctness-reviewer.md` (resolve via path resolver in `flow/SKILL.md`). Reviewer returns **Block / Fix / Suggest**. Loop until ✅ Approved:
    - **Block or Fix present:** fix inline → refresh `HEAD_SHA` → return to spec compliance review on the updated diff → then rerun correctness
    - **Suggest only:** ✅ Approved — Suggest is advisory, do not block
    Reviewers do not edit code.
 
    Any code change after spec compliance approval invalidates that approval. Do not rerun correctness alone after a Block/Fix cleanup, even when the cleanup was requested by the correctness reviewer and tests pass.
+
+   **Do not commit, mark complete, or start the next task until reviewer returns ✅ Approved.**
+
 6. **Commit** per micro-spec task Step 5 — on the user-confirmed feature branch only. One commit per task (or as the micro-spec specifies). Refresh `HEAD_SHA` after commit.
 7. Mark task completed in TodoWrite
 
-**One task at a time.** Do not start Task N+1 until Task N passes both reviews.
+**Forbidden:** Starting Task N+1 TDD while Task N is still in spec or correctness review — even if tests pass or the user says keep going.
 
-**Forbidden:** Starting verify or marking the task complete while Task N is still in spec or correctness review — even if tests pass or the user says the fix is tiny.
+**Forbidden:** Marking a task complete in TodoWrite before both reviews ✅ — TodoWrite must not get ahead of the gate.
 
 **Forbidden:** Marking a task complete or starting the next task with **uncommitted changes** from that task — commit per micro-spec Step 5 first.
+
+**Forbidden:** Batching inline work for tasks 2–5 then backfilling reviews once, or only reviewing Task 1.
 
 **Fixes after ❌:** orchestrator implements fixes inline, then re-dispatches the reviewer — reviewers do not edit code.
 
@@ -204,7 +250,12 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - **Send execute-style switch/worktree 1/2 menu on a feature branch when `phase: done` or no STATE** — use patch continuing gate; stay on current branch unless user opts into isolation
 - **Map "work here" to switching to a proposed new branch** — on patch continuing gate it means stay on current branch
 - Skip micro-spec approval or branch/workspace confirmation
-- **Skip spec or correctness review** — including when the user says the patch is tiny or done
+- **Skip spec or correctness review** — including when the user says the patch is tiny, done, or keep going
+- **Skip reviews after Task 1** on multi-task micro-specs because later tasks look repetitive or small
+- **Mark TodoWrite complete before both reviews ✅** — gate order beats checklist momentum
+- **Treat full verify as substitute** for per-task spec + correctness reviews
+- **Batch tasks 2–5 then backfill reviews** — forbidden; each task completes the full gate before the next
+- **Proceed without re-reading** §5 hard gate before each Task N (including N ≥ 2)
 - **Rerun only correctness after correctness-review fixes** — any changed diff needs spec compliance again before correctness can approve
 - **`git checkout <commit-sha>`** — detaches HEAD; commits miss the feature branch. Stay on the branch name; use SHAs only in `git diff`
 - **Trust self-review or passing tests instead of dispatching reviewers**
