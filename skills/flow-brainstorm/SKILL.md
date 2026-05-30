@@ -164,8 +164,8 @@ Brainstorm saved to `docs/flow/brainstorms/...`.
 
 What's next?
 
-1. **(Recommended)** Continue to patch — I'll read `flow-patch/SKILL.md` and write the micro-spec from this brief (no code until micro-spec approval)
-2. Continue to spec instead — full spec and implementation plan
+1. **(Recommended)** Continue to patch — I'll write the micro-spec from this brief
+2. Continue to spec instead — full spec from this brief
 3. Stop — no patch or spec yet
 ```
 
@@ -176,12 +176,16 @@ Brainstorm saved to `docs/flow/brainstorms/...`.
 
 What's next?
 
-1. **(Recommended)** Continue to spec — I'll read `flow-spec/SKILL.md` and lock requirements from this brief (no code until spec/plan gates pass)
-2. Continue to patch instead — micro-spec and inline TDD
+1. **(Recommended)** Continue to spec — I'll write the spec from this brief
+2. Continue to patch instead — smaller change with a micro-spec
 3. Stop — no spec or patch yet
 ```
 
-**Stop until the user picks 1, 2, or 3.** Option 3 ends brainstorm handoff. Do not tell them to invoke `/flow-patch` or `/flow-spec` manually — continuation happens in this session after they pick.
+**User-facing handoff menus** — no skill file paths (`SKILL.md`), `(no code …)`, `inline TDD`, or internal gate names in the fenced templates above.
+
+**Orchestrator after pick 1 or 2:** read the matching skill via path resolver in `flow/SKILL.md`; no production code until downstream gates (micro-spec, design, spec, branch); do not tell the user to invoke `/flow-patch` or `/flow-spec` manually.
+
+**Stop until the user picks 1, 2, or 3.** Option 3 ends brainstorm handoff. Continuation happens in this session after they pick.
 
 **"Yes" / "approve" / "proceed" / "1" after this gate counts as that handoff pick only** — a single-word reply without a number means **option 1 (recommended)**. Not micro-spec approval, spec approval, plan writing, branch/workspace confirmation, or code.
 

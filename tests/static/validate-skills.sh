@@ -340,10 +340,16 @@ else
   pass "flow-spec: spec gate menu has no Phase B label"
 fi
 
-if grep 'Approve spec' "$spec_file" | grep -qi 'subagent'; then
-  pass "flow-spec: spec gate option 1 sets subagent execution expectation"
+if awk '/### 7\. Spec gate/,/^---$/' "$spec_file" | grep -qi 'subagent'; then
+  pass "flow-spec: spec gate section documents subagent execution after branch confirm"
 else
-  fail "flow-spec: spec gate option 1 must mention subagent task execution"
+  fail "flow-spec: spec gate section must document subagent task execution (not only in user menu)"
+fi
+
+if awk '/Spec ready at docs\/flow\/specs/,/^```$/' "$spec_file" | grep 'Approve spec' | grep -qiE 'subagent|/flow-execute|no separate plan'; then
+  fail "flow-spec: spec gate user menu must not expose orchestrator parentheticals on option 1"
+else
+  pass "flow-spec: spec gate option 1 is user-facing only"
 fi
 
 if grep -qi 'Implement plan tasks inline after branch confirm' "$spec_file"; then
@@ -356,6 +362,18 @@ if grep -q 'Approve design' "$spec_file" && grep -q 'Design gate' "$spec_file"; 
   pass "flow-spec: design gate numbered menu"
 else
   fail "flow-spec: must present numbered design gate menu"
+fi
+
+if awk '/Does this design work for you/,/^```$/' "$spec_file" | grep 'Approve design' | grep -qiE '\(no code\)|no code'; then
+  fail "flow-spec: design gate user menu must not use (no code) on option 1"
+else
+  pass "flow-spec: design gate option 1 is user-facing only"
+fi
+
+if awk '/#### Design gate/,/^### 4\./' "$spec_file" | grep -qi 'Orchestrator.*not in the gate\|no production code until branch'; then
+  pass "flow-spec: design gate section documents no-code discipline outside menu"
+else
+  fail "flow-spec: design gate section must document orchestrator discipline outside user menu"
 fi
 
 if grep -q 'phase: planned' "$spec_file" && grep -qi 'plan-execution' "$spec_file" \
@@ -412,6 +430,19 @@ if grep -qi 'Handoff gate' "$brainstorm_file" \
   pass "flow-brainstorm: numbered handoff gate with stop-until"
 else
   fail "flow-brainstorm: must have numbered handoff gate (patch/spec/stop) with stop-until user pick"
+fi
+
+handoff_menu_blocks="$(awk '/Brainstorm saved to/,/^```$/' "$brainstorm_file")"
+if echo "$handoff_menu_blocks" | grep -qE 'SKILL\.md|\(no code|inline TDD|spec/plan gates'; then
+  fail "flow-brainstorm: handoff user menus must not expose SKILL paths, no-code parentheticals, or inline TDD"
+else
+  pass "flow-brainstorm: handoff gate menus are user-facing only"
+fi
+
+if awk '/### 7\. Handoff gate/,/^## Principles/' "$brainstorm_file" | grep -qi 'path resolver\|downstream gates'; then
+  pass "flow-brainstorm: handoff section documents orchestrator continuation outside menus"
+else
+  fail "flow-brainstorm: handoff section must document orchestrator rules outside user menus"
 fi
 
 branch_gate="$SKILLS_DIR/flow-shared/references/branch-gate.md"
@@ -538,6 +569,18 @@ else
   fail "finish-gate: must have numbered menu for bare /flow-finish"
 fi
 
+if awk '/Flow finish — what should I do/,/^```$/' "$finish_gate" | grep -qiE 'clear STATE|STATE\.md|phase:'; then
+  fail "finish-gate: ambiguous finish user menu must not expose STATE or phase jargon"
+else
+  pass "finish-gate: ambiguous finish menu is user-facing only"
+fi
+
+if awk '/Feature integrated\. Delete flow artifacts/,/^```$/' "$finish_gate" | grep -qiE 'from STATE|chore/remove-flow-artifacts'; then
+  fail "finish-gate: artifact cleanup user menu must not expose STATE or chore-branch mechanics"
+else
+  pass "finish-gate: artifact cleanup menu is user-facing only"
+fi
+
 if grep -q 'finish-gate' "$finish_skill" && grep -q 'phase: done' "$finish_gate"; then
   pass "flow-finish: references finish-gate with phase done"
 else
@@ -560,6 +603,18 @@ if grep -q 'Stop until the user picks 1–4\|What would you like to do' "$verify
   pass "verify-gate: numbered user menu"
 else
   fail "verify-gate: must have numbered user menu"
+fi
+
+if awk '/What would you like to do\?/,/^```$/' "$verify_gate" | grep -qE 'clean-code-reviewer|/flow-finish|\[.*\|'; then
+  fail "verify-gate: user menu must not expose skill names, commands, or bracketed alternates"
+else
+  pass "verify-gate: verify user menu is user-facing only"
+fi
+
+if awk '/## User menu/,/^## Option 2/' "$verify_gate" | grep -qi 'clean-code-reviewer\|correctness-reviewer'; then
+  pass "verify-gate: user menu section documents option 2 review outside template"
+else
+  fail "verify-gate: must document option 2 review mechanics outside user menu"
 fi
 
 if grep -qi 'Do not run option 2 automatically' "$verify_gate"; then
@@ -621,6 +676,18 @@ if grep -q 'session-gate' "$SKILLS_DIR/flow-verify/SKILL.md"; then
   pass "flow-verify: references session-gate before STATE update"
 else
   fail "flow-verify: must reference session-gate"
+fi
+
+if awk '/## User gate message/,/^## After confirmation/' "$session_gate" | grep '^>' | grep -qE '`phase:|STATE\.md'; then
+  fail "session-gate: user gate must not expose phase: or STATE.md"
+else
+  pass "session-gate: user gate is user-facing only"
+fi
+
+if awk '/## User gate messages/,/^## After confirmation/' "$branch_gate" | grep '^>' | grep -qE 'Before Task 1|`phase:'; then
+  fail "branch-gate: user gate messages must not use Before Task 1 or phase: labels"
+else
+  pass "branch-gate: user gate messages are user-facing only"
 fi
 
 if grep -q 'path resolver' "$SKILLS_DIR/flow/SKILL.md"; then

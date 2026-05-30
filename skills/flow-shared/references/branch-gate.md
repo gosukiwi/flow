@@ -55,9 +55,11 @@ branch: feature/topic
 
 Send **only** the gate question — do not combine with starting work.
 
+**User-facing gates** — no `Before Task 1`, `phase:`, or task-numbering in the messages below. Use plain language for in-progress work.
+
 ### On `main`/`master`
 
-> We're on `main`. Before Task 1:
+> We're on `main`. Where should implementation run?
 > 1. **Branch here** — `feature/<topic>` (switches this workspace off main)
 > 2. **Worktree** — new branch at `.worktrees/<topic>/` (main stays on main here)
 >
@@ -67,7 +69,7 @@ Send **only** the gate question — do not combine with starting work.
 
 Use only when `STATE.md` has an **occupied** `phase` (not `done`) and the new work is unrelated. **Not for `/flow-patch` after `phase: done`** — use patch continuing gate below.
 
-> You're on `feature/<current>` with active flow work (`phase: <phase>`). This work is unrelated.
+> You're on `feature/<current>` with other flow work in progress. This request is unrelated.
 > 1. **Switch branch here** — disrupts WIP checked out in this workspace
 > 2. **Worktree** — `<proposed-branch>` at `.worktrees/<slug>/` (recommended)
 >
