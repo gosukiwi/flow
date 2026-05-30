@@ -1,12 +1,16 @@
+<div align="center">
+
 # 🌀 Flow
 
 **Enter flow state with your AI Agents.**
 
-## What it is
+Spec-driven software development workflow for teams and solo developers
+working with AI coding agents. Guide an agent through brainstorming, specs,
+TDD, review, verification, and merge.
 
-Flow is a spec-driven software development workflow for teams and solo developers working with AI coding agents. It is not an app or a CLI — it is a set of Cursor skills (`/flow-*` commands) that guide an agent through brainstorming, specs, TDD, review, verification, and merge.
+</div>
 
-**You** invoke each step — Flow suggests, you decide.
+---
 
 ## Quick start
 
@@ -17,6 +21,8 @@ Flow is a spec-driven software development workflow for teams and solo developer
 Flow suggests the next `/flow-*` command — **you invoke it** when ready.
 
 ## What to expect
+
+Flow is a simple, explicit, solid workflow that focuses on correctness.
 
 - **Describe the work** — one small change? `/flow-patch`. Several steps or a new feature? `/flow-spec` (see [Commands](#commands)).
 - **Branches and worktrees** — implementation stays off `main`; the agent asks before creating a branch or worktree.
