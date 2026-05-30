@@ -77,19 +77,46 @@ Use only when `STATE.md` has an **occupied** `phase` (not `done`) and the new wo
 
 ### Continuing on current feature branch
 
-> On `feature/<topic>` — continue here for this work? Confirm before the first commit.
+> Workspace ready.
+>
+> On `feature/<topic>` — continue here for this work?
+>
+> 1. **Continue here** — confirm before the first commit
+> 2. **Stop** — don't start implementation yet
+>
+> Stop until you pick 1 or 2.
 
 ### Continuing on current feature branch (`/flow-patch`)
 
 Use when on a **feature branch** (not `main`), prior lane is **`phase: done`** or STATE is absent, and micro-spec is approved. Default: patch commits stay on the current branch.
 
-> Patch will run on `feature/<current>` (prior flow work on this branch is done). Continue here?
->
-> Say **continue** / **yes** / **same branch** / **work here** to confirm. Say **worktree** or **new branch** if you want isolation.
+Send **only** this gate — same numbered reply style as the micro-spec gate:
+
+```
+Workspace ready.
+
+Patch will run on feature/<current> (prior flow work on this branch is done).
+
+1. Continue here — patch commits on this branch
+2. Worktree — isolate at .worktrees/<slug>/
+3. New branch — create or switch in this workspace (say the branch name when you pick 3)
+
+Stop until you pick 1, 2, or 3.
+```
+
+**User-facing gate** — no `phase:`, `STATE`, or Task 1 wording in the fenced template.
+
+**Orchestrator after pick:**
+
+| Pick | Meaning |
+|------|---------|
+| **1** | Continue on current branch (`workspace: in-place`). **1** also counts when the user says **continue**, **yes**, **same branch**, **work here**, **approve**, or **proceed** — micro-spec approval does **not** satisfy this gate. |
+| **2** | Worktree — follow `worktree-setup.md` |
+| **3** | New branch in this workspace — create or switch; user may supply branch name with the pick |
 
 **Do not** map **work here** to option 1 (switch branch) from the unrelated 1/2 menu — that menu must not be sent for this patch context.
 
-**Stop until the user responds** (or explicit opt-in to isolation).
+**Stop until the user picks 1, 2, or 3** (or supplies a branch name with option 3).
 
 Forbidden in the same message: proposing `feature/<new-topic>` switch/worktree 1/2 menu for finished-lane patch work.
 
@@ -120,4 +147,5 @@ Follow `flow-shared/references/worktree-setup.md` (resolve via path resolver in 
 - Suggest worktree when continuing matched work on the current branch
 - Mix unrelated commits onto a branch with **active** occupied `phase` for a different topic (not when prior lane is `phase: done` and `/flow-patch` continues on the same branch)
 - Send execute-style switch/worktree 1/2 menu for `/flow-patch` on a feature branch when `phase: done` or no STATE
-- Treat **work here** / **same branch** as "switch to proposed new branch" during patch continuing gate
+- Send freeform "reply continue/yes/work here" instead of the numbered patch workspace gate
+- Treat **work here** / **same branch** as "switch to proposed new branch" during patch continuing gate (option **1** means stay on current branch)

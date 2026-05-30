@@ -309,6 +309,19 @@ else
   fail "flow-patch: must default to patch continuing gate on feature branch when phase done or no STATE"
 fi
 
+branch_gate_file="$SKILLS_DIR/flow-shared/references/branch-gate.md"
+if grep -q 'Workspace ready' "$branch_gate_file" && grep -q 'Continue here — patch commits on this branch' "$branch_gate_file"; then
+  pass "branch-gate: patch continuing workspace numbered menu"
+else
+  fail "branch-gate: must present numbered patch workspace gate (Workspace ready + options 1–3)"
+fi
+
+if grep -q 'freeform "reply continue/yes/work here"' "$patch_file" || grep -q 'numbered patch workspace gate' "$patch_file"; then
+  pass "flow-patch: forbids freeform patch workspace confirm"
+else
+  fail "flow-patch: must forbid freeform patch workspace confirm and require numbered gate"
+fi
+
 if grep -q 'docs/flow/patches/' "$patch_file" && grep -qi 'artifact-commit-gate' "$patch_file"; then
   pass "flow-patch: saves micro-spec to patches/ and references artifact commit"
 else

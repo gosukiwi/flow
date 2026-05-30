@@ -87,7 +87,9 @@ Do **not** expose internal self-review checklist names (criteria mapping counts,
 
 **Stop until the user picks 1, approves the micro-spec explicitly, or requests changes (2).** Option 3 ends the patch. If they request changes, update micro-spec and re-run self-review.
 
-**"Yes" / "approve" / "proceed" after this gate counts as micro-spec approval only** — not branch or workspace confirmation. If the user bundles other permissions in the same message (e.g. "yes, reset STATE.md"), handle each permission separately; micro-spec approval still does not skip §3.
+**"Yes" / "approve" / "proceed" / "1" after this gate counts as micro-spec approval only** — not branch or workspace confirmation. If the user bundles other permissions in the same message (e.g. "yes, reset STATE.md"), handle each permission separately; micro-spec approval still does not skip §3.
+
+**After micro-spec approval (§3):** send the patch workspace gate from `branch-gate.md` (**Workspace ready** + options 1–3) in a **separate** message — do not reuse the micro-spec gate template or freeform confirm phrases.
 
 ### 3. Session and workspace gate (required)
 
@@ -98,7 +100,7 @@ Follow `flow-shared/references/session-gate.md` then `flow-shared/references/bra
 1. **Session gate** — if STATE shows **active** unrelated work (occupied `phase`, not `done`), stop before any STATE write; send session gate only.
 2. **Branch/workspace by checkout:**
    - **`main`/`master`:** send branch-gate **On main** menu (1 branch here / 2 worktree). Stop until user picks 1 or 2.
-   - **Feature branch, `phase: done` or no STATE:** send branch-gate **Continuing on current feature branch (patch)** only — **do not** send unrelated switch/worktree 1/2 menu. Stop until user confirms continue or opts into isolation.
+   - **Feature branch, `phase: done` or no STATE:** send branch-gate **Continuing on current feature branch (patch)** numbered menu only — **do not** send unrelated switch/worktree 1/2 menu or freeform "reply continue/yes/work here". Stop until user picks **1**, **2**, or **3** (or names a branch with **3**).
    - **Feature branch, active unrelated lane** (after session gate if needed): follow session outcome — worktree via `worktree-setup.md`, or resume; do not invent a new branch without user approval.
 
 Do **not** in the same turn: create/switch branches, create worktrees, update STATE, or start implementation (Task 1, code edits, TDD steps).
@@ -107,9 +109,9 @@ Do **not** in the same turn: create/switch branches, create worktrees, update ST
 
 After confirmation:
 
-- **Patch continue on current branch (default on feature branch):** no `git switch -c`; record `workspace: in-place`, `branch:` = current branch in `docs/flow/STATE.md`
-- **Option 1 (in-place new branch)** — `main` menu pick 1, or user named a new branch: create or switch in current workspace; `workspace: in-place`
-- **Option 2 (worktree)** — user chose worktree or session gate option 2: follow `flow-shared/references/worktree-setup.md`
+- **Patch workspace pick 1** (or **continue** / **yes** / **same branch** / **work here** on the patch continuing gate): no `git switch -c`; record `workspace: in-place`, `branch:` = current branch in `docs/flow/STATE.md`
+- **On `main` menu pick 1**, or **patch workspace pick 3**, or user named a new branch: create or switch in current workspace; `workspace: in-place`
+- **On `main` menu pick 2**, **patch workspace pick 2**, or session gate option 2: follow `flow-shared/references/worktree-setup.md`
 
 Update `phase: patch` in `docs/flow/STATE.md`, then proceed to step 4.
 
@@ -248,7 +250,8 @@ When all micro-spec tasks are complete, **immediately continue into verify** —
 - **Propose a branch/workspace and start Task 1 in the same turn** — workspace gate requires waiting for user reply
 - **Create a worktree for unrelated work without offering workspace choice**
 - **Send execute-style switch/worktree 1/2 menu on a feature branch when `phase: done` or no STATE** — use patch continuing gate; stay on current branch unless user opts into isolation
-- **Map "work here" to switching to a proposed new branch** — on patch continuing gate it means stay on current branch
+- **Send freeform workspace confirm** ("reply continue/yes/work here") instead of the numbered patch workspace gate
+- **Map "work here" to switching to a proposed new branch** — on patch continuing gate option **1** means stay on current branch
 - Skip micro-spec approval or branch/workspace confirmation
 - **Skip spec or correctness review** — including when the user says the patch is tiny, done, or keep going
 - **Skip reviews after Task 1** on multi-task micro-specs because later tasks look repetitive or small
