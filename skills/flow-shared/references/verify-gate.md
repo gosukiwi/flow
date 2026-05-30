@@ -51,13 +51,15 @@ Verification complete:
 
 What would you like to do?
 
-1. Push the branch — I'll push; you open the PR when ready (after merge on GitHub, run `/flow-finish` to sync local)
-2. Review the diff — [clean-code-reviewer | branch correctness review]
+1. Push the branch — I'll push; you open the PR when ready (I'll sync local after you merge on GitHub)
+2. Review the diff — optional full-branch review
 3. Merge locally — merge this branch into your base branch
 4. Done for now — I'll stop here; you take it from there
 ```
 
-Use option 2 label **`clean-code-reviewer`** when that skill is available; otherwise **`branch correctness review`**.
+**User-facing menu** — no skill names (`clean-code-reviewer`), bracketed alternates, or `/flow-*` commands in the fenced template.
+
+**Option 2 label at send time:** if `clean-code-reviewer` is available, you may say **Full code review** in the message body when the user picks 2; otherwise run branch-mode `correctness-reviewer.md`. Do not expose internal skill IDs in the numbered menu.
 
 **Option actions:**
 

@@ -63,13 +63,15 @@ Flow finish — what should I do?
 
 1. Merge locally — merge <branch> into base (default main)
 2. Push branch — push without local merge
-3. Sync after remote merge — PR already merged on GitHub; pull base, delete local branch, clear STATE
+3. Sync after remote merge — PR already merged on GitHub; pull base, delete local branch, reset flow tracking
 4. Done for now — pause; no git actions
 
 Stop until the user picks 1–4.
 ```
 
 Replace `<branch>` with `STATE.branch`.
+
+**User-facing menu** — no `STATE`, `phase:`, or file-path jargon in the fenced template. **Orchestrator for option 3:** delete `docs/flow/STATE.md` after successful sync (see steps below).
 
 **Before option 3:** run `git fetch` and `git merge-base --is-ancestor <feature-branch> <base>`. If it **fails**, do **not** run sync steps — send **only**:
 
@@ -237,12 +239,14 @@ Send **only** this message — do not combine with integration report, branch de
 Feature integrated. Delete flow artifacts for this topic?
 
 1. Keep spec/plan/brainstorm (default)
-2. Delete flow artifacts from STATE — I'll open a chore branch, commit removals, and push for a PR into <base>
+2. Delete flow docs for this topic — I'll open a cleanup PR into <base>
 
 Stop until the user picks 1 or 2.
 ```
 
 Replace `<base>` with the integration base branch (e.g. `main`).
+
+**User-facing gate** — no `STATE` or chore-branch mechanics in the fenced menu. **Orchestrator for option 2:** `chore/remove-flow-artifacts-<topic>` branch, `git rm`, commit, push (steps below).
 
 ### After user picks
 

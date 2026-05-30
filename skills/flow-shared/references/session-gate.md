@@ -55,11 +55,15 @@ Treat STATE as **occupied** when `phase` is:
 
 Send **only** the gate — do not combine with saving artifacts or updating STATE.
 
-> Active flow work on this branch (`phase: <phase>`, `<artifact path if any>`). This request looks unrelated.
-> 1. **Resume current work** — continue the active flow lane here
+> There's active flow work on this branch (<plain description — e.g. spec at `docs/flow/specs/...`, patch in progress, verify on `feature/foo`>). This request looks unrelated.
+> 1. **Resume current work** — continue what's in progress here
 > 2. **Worktree** — new branch at `.worktrees/<slug>/` (recommended for concurrent unrelated work)
 >
-> Confirm option (1 or 2). I won't update `STATE.md` until you choose.
+> Confirm option (1 or 2). I won't start the new work here until you choose.
+
+**User-facing gate** — no `phase:` labels or `STATE.md` in the message. Map `phase` from STATE to plain words (brainstorm → brainstorm brief, spec → spec, planned → plan ready, execute → implementation, patch → patch, debug → debug, verify → verification).
+
+**Orchestrator (not in the gate):** do not write or overwrite `docs/flow/STATE.md` until the user picks.
 
 **Stop until the user responds.**
 

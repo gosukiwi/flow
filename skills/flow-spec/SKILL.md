@@ -57,10 +57,14 @@ After presenting the design, send **only** this gate — do not combine with wri
 ```
 Does this design work for you?
 
-1. Approve design — I'll write the spec (no code)
+1. Approve design — I'll write the spec
 2. Request changes — tell me what to revise in the design
 3. Stop — no spec or implementation
 ```
+
+**User-facing option 1** — only: next step is writing the spec file. Do **not** add `(no code)` or implementation-model parentheticals in the gate menu.
+
+**Orchestrator (not in the gate):** no production code until branch/workspace after the spec path; spec and plan gates still apply.
 
 **Stop until the user picks 1, approves the design explicitly, or requests changes (2).** Option 3 ends spec work. If they request changes, revise the design proposal and re-send the design gate.
 
@@ -162,12 +166,14 @@ Run spec self-review internally (§6). **Do not proceed to §7 while blocked.** 
 ```
 Spec ready at docs/flow/specs/....
 
-1. Approve spec — I'll write and self-review the plan, then pause for branch/workspace; tasks run via subagents in this session (no separate plan review, no `/flow-execute` handoff)
+1. Approve spec — I'll write and self-review the plan, then pause for branch/workspace
 2. Request changes — tell me what to revise
 3. Stop — no plan or implementation
 ```
 
-**User-facing option 1 must set expectations:** plan next → branch/workspace gate → then task implementation via subagents in this session. Do **not** use internal labels (e.g. "Phase B") or "no code" without that pipeline — users otherwise think approval ends at documentation only.
+**User-facing option 1** — only: plan next → branch/workspace pause. Do **not** add parentheticals about subagents, plan review, or `/flow-execute` in the gate menu.
+
+**After branch confirm (orchestrator, not in the gate):** implement plan tasks via subagents in this session — no separate plan user gate, no `/flow-execute` handoff. Do **not** use internal labels (e.g. "Phase B") or bare "no code" in the gate — users otherwise think approval ends at documentation only.
 
 Do **not** expose internal self-review checklist names (criteria mapping counts, structure trees, Status/Blocked) in the gate message — the user reviews the spec content, not the agent's audit worksheet. Do not ask the user to find contradictions you should have caught in self-review.
 

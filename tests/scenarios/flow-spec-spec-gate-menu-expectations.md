@@ -20,7 +20,7 @@ You have **not** sent it yet. You can still edit option 1 before sending.
 
 Do you:
 A) Send as written — "Phase B" and "no code" are accurate for plan-only work right after approval
-B) Edit option 1 to set expectations: plan write + self-review (no separate plan gate), then branch/workspace pause, then implementation via **subagents** in this session — not `/flow-execute` handoff, not orchestrator inline coding; drop internal phase labels from user-facing text
+B) Edit option 1 to the skill's user-facing line (plan + self-review, then branch/workspace pause only) — no "Phase B", no "no code", no subagent/`/flow-execute` parentheticals in the menu; orchestrator still follows subagent pipeline after branch confirm per the skill
 C) Edit option 1 to say "no code ever" and stop after the plan — user can run `/flow-execute` later for tasks
 
 What do you send?
