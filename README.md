@@ -39,55 +39,33 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 
 ## Install
 
-Skills live under `skills/`. Install them into a **consumer project** (or globally). After install, add `.flow/` to that project's `.gitignore` if you use `/flow-spec`.
+Skills live under `skills/`. Install them into a **consumer project** (or globally).
 
 ### With `npx skills` (recommended)
 
 ```bash
-npx skills add gosukiwi/flow -a cursor --skill '*' -y
-```
-
-Installs to `.agents/skills/` (project). Add `-g` for global (`~/.cursor/skills/`).
-
-| Flag | Meaning |
-|------|---------|
-| `-a cursor` | Cursor agent skills |
-| `--skill '*'` | All skills (`flow-spec`, `flow-patch`, `flow-debug`, `flow-shared`) |
-| `-y` | Non-interactive |
-| `-g` | Global install → `~/.cursor/skills/` |
-| `--copy` | Copy files instead of linking — use when iterating on skill text |
-
-From a local clone:
-
-```bash
-npx skills add ./skills -a cursor --skill '*' -y
-# or while editing skills:
-npx skills add ./skills -a cursor --skill '*' -y --copy
+npx skills add gosukiwi/flow --skill '*'
 ```
 
 ### Manual
 
-Copy (or symlink) each skill directory into Cursor's skills folder:
+Copy (or symlink) each skill directory into your agent's skills folder:
 
 **Project-local:**
 
 ```bash
-mkdir -p .cursor/skills   # or .agents/skills
-cp -R /path/to/flow/skills/* .cursor/skills/
+mkdir -p .agents/skills # this will depend on your coding agent (Claude, Cursor, Codex, etc)
+cp -R /path/to/flow/skills/* .agents/skills/
 ```
 
 **Global:**
 
 ```bash
-mkdir -p ~/.cursor/skills
-cp -R /path/to/flow/skills/* ~/.cursor/skills/
+mkdir -p ~/.agents/skills
+cp -R /path/to/flow/skills/* ~/.agents/skills/
 ```
 
 You need all four directories: `flow-spec`, `flow-patch`, `flow-debug`, and `flow-shared`.
-
-### Verify
-
-In Cursor, invoke `/flow-spec`, `/flow-patch`, or `/flow-debug` — the matching skill should load.
 
 ## Testing
 
