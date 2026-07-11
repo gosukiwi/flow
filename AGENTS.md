@@ -6,6 +6,8 @@ Guidance for AI agents working on **this repository** — the Flow skillset main
 
 **Flow** is a minimalist spec-driven development workflow shipped as Cursor agent skills:
 
+- **Published as:** [github.com/gosukiwi/flow](https://github.com/gosukiwi/flow)
+
 | Command | Role |
 |---------|------|
 | `/flow-spec` | Spec → plan → **subagent** tasks + review → verify |
@@ -145,6 +147,6 @@ Every invokable skill under `skills/<name>/`:
 
 | | This repo (maintainer) | Consumer project |
 |---|------------------------|------------------|
-| Skills live in | `skills/` | `.agents/skills/` or `.cursor/skills/` |
+| Skills live in | `skills/` | `.agents/skills/` or `.cursor/skills/` via `npx skills add gosukiwi/flow …` |
 | Workflow artifacts | none | `.flow/specs`, `.flow/plans` (gitignored) |
 | Scenarios / AGENTS | yes | no |

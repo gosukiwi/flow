@@ -39,62 +39,51 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 
 ## Install
 
-Skills live under `skills/`. Install them into a **consumer project** (or globally). 
+Skills live under `skills/`. Install them into a **consumer project** (or globally). After install, add `.flow/` to that project's `.gitignore` if you use `/flow-spec`.
 
 ### With `npx skills` (recommended)
 
-From a clone of this repo, in the consumer project:
-
 ```bash
-npx skills add /path/to/flow/skills -a cursor --skill '*' -y
+npx skills add gosukiwi/flow -a cursor --skill '*' -y
 ```
+
+Installs to `.agents/skills/` (project). Add `-g` for global (`~/.cursor/skills/`).
 
 | Flag | Meaning |
 |------|---------|
 | `-a cursor` | Cursor agent skills |
 | `--skill '*'` | All skills (`flow-spec`, `flow-patch`, `flow-debug`, `flow-shared`) |
 | `-y` | Non-interactive |
-| `-g` | Global install → `~/.cursor/skills/` (omit for project → `.agents/skills/`) |
+| `-g` | Global install → `~/.cursor/skills/` |
 | `--copy` | Copy files instead of linking — use when iterating on skill text |
 
-Examples:
+From a local clone:
 
 ```bash
-# Project-local
-npx skills add /path/to/flow/skills -a cursor --skill '*' -y
-
-# Global
-npx skills add /path/to/flow/skills -a cursor --skill '*' -y -g
-
-# Reinstall while editing skills (copy so updates land immediately)
-npx skills add /path/to/flow/skills -a cursor --skill '*' -y --copy
-```
-
-If this package is published on GitHub, you can point at the repo instead of a local path (same flags):
-
-```bash
-npx skills add <owner>/<repo> -a cursor --skill '*' -y
+npx skills add ./skills -a cursor --skill '*' -y
+# or while editing skills:
+npx skills add ./skills -a cursor --skill '*' -y --copy
 ```
 
 ### Manual
 
 Copy (or symlink) each skill directory into Cursor's skills folder:
 
-**Project-local** (shared with the repo):
+**Project-local:**
 
 ```bash
 mkdir -p .cursor/skills   # or .agents/skills
 cp -R /path/to/flow/skills/* .cursor/skills/
 ```
 
-**Global** (all projects):
+**Global:**
 
 ```bash
 mkdir -p ~/.cursor/skills
 cp -R /path/to/flow/skills/* ~/.cursor/skills/
 ```
 
-You need all four directories: `flow-spec`, `flow-patch`, `flow-debug`, and `flow-shared` (shared prompts/references).
+You need all four directories: `flow-spec`, `flow-patch`, `flow-debug`, and `flow-shared`.
 
 ### Verify
 
