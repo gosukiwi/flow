@@ -65,7 +65,7 @@ Skills live under `skills/`. Install them into a **consumer project** (or global
 From a clone of this repo, in the consumer project:
 
 ```bash
-npx skills add /path/to/lite-flow/skills -a cursor --skill '*' -y
+npx skills add /path/to/flow/skills -a cursor --skill '*' -y
 ```
 
 | Flag | Meaning |
@@ -80,13 +80,13 @@ Examples:
 
 ```bash
 # Project-local
-npx skills add /path/to/lite-flow/skills -a cursor --skill '*' -y
+npx skills add /path/to/flow/skills -a cursor --skill '*' -y
 
 # Global
-npx skills add /path/to/lite-flow/skills -a cursor --skill '*' -y -g
+npx skills add /path/to/flow/skills -a cursor --skill '*' -y -g
 
 # Reinstall while editing skills (copy so updates land immediately)
-npx skills add /path/to/lite-flow/skills -a cursor --skill '*' -y --copy
+npx skills add /path/to/flow/skills -a cursor --skill '*' -y --copy
 ```
 
 If this package is published on GitHub, you can point at the repo instead of a local path (same flags):
@@ -103,14 +103,14 @@ Copy (or symlink) each skill directory into Cursor's skills folder:
 
 ```bash
 mkdir -p .cursor/skills   # or .agents/skills
-cp -R /path/to/lite-flow/skills/* .cursor/skills/
+cp -R /path/to/flow/skills/* .cursor/skills/
 ```
 
 **Global** (all projects):
 
 ```bash
 mkdir -p ~/.cursor/skills
-cp -R /path/to/lite-flow/skills/* ~/.cursor/skills/
+cp -R /path/to/flow/skills/* ~/.cursor/skills/
 ```
 
 You need all four directories: `flow-spec`, `flow-patch`, `flow-debug`, and `flow-shared` (shared prompts/references).
@@ -118,3 +118,7 @@ You need all four directories: `flow-spec`, `flow-patch`, `flow-debug`, and `flo
 ### Verify
 
 In Cursor, invoke `/flow-spec`, `/flow-patch`, or `/flow-debug` — the matching skill should load.
+
+## Testing
+
+Pressure scenarios live under `tests/scenarios/`. List them with `make test-scenarios`. Run via Task subagent — see `tests/writing-skills.md`.

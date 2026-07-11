@@ -1,6 +1,6 @@
 ---
 name: flow-shared
-description: Shared prompts and references for lite-flow skills. Not invoked directly.
+description: Shared prompts and references for flow skills. Not invoked directly.
 disable-model-invocation: true
 ---
 
