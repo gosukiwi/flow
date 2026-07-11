@@ -41,7 +41,7 @@ For each task, in order:
 2. Implement inline — follow `flow-shared/references/tdd-red-green.md`
 3. Note `HEAD_SHA`
 4. Review inline - follow `flow-shared/prompts/reviewer.md`
-5. If issues → fix → review again → repeat until no issues
+5. If REJECTED → fix → review again → repeat until APPROVED
 6. Only then start Task N+1
 
 ## 3. Verify

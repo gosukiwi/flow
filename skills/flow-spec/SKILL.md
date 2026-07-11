@@ -53,7 +53,7 @@ For each task, in order:
 2. Dispatch implementer subagent — paste `flow-shared/prompts/implementer.md` (fill placeholders)
 3. Note `HEAD_SHA`
 4. Dispatch reviewer subagent — paste `flow-shared/prompts/reviewer.md` (fill placeholders)
-5. If REJECTED → fix (subagent) → review again
+5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
 6. Only then start Task N+1
 
 TDD: `flow-shared/references/tdd-red-green.md`.
