@@ -14,23 +14,22 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 
 | Command | When |
 |---------|------|
-| `/flow-spec` | New feature or multi-step change — spec → plan → subagent tasks → verify |
-| `/flow-patch` | Small change (~≤3 files, one concern) — micro-spec → inline TDD + inline review → verify |
-| `/flow-debug` | Bug or unexpected behavior — find root cause, write a RED test, stop |
+| `/flow-spec` | New feature or big change |
+| `/flow-patch` | Small change (~≤3 files, one concern) |
+| `/flow-debug` | Bug or unexpected behavior — find root cause |
 
 ## Feature (`/flow-spec`)
 
-1. Write a high-level, unambiguous spec under `.flow/specs/` (files touched, contracts: types, persistence, APIs/boundaries).
-2. After the user is happy with the spec, write a sequential TDD plan under `.flow/plans/`.
-3. Execute each plan task with a **subagent**. After each task, a **review** subagent checks the work before the next task.
-4. When all tasks are done: **verify** — project's usual checks (tests, lint, typecheck, formatters, build) + Success Criteria. User owns merge/push.
+1. Write a high-level spec under `.flow/specs/`.
+2. After approval, write a TDD plan under `.flow/plans/`.
+3. Execute with properly-sized subagents. Review between each task.
+4. Verify using the project's usual checks (tests, lint, typecheck, etc).
 
 ## Patch (`/flow-patch`)
 
-1. Present a short micro-spec **inline** (problem, success criteria, files, TDD tasks) — no artifact file.
-2. Execute **inline** in the current session with TDD.
-3. Review each task **inline** before the next (same checklist as the reviewer prompt — no subagent).
-4. Verify (tests, lint, typecheck, formatters, build + Success Criteria). User owns merge/push.
+1. Present a short micro-spec inline.
+2. Execute in the current session with TDD. Review between each task.
+3. Verify using the project's usual checks (tests, lint, typecheck, etc).
 
 ## Debug (`/flow-debug`)
 
@@ -38,27 +37,9 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 2. Write a failing (RED) test that confirms the issue.
 3. **Stop.** Fix with `/flow-patch`.
 
-## Artifacts
-
-All local, gitignored:
-
-```
-.flow/
-  specs/YYYY-MM-DD-topic.md
-  plans/YYYY-MM-DD-topic.md
-```
-
-Patches stay in chat only (no `.flow/` file).
-
-Add to the consumer project's `.gitignore`:
-
-```
-.flow/
-```
-
 ## Install
 
-Skills live under `skills/`. Install them into a **consumer project** (or globally). After install, add `.flow/` to that project's `.gitignore` (see [Artifacts](#artifacts)).
+Skills live under `skills/`. Install them into a **consumer project** (or globally). 
 
 ### With `npx skills` (recommended)
 
