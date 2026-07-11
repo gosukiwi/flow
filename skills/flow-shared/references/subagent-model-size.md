@@ -1,8 +1,25 @@
 # Subagent model size
 
-The orchestrator picks a model per dispatch. Prefer the **smallest model that can finish the task reliably** — do not default to the coordinator's model.
+Prefer the **smallest model that can finish the task reliably**. Do not default to the coordinator's model.
 
-Available names differ by host (Cursor Task `model`, Claude Code Haiku/Sonnet/Opus, etc.). Map the tiers below to whatever that host exposes.
+## Resolve (each dispatch)
+
+1. Choose a **tier** (small / medium / large) using Tiers + Heuristics.
+2. Resolve that tier to a **model ID**:
+   - If `.flow/config` exists and defines `models.<tier>`, use that exact ID.
+   - Else map the tier to a model the **host** exposes (Cursor Task `model`, Claude Code Haiku/Sonnet/Opus, etc.).
+3. Never invent an ID absent from both the config and the host allowlist. If the host has no model parameter, leave the default.
+
+Config is optional. Example `.flow/config`:
+
+```yaml
+models:
+  small: composer-2.5-fast
+  medium: grok-4.5-xhigh
+  large: grok-4.5-xhigh
+```
+
+A present tier key wins over a "familiar" host default (e.g. do not swap in GPT because it feels like medium).
 
 ## Tiers
 
@@ -21,6 +38,6 @@ Available names differ by host (Cursor Task `model`, Claude Code Haiku/Sonnet/Op
 
 ## Do not
 
-- Hard-code vendor model IDs in plans or specs
+- Hard-code vendor model IDs in plans or specs (put project IDs in `.flow/config`)
+- Ignore `.flow/config` when it defines the chosen tier
 - Use a large model for mechanical RED/GREEN on an already-specified task
-- Invent model IDs the host does not expose — when the host accepts a model parameter, pick an explicit tier; otherwise leave the default

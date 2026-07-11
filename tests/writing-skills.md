@@ -53,4 +53,5 @@ List scenario files: `make test-scenarios`
 | `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 |
 | `flow-spec-gitignore-flow.md` | `/flow-spec` | **B** — gitignore `.flow/` before first write |
 | `flow-spec-skip-verify.md` | `/flow-spec` | **B** — run verify after last task |
+| `flow-spec-ignore-model-config.md` | `/flow-spec` | **B** — respect `.flow/config` model tiers when present |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix |

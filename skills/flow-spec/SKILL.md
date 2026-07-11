@@ -45,7 +45,7 @@ Write `.flow/plans/YYYY-MM-DD-<topic>.md` (same slug). Sequential TDD tasks — 
 
 ## 3. Execute (subagents)
 
-Before each dispatch, pick a model per `flow-shared/references/subagent-model-size.md` (smallest capable tier; map to the host's model names). Resolve `flow-shared` paths before pasting prompts. Paste the filled template only — do not tell subagents to read plan files.
+Before each dispatch, pick a model per `flow-shared/references/subagent-model-size.md` (smallest capable tier). Resolve `flow-shared` paths before pasting prompts. Paste the filled template only — do not tell subagents to read plan files.
 
 For each task, in order:
 
