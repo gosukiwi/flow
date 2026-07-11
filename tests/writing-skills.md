@@ -54,4 +54,5 @@ List scenario files: `make test-scenarios`
 | `flow-spec-gitignore-flow.md` | `/flow-spec` | **B** — gitignore `.flow/` before first write |
 | `flow-spec-skip-verify.md` | `/flow-spec` | **B** — run verify after last task |
 | `flow-spec-ignore-model-config.md` | `/flow-spec` | **B** — respect `.flow/config` model tiers when present |
+| `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix |

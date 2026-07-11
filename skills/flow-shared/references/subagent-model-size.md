@@ -4,13 +4,14 @@ Prefer the **smallest model that can finish the task reliably**. Do not default 
 
 ## Resolve (each dispatch)
 
-1. Choose a **tier** (small / medium / large) using Tiers + Heuristics.
-2. Resolve that tier to a **model ID**:
-   - If `.flow/config` exists and defines `models.<tier>`, use that exact ID.
+1. Load config: `Read` (or `test -f` / shell) `.flow/config` at that exact path before choosing a model. Do **not** treat a failed Glob/grep/search as "no config" — `.flow/` is gitignored and often invisible to search tools.
+2. Choose a **tier** (small / medium / large) using Tiers + Heuristics.
+3. Resolve that tier to a **model ID**:
+   - If the file exists and defines `models.<tier>`, use that exact ID.
    - Else map the tier to a model the **host** exposes (Cursor Task `model`, Claude Code Haiku/Sonnet/Opus, etc.).
-3. Never invent an ID absent from both the config and the host allowlist. If the host has no model parameter, leave the default.
+4. Never invent an ID absent from both the config and the host allowlist. If the host has no model parameter, leave the default. If a config ID is not on the host allowlist, stop and ask the user — do not silently rewrite it.
 
-Config is optional. Example `.flow/config`:
+Config is optional (missing file → host mapping). Example `.flow/config`:
 
 ```yaml
 models:
@@ -39,5 +40,7 @@ A present tier key wins over a "familiar" host default (e.g. do not swap in GPT 
 ## Do not
 
 - Hard-code vendor model IDs in plans or specs (put project IDs in `.flow/config`)
+- Skip the path Read because Glob/search returned nothing
 - Ignore `.flow/config` when it defines the chosen tier
+- Silently rewrite a config ID to a similar host name
 - Use a large model for mechanical RED/GREEN on an already-specified task
