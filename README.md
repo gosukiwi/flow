@@ -15,7 +15,7 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 | Command | When |
 |---------|------|
 | `/flow-spec` | New feature or multi-step change — spec → plan → subagent tasks → verify |
-| `/flow-patch` | Small change (~≤3 files, one concern) — micro-spec → inline TDD → verify |
+| `/flow-patch` | Small change (~≤3 files, one concern) — micro-spec → inline TDD + inline review → verify |
 | `/flow-debug` | Bug or unexpected behavior — find root cause, write a RED test, stop |
 
 ## Feature (`/flow-spec`)
@@ -29,7 +29,7 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 
 1. Present a short micro-spec **inline** (problem, success criteria, files, TDD tasks) — no artifact file.
 2. Execute **inline** in the current session with TDD.
-3. Review between tasks (same as spec — no starting Task N+1 until Task N is reviewed).
+3. Review each task **inline** before the next (same checklist as the reviewer prompt — no subagent).
 4. Verify (tests, lint, typecheck, formatters, build + Success Criteria). User owns merge/push.
 
 ## Debug (`/flow-debug`)

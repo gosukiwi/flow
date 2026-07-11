@@ -1,6 +1,6 @@
-# Reviewer subagent
+# Reviewer
 
-Run after each task (spec subagent implement, or patch inline). Spec-fit + obvious correctness — one review.
+Checklist for reviewing a completed task against its plan/micro-spec slice. Spec-fit + obvious correctness.
 
 ```
 You are reviewing Task N: [task name]

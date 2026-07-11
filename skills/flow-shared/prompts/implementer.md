@@ -1,6 +1,6 @@
-# Implementer subagent
+# Implementer
 
-Dispatch with Task (generalPurpose). Paste the full task text — do not tell the subagent to read plan files.
+Prompt body for implementing one plan task (TDD).
 
 ```
 You are implementing Task N: [task name]
@@ -12,7 +12,7 @@ You are implementing Task N: [task name]
 [Where this fits, branch if known, relevant paths]
 
 ## TDD
-Read and follow `{flow-shared}/references/tdd-red-green.md`.
+Read and follow `[resolved flow-shared]/references/tdd-red-green.md`.
 RED → verify fail → GREEN → verify pass → REFACTOR.
 NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST.
 

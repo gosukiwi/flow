@@ -45,12 +45,14 @@ Write `.flow/plans/YYYY-MM-DD-<topic>.md` (same slug). Sequential TDD tasks — 
 
 ## 3. Execute (subagents)
 
+Before each dispatch, pick a model per `flow-shared/references/subagent-model-size.md` (smallest capable tier; map to the host's model names). Resolve `flow-shared` paths before pasting prompts. Paste the filled template only — do not tell subagents to read plan files.
+
 For each task, in order:
 
 1. Note `BASE_SHA` (`git rev-parse HEAD`)
-2. Dispatch implementer — read `flow-shared/prompts/implementer.md`
+2. Dispatch implementer subagent — paste `flow-shared/prompts/implementer.md` (fill placeholders)
 3. Note `HEAD_SHA`
-4. Dispatch reviewer — read `flow-shared/prompts/reviewer.md`
+4. Dispatch reviewer subagent — paste `flow-shared/prompts/reviewer.md` (fill placeholders)
 5. If REJECTED → fix (subagent) → review again
 6. Only then start Task N+1
 

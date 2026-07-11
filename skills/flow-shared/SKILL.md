@@ -17,5 +17,6 @@ disable-model-invocation: true
 ## Contents
 
 - `references/tdd-red-green.md` — TDD cycle for implement + patch
-- `prompts/implementer.md` — subagent prompt for `/flow-spec` tasks
-- `prompts/reviewer.md` — subagent prompt after each task (spec + patch)
+- `references/subagent-model-size.md` — pick a right-sized model per subagent dispatch
+- `prompts/implementer.md` — prompt body for `/flow-spec` implementer subagents
+- `prompts/reviewer.md` — review checklist (spec: subagent; patch: inline)
