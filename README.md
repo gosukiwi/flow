@@ -67,6 +67,21 @@ cp -R /path/to/flow/skills/* ~/.agents/skills/
 
 You need all four directories: `flow-spec`, `flow-patch`, `flow-debug`, and `flow-shared`.
 
+## Configuration
+
+You can create a `.flow/config` file to map task tiers to model IDs your host
+exposes — useful for controlling cost. Without it, Flow will guess appropriate
+models for the different sizes.
+
+```yaml
+models:
+  small: composer-2.5-fast
+  medium: grok-4.5-xhigh
+  large: grok-4.5-xhigh
+```
+
+`.flow/` is gitignored, so this stays local to the project checkout.
+
 ## Testing
 
 Pressure scenarios live under `tests/scenarios/`. List them with `make test-scenarios`. Run via Task subagent — see `tests/writing-skills.md`.
