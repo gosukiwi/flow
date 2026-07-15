@@ -37,11 +37,11 @@ Write `.flow/specs/YYYY-MM-DD-<topic>.md`:
 ## Testing
 ```
 
-Keep it high-level and unambiguous. Get the user's OK before planning.
+Keep it high-level and unambiguous. After writing the spec — and after any later change the user asks for — review it for inconsistencies and unresolved ambiguity. Don't guess: read the code to confirm, or ask the user when the code can't settle it. Get the user's OK before planning.
 
 ## 2. Plan
 
-Write `.flow/plans/YYYY-MM-DD-<topic>.md` (same slug). Sequential TDD tasks — each task has RED → GREEN steps a subagent can finish alone.
+Read the TDD guidelines (`flow-shared/references/tdd-red-green.md`), then write `.flow/plans/YYYY-MM-DD-<topic>.md` (same slug). Break the work into sequential tasks a subagent can finish alone. Structure each as RED → GREEN where a test makes sense; follow the guidelines on when a test isn't warranted.
 
 ## 3. Execute (subagents)
 
@@ -55,8 +55,6 @@ For each task, in order:
 4. Dispatch reviewer subagent — paste `flow-shared/prompts/reviewer.md` (fill placeholders)
 5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
 6. Only then start Task N+1
-
-TDD: `flow-shared/references/tdd-red-green.md`.
 
 ## 4. Verify
 
