@@ -37,9 +37,11 @@ Write `.flow/specs/YYYY-MM-DD-<topic>.md`:
 ## Testing
 ```
 
-Keep it high-level and unambiguous. After writing the spec — and after any later change the user asks for — review it for inconsistencies and unresolved ambiguity. Don't guess: read the code to confirm, or ask the user when the code can't settle it. Get the user's OK before planning.
+Keep it high-level and unambiguous. Iterate with the user as needed (questions, Decisions fill-in).
 
 ## 2. Plan
+
+Review the full spec for inconsistencies and unresolved ambiguity. Don't guess: read the code to confirm, or ask the user when the code can't settle it. Only then get the user's OK and write the plan. Do not write the plan until that review is done. Pre-write research does not replace it.
 
 Read the TDD guidelines (`flow-shared/references/tdd-red-green.md`), then write `.flow/plans/YYYY-MM-DD-<topic>.md` (same slug). Break the work into sequential tasks a subagent can finish alone. Structure each as RED → GREEN where a test makes sense; follow the guidelines on when a test isn't warranted.
 
