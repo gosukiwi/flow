@@ -33,7 +33,7 @@ A present tier key wins over a "familiar" host default (e.g. do not swap in GPT 
 ## Heuristics
 
 - **Implementer:** size to the *task*, not the whole feature. A two-line change → small.
-- **Reviewer:** usually medium (or small for tiny diffs). Prefer a different pass than rubber-stamping with the same weak model on a hard task.
+- **Reviewer:** capability ≥ that task's implementer; prefer a *different* model ID when the host/config offers one at that bar. If the implementer already used the strongest available (or no different ID exists), same model is OK — still use a fresh review subagent. Never review with a weaker model.
 - **Fix after REJECTED:** same size as the implementer unless the rejection needs deeper reasoning → bump one tier.
 - When unsure between two tiers, pick the **smaller**; bump only after a failed attempt or a clearly hard task.
 
