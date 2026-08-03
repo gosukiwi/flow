@@ -27,8 +27,8 @@ Minimalist spec-based software development workflow for AI coding agents. TDD, r
 
 ## Patch (`/flow-patch`)
 
-1. Present a short micro-spec inline.
-2. Execute in the current session with TDD. Review between each task.
+1. Present a short micro-spec inline — nothing written to disk.
+2. Execute with properly-sized subagents. Review between each task.
 3. Verify using the project's usual checks (tests, lint, typecheck, etc).
 
 ## Debug (`/flow-debug`)
