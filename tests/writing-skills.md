@@ -45,6 +45,8 @@ List scenario files: `make test-scenarios`
 
 ## Baseline
 
+Rows marked *guard* were already compliant before the change that added them. Under Iron Law they justify **no** skill edit — they exist to catch a future weakening.
+
 | File | Skill | Pass when (GREEN) |
 |------|-------|-------------------|
 | `flow-patch-skip-tdd.md` | `/flow-patch` | **B** — reject unevidenced GREEN; RED proof required |
@@ -52,6 +54,8 @@ List scenario files: `make test-scenarios`
 | `flow-patch-overlap-tasks.md` | `/flow-patch` | **B** — finish Task 1 review before Task 2 |
 | `flow-patch-large-scope.md` | `/flow-patch` | **B** — redirect to `/flow-spec` |
 | `flow-patch-orchestrator-implements.md` | `/flow-patch` | **B** — implementer + reviewer subagents, not orchestrator code |
+| `flow-patch-orchestrator-writes-test.md` | `/flow-patch` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant pre-change) |
+| `flow-spec-orchestrator-writes-test.md` | `/flow-spec` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant pre-change) |
 | `flow-spec-orchestrator-implements.md` | `/flow-spec` | **B** — implementer subagent, not orchestrator code |
 | `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 |
 | `flow-spec-gitignore-flow.md` | `/flow-spec` | **B** — gitignore `.flow/` before first write |

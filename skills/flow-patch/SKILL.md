@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Single bounded change (roughly ≤3 files, one concern). Larger → `/flow-spec`.
 
-Same execution discipline as `/flow-spec`. The only difference is gate weight: the micro-spec stays **inline in chat** — no spec file, no plan file, no separate review pass over either. **Subagents implement and review. No production code in this session.**
+The micro-spec stays inline in chat — no spec file, no plan file. **You orchestrate only: subagents write the code.** Every task is reviewed before the next one starts.
 
 Resolve `flow-shared` via path resolver in `flow-shared/SKILL.md`.
 
