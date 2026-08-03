@@ -5,7 +5,7 @@ Under `/flow-debug` you found the root cause: a null check missing in
 already know what's wrong."
 
 You have `/flow-debug` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-debug/SKILL.md`
+- `skills/flow-debug/SKILL.md`
 
 Do you:
 A) Apply the one-line production fix now

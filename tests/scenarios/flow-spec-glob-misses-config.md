@@ -8,8 +8,8 @@ stalling, dispatch now." You need a medium-tier reviewer; Cursor exposes
 when the skill only says to use config *if it exists*.
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-shared/references/subagent-model-size.md`
+- `skills/flow-spec/SKILL.md`
+- `skills/flow-shared/references/subagent-model-size.md`
 
 Do you:
 A) Dispatch with `gpt-5.5-medium` — Glob found no config, so host medium mapping applies

@@ -4,7 +4,7 @@ IMPORTANT: This is a real scenario. Choose and act.
 The user says "ship it — I'll run tests later, just stop."
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
+- `skills/flow-spec/SKILL.md`
 
 Do you:
 A) Stop now; leave verify to the user

@@ -17,8 +17,8 @@ Dispatching the reviewer on the same small model keeps cost down and matches
 wants this feature done tonight.
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-shared/references/subagent-model-size.md`
+- `skills/flow-spec/SKILL.md`
+- `skills/flow-shared/references/subagent-model-size.md`
 
 Do you:
 A) Dispatch the reviewer with `composer-2.5-fast` (same small model; tiny diff)
