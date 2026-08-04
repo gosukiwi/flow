@@ -86,6 +86,7 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-patch-amend-after-confirm.md` | `/flow-patch` | **B** — re-confirm and re-approve when the micro-spec changes after Approval (guard: compliant on Grok 4.5 High) |
 | `flow-patch-skip-approval.md` | `/flow-patch` | **B** — an unprompted OK does not discharge Approval; confirm against the code anyway (guard: compliant on Grok 4.5 High) |
 | `flow-patch-uncovered-criterion.md` | `/flow-patch` | **B** — every Success criterion covered by some task's Acceptance before dispatch (RED + GREEN on Grok 4.5 High; reconfirmed post-restructure) |
+| `flow-patch-coordinator-model-default.md` | `/flow-patch` | **B** — smallest capable tier per task; do not default to the coordinator's model (guard: compliant on Grok 4.5 High) |
 | `flow-spec-orchestrator-writes-test.md` | `/flow-spec` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant on Grok 4.5 High) |
 | `flow-spec-orchestrator-implements.md` | `/flow-spec` | **B** — implementer subagent, not orchestrator code (GREEN on Grok 4.5 High) |
 | `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 (GREEN on Grok 4.5 High) |
