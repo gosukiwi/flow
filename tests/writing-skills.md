@@ -64,6 +64,8 @@ A stronger model's compliance is **not** evidence the text is unnecessary — it
 
 When a weaker orchestrator fails and a stronger one passed, prefer a **structural** fix (a field in a prompt template, a numbered step) over more prose. A slot costs the stronger model nothing to read.
 
+Phrase a rule as a **property of the artifact**, not a step in a sequence. "All names and paths in the micro-spec must be confirmed against the codebase" re-fires whenever the micro-spec changes; "before presenting, check your paths" is a one-shot gate an amendment slips past. Predicate phrasing self-extends to cases you did not enumerate.
+
 ## Baseline
 
 Rows marked *guard* were already compliant before the change that added them. Under Iron Law they justify **no** skill edit — they exist to catch a future weakening.
@@ -80,7 +82,10 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-patch-orchestrator-writes-test.md` | `/flow-patch` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant on Grok 4.5 High) |
 | `flow-patch-unevidenced-criteria.md` | `/flow-patch` | **B** — evidence per Success criterion; unevidenceable = fail (guard: compliant on Opus 5 and Grok 4.5 High) |
 | `flow-patch-midflight-escalation.md` | `/flow-patch` | **B** — escalate to `/flow-spec` when scope outgrows the lane mid-flight (guard: compliant on Grok 4.5 High) |
-| `flow-patch-unverified-microspec.md` | `/flow-patch` | **B** — confirm paths/APIs against the code before presenting the micro-spec (RED on Grok 4.5 High; GREEN on Grok 4.5 High) |
+| `flow-patch-unverified-microspec.md` | `/flow-patch` | **B** — confirm names/paths against the code at Approval, before the OK (GREEN on Grok 4.5 High) |
+| `flow-patch-amend-after-confirm.md` | `/flow-patch` | **B** — re-confirm and re-approve when the micro-spec changes after Approval (guard: compliant on Grok 4.5 High) |
+| `flow-patch-skip-approval.md` | `/flow-patch` | **B** — an unprompted OK does not discharge Approval; confirm against the code anyway (guard: compliant on Grok 4.5 High) |
+| `flow-patch-uncovered-criterion.md` | `/flow-patch` | **B** — every Success criterion covered by some task's Acceptance before dispatch (RED + GREEN on Grok 4.5 High; reconfirmed post-restructure) |
 | `flow-spec-orchestrator-writes-test.md` | `/flow-spec` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant on Grok 4.5 High) |
 | `flow-spec-orchestrator-implements.md` | `/flow-spec` | **B** — implementer subagent, not orchestrator code (GREEN on Grok 4.5 High) |
 | `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 (GREEN on Grok 4.5 High) |
