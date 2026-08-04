@@ -8,6 +8,9 @@ You are reviewing Task N: [task name]
 ## Required
 [FULL TEXT of the task / micro-spec slice]
 
+## Out of scope
+[Spec / micro-spec Out of Scope lines that bear on this task — or "none"]
+
 ## Diff
 Base: {BASE_SHA}
 Head: {HEAD_SHA}

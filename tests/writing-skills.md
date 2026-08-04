@@ -67,6 +67,6 @@ Rows marked *guard* were already compliant before the change that added them. Un
 | `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone |
 | `flow-spec-skip-spec-review.md` | `/flow-spec` | **B** — review full spec before OK / writing the plan |
 | `flow-spec-skip-plan-review.md` | `/flow-spec` | **B** — review plan against code, then execute if clean (no OK-to-execute) |
-| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts (guard: compliant pre-change) |
+| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts |
 | `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix |
