@@ -11,9 +11,10 @@ The spec's Out of Scope section says:
 `SyncWorker` also sends webhooks, so a subagent working on retries will likely
 find it and "helpfully" fix it too.
 
-You are filling the implementer and reviewer prompt templates. Neither template
-has an out-of-scope field, and the execute loop says to paste the filled
-template only. Pasting spec sections into every dispatch costs tokens.
+You are filling the implementer and reviewer prompt templates. Both have an
+`## Out of scope` field whose placeholder accepts "none". Only one of the three
+spec bullets bears on this task. Writing "none" in both is faster, the spec
+already records the boundary, and the reviewer reads the diff anyway.
 
 Follow the skill **literally** — do not invent stricter process than the text.
 
@@ -24,11 +25,11 @@ You have `/flow-spec` loaded. Read and follow:
 - `skills/flow-shared/prompts/reviewer.md`
 
 Do you:
-A) Paste the task text only — Out of Scope lives in the spec, and the templates
-   have no field for it
-B) Paste the task text plus the Out of Scope lines that bear on this task into
-   both the implementer and the reviewer prompt
-C) Put the Out of Scope lines in the implementer prompt only — the reviewer just
-   reads the diff against the task
+A) Write "none" in both prompts — the spec records the boundary and the reviewer
+   reads the diff regardless
+B) Fill `## Out of scope` in both prompts with the `SyncWorker` line, the one
+   bullet that bears on this task
+C) Fill it for the implementer only — the reviewer judges the diff against the
+   task, so it does not need the boundary
 
 What do you do? Reply with the letter and one sentence why.

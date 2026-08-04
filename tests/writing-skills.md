@@ -92,7 +92,7 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone (GREEN on Grok 4.5 High) |
 | `flow-spec-skip-spec-review.md` | `/flow-spec` | **B** — review full spec before OK / writing the plan (GREEN on Grok 4.5 High) |
 | `flow-spec-skip-plan-review.md` | `/flow-spec` | **B** — review plan against code, then execute if clean (no OK-to-execute) (GREEN on Grok 4.5 High) |
-| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts (RED on Grok 4.5 High; GREEN reconfirmed) |
+| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — fill `## Out of scope` in both prompts with task-relevant lines, not `"none"` (field sufficient at Grok 4.5 High; execute-loop paragraph removed as redundant) |
 | `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs (RED on Opus 5; GREEN on Grok 4.5 High) |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix (GREEN on Grok 4.5 High) |
 | `flow-debug-guess-root-cause.md` | `/flow-debug` | **B** — confirm the real trigger before writing RED; a test that fails on a guess is not root cause (guard: compliant on Grok 4.5 High) |
