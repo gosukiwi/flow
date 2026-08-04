@@ -11,7 +11,7 @@ Guidance for AI agents working on **this repository** — the Flow skillset main
 | Command | Role |
 |---------|------|
 | `/flow-spec` | Spec → plan → **subagent** tasks + review → verify |
-| `/flow-patch` | Micro-spec (inline, no file) → **subagent** TDD + review → verify |
+| `/flow-patch` | Micro-spec (inline, no file) → approval → **subagent** TDD + review → verify |
 | `/flow-debug` | Root cause + RED test → **stop** (fix via `/flow-patch`) |
 
 - **Not an application repo.** No app server or runtime. Source of truth is Markdown under `skills/` plus scenario tests under `tests/`.
@@ -24,7 +24,7 @@ Human overview: `README.md`.
 ```
 skills/
   flow-spec/SKILL.md       # Multi-step: spec, plan, subagent execute
-  flow-patch/SKILL.md      # Small change: inline micro-spec, subagent TDD + review
+  flow-patch/SKILL.md      # Small change: inline micro-spec, approval, subagent TDD + review
   flow-debug/SKILL.md      # Investigate; RED only; no fix
   flow-shared/             # Shared assets (not invoked directly)
     prompts/               # implementer.md, reviewer.md (prompt bodies)
@@ -121,7 +121,7 @@ Every invokable skill under `skills/<name>/`:
 
 1. Frontmatter: `name` matches directory; `description` says when to invoke; `disable-model-invocation: true`
 2. Resolve shared assets via path resolver in `flow-shared/SKILL.md`
-3. Prompt files under `flow-shared/prompts/` are **bodies only**. Orchestration shared by both lanes lives in `references/execute-loop.md`; only lane-specific framing (where task text comes from, tier hints) lives in the calling `SKILL.md`
+3. Prompt files under `flow-shared/prompts/` are **bodies only**. Orchestration shared by both lanes lives in `references/execute-loop.md`; only lane-specific framing (where task text comes from) lives in the calling `SKILL.md`
 
 ### Invariants (do not break)
 
@@ -129,10 +129,13 @@ Every invokable skill under `skills/<name>/`:
 |------|--------|
 | `/flow-spec` orchestrator does **not** implement production code — subagents do | `flow-spec/SKILL.md` |
 | `/flow-patch` orchestrator does **not** implement or review — subagents do; micro-spec stays inline (no file) | `flow-patch/SKILL.md` |
+| Micro-spec names/paths confirmed against the code before dispatching | `flow-patch/SKILL.md` |
 | Per-task review before Task N+1 (both lanes) | `execute-loop.md` |
+| Task-relevant Out of Scope lines carried into implementer + reviewer prompts | `prompts/implementer.md`, `prompts/reviewer.md` |
 | TDD: no production code without a failing test first | `tdd-red-green.md` |
 | `/flow-debug` does not fix — RED then stop → `/flow-patch` | `flow-debug/SKILL.md` |
 | `.flow/` gitignored before first write; never commit `.flow/` artifacts | `flow-spec/SKILL.md` |
+| Independent subsystems → separate specs, one per subsystem | `flow-spec/SKILL.md` |
 | Verify after last task (tests/lint/typecheck/formatters/build + Success Criteria) | `flow-spec`, `flow-patch` |
 
 ## Editing guidelines

@@ -29,14 +29,16 @@ Present inline in chat. Do not write a file.
 **Acceptance:** [observable behavior that proves it works]
 ```
 
-One task per commit-sized step. Each task must stand alone — a subagent gets only what you paste, so write the briefing for someone who has never seen this conversation. Do not spell out the RED/GREEN ritual; the implementer prompt already carries it.
+One task per commit-sized step. Every Success criterion is covered by some task's Acceptance. Each task must stand alone — a subagent gets only what you paste, so write the briefing for someone who has never seen this conversation.
 
-Get the user's OK before dispatching.
+## 2. Approval
 
-## 2. Execute (subagents)
+Review the micro-spec before executing it. All names and paths in the micro-spec must be confirmed against the codebase before proceeding. Iterate with user as needed until there are no open questions or ambiguity. Get the user's OK before dispatching.
 
-Follow `flow-shared/references/execute-loop.md`. Task text comes from the inline micro-spec — paste it into the prompt; do not tell subagents to read chat history. Patches usually land in the small tier.
+## 3. Execute (subagents)
 
-## 3. Verify
+Follow `flow-shared/references/execute-loop.md`. Task text comes from the inline micro-spec — paste it into the prompt; do not tell subagents to read chat history.
+
+## 4. Verify
 
 Run the project's usual checks — tests, lint, typecheck, formatters, build — whichever exist. Check each Success Criterion. Report pass/fail. Stop — user owns merge/push.

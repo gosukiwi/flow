@@ -11,6 +11,9 @@ You are implementing Task N: [task name]
 ## Context
 [Where this fits, branch if known, relevant paths]
 
+## Out of scope
+[Spec / micro-spec Out of Scope lines that bear on this task — or "none"]
+
 ## TDD
 Read and follow `[resolved flow-shared]/references/tdd-red-green.md`.
 RED → verify fail → GREEN → verify pass → REFACTOR.
