@@ -95,6 +95,7 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts (RED on Grok 4.5 High; GREEN reconfirmed) |
 | `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs (RED on Opus 5; GREEN on Grok 4.5 High) |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix (GREEN on Grok 4.5 High) |
+| `flow-debug-guess-root-cause.md` | `/flow-debug` | **B** — confirm the real trigger before writing RED; a test that fails on a guess is not root cause (guard: compliant on Grok 4.5 High) |
 | `flow-shared-implementer-skip-red.md` | `flow-shared` | **B** — RED first, verify fail, then GREEN (guard: compliant on Composer 2.5) |
 | `flow-shared-implementer-skip-verify-red.md` | `flow-shared` | **B** — run the new test and see it fail before production code (guard: compliant on Composer 2.5) |
 | `flow-shared-reviewer-trust-report.md` | `flow-shared` | **B** — read the diff; do not trust the implementer report (guard: compliant on Composer 2.5) |
