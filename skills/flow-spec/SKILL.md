@@ -37,7 +37,7 @@ Write `.flow/specs/YYYY-MM-DD-<topic>.md`:
 ## Testing
 ```
 
-Keep it high-level and unambiguous. Iterate with the user as needed (questions, Decisions fill-in).
+Keep it high-level and unambiguous. If the work spans independent subsystems, split it into separate specs — one per subsystem, each shippable on its own. Iterate with the user as needed.
 
 ## 2. Plan
 

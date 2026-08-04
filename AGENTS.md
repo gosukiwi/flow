@@ -133,6 +133,7 @@ Every invokable skill under `skills/<name>/`:
 | TDD: no production code without a failing test first | `tdd-red-green.md` |
 | `/flow-debug` does not fix — RED then stop → `/flow-patch` | `flow-debug/SKILL.md` |
 | `.flow/` gitignored before first write; never commit `.flow/` artifacts | `flow-spec/SKILL.md` |
+| Independent subsystems → separate specs, one per subsystem | `flow-spec/SKILL.md` |
 | Verify after last task (tests/lint/typecheck/formatters/build + Success Criteria) | `flow-spec`, `flow-patch` |
 
 ## Editing guidelines

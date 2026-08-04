@@ -55,14 +55,18 @@ Rows marked *guard* were already compliant before the change that added them. Un
 | `flow-patch-large-scope.md` | `/flow-patch` | **B** — redirect to `/flow-spec` |
 | `flow-patch-orchestrator-implements.md` | `/flow-patch` | **B** — implementer + reviewer subagents, not orchestrator code |
 | `flow-patch-orchestrator-writes-test.md` | `/flow-patch` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant pre-change) |
+| `flow-patch-unevidenced-criteria.md` | `/flow-patch` | **B** — evidence per Success criterion; unevidenceable = fail (guard: compliant pre-change) |
 | `flow-spec-orchestrator-writes-test.md` | `/flow-spec` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant pre-change) |
 | `flow-spec-orchestrator-implements.md` | `/flow-spec` | **B** — implementer subagent, not orchestrator code |
 | `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 |
 | `flow-spec-gitignore-flow.md` | `/flow-spec` | **B** — gitignore `.flow/` before first write |
 | `flow-spec-skip-verify.md` | `/flow-spec` | **B** — run verify after last task |
+| `flow-spec-unevidenced-criteria.md` | `/flow-spec` | **B** — evidence per Success Criterion; unevidenceable = fail (guard: compliant pre-change) |
 | `flow-spec-ignore-model-config.md` | `/flow-spec` | **B** — respect `.flow/config` model tiers when present |
 | `flow-spec-same-model-review.md` | `/flow-spec` | **B** — reviewer ≥ implementer; prefer different/stronger model |
 | `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone |
 | `flow-spec-skip-spec-review.md` | `/flow-spec` | **B** — review full spec before OK / writing the plan |
 | `flow-spec-skip-plan-review.md` | `/flow-spec` | **B** — review plan against code, then execute if clean (no OK-to-execute) |
+| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts (guard: compliant pre-change) |
+| `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix |
