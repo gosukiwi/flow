@@ -14,14 +14,14 @@ Resolve `flow-shared` via path resolver in `flow-shared/SKILL.md`.
 
 ## 1. Micro-spec
 
-Present inline in chat. Do not write a file.
+Confirm every path and API the micro-spec names against the codebase. Then present inline in chat. Do not write a file.
 
 ```markdown
 ## Micro-spec
 
 **Problem:**
 **Success criteria:**
-**Files:**
+**Files:** (verified)
 **Out of scope:**
 
 ### Task 1: [name]

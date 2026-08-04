@@ -129,7 +129,9 @@ Every invokable skill under `skills/<name>/`:
 |------|--------|
 | `/flow-spec` orchestrator does **not** implement production code — subagents do | `flow-spec/SKILL.md` |
 | `/flow-patch` orchestrator does **not** implement or review — subagents do; micro-spec stays inline (no file) | `flow-patch/SKILL.md` |
+| Micro-spec paths/APIs confirmed against the code before presenting | `flow-patch/SKILL.md` |
 | Per-task review before Task N+1 (both lanes) | `execute-loop.md` |
+| Task-relevant Out of Scope lines carried into implementer + reviewer prompts | `execute-loop.md` |
 | TDD: no production code without a failing test first | `tdd-red-green.md` |
 | `/flow-debug` does not fix — RED then stop → `/flow-patch` | `flow-debug/SKILL.md` |
 | `.flow/` gitignored before first write; never commit `.flow/` artifacts | `flow-spec/SKILL.md` |

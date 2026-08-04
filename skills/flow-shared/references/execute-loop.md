@@ -4,7 +4,7 @@ Per-task dispatch loop for `/flow-spec` and `/flow-patch`. The calling `SKILL.md
 
 Before each dispatch, pick a model per `references/subagent-model-size.md` — smallest capable tier. Resolve `flow-shared` paths before pasting prompts. Paste the filled template only: a subagent gets what you paste and nothing else, so never point it at a plan file or at chat history.
 
-Carry into **both** implementer and reviewer prompts the Out of Scope lines from the spec (or micro-spec) that bear on *this* task. Templates have no dedicated field — paste them under `## Out of scope` anyway. The reviewer cannot reject scope creep it was never told about.
+Carry into **both** implementer and reviewer prompts the Out of Scope lines from the spec (or micro-spec) that bear on *this* task — fill the `## Out of scope` field in each template, or write "none". The reviewer cannot reject scope creep it was never told about.
 
 For each task, in order:
 

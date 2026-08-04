@@ -6,9 +6,9 @@ Skill changes use RED→GREEN like TDD. Scenarios are the failing tests.
 
 ## When to scenario-test
 
-**Do:** discipline agents skip under pressure (TDD, per-task review, subagents-only for spec, debug stop, `.flow/` gitignore, patch vs spec scope).
+**Do:** discipline agents skip under pressure (TDD, per-task review, subagents-only for spec, debug stop, `.flow/` gitignore, patch vs spec scope). Prompt bodies and `tdd-red-green.md` count too — a dispatched subagent has to hold that discipline alone, so scenario them at the small tier per [Which model to RED on](#which-model-to-red-on).
 
-**Skip:** pure reference files (`tdd-red-green.md`, prompt bodies) unless behavior lives only there — or match Iron Law exceptions in `AGENTS.md`.
+**Skip:** Iron Law exceptions in `AGENTS.md`.
 
 ## Scenario recipe
 
@@ -43,30 +43,59 @@ Scenario skill paths are **repo-relative** — run subagents with the working di
 
 List scenario files: `make test-scenarios`
 
+## Which model to RED on
+
+Match the model to whoever reads the text under test:
+
+| Text under test | Read by | RED at |
+|---|---|---|
+| `flow-*/SKILL.md`, `execute-loop.md`, `subagent-model-size.md` | orchestrator (session model) | weakest **large** tier across supported hosts |
+| `prompts/*.md`, `tdd-red-green.md` | dispatched subagents | weakest **small** tier |
+
+Tier → model by host (illustrative — hosts churn; the rule is the tier):
+
+| Tier | Claude Code | Cursor CLI |
+|------|-------------|------------|
+| large | Opus | Grok 4.5 High |
+| medium | Sonnet | Composer 2.5 |
+| small | Haiku | Composer 2.5 |
+
+A stronger model's compliance is **not** evidence the text is unnecessary — it may be reconstructing what the skill fails to say. Record the model in the Baseline row.
+
+When a weaker orchestrator fails and a stronger one passed, prefer a **structural** fix (a field in a prompt template, a numbered step) over more prose. A slot costs the stronger model nothing to read.
+
 ## Baseline
 
 Rows marked *guard* were already compliant before the change that added them. Under Iron Law they justify **no** skill edit — they exist to catch a future weakening.
 
+Annotations name the model the run used. A guard row is only as strong as that model: *compliant on Opus 5* says nothing about grok-large. A row with no model named predates this convention — re-run it at the tier in [Which model to RED on](#which-model-to-red-on) before trusting it.
+
 | File | Skill | Pass when (GREEN) |
 |------|-------|-------------------|
-| `flow-patch-skip-tdd.md` | `/flow-patch` | **B** — reject unevidenced GREEN; RED proof required |
-| `flow-patch-skip-review.md` | `/flow-patch` | **B** — fresh reviewer subagent before verify / Task N+1 |
-| `flow-patch-overlap-tasks.md` | `/flow-patch` | **B** — finish Task 1 review before Task 2 |
-| `flow-patch-large-scope.md` | `/flow-patch` | **B** — redirect to `/flow-spec` |
-| `flow-patch-orchestrator-implements.md` | `/flow-patch` | **B** — implementer + reviewer subagents, not orchestrator code |
-| `flow-patch-orchestrator-writes-test.md` | `/flow-patch` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant pre-change) |
-| `flow-patch-unevidenced-criteria.md` | `/flow-patch` | **B** — evidence per Success criterion; unevidenceable = fail (guard: compliant pre-change) |
-| `flow-spec-orchestrator-writes-test.md` | `/flow-spec` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant pre-change) |
-| `flow-spec-orchestrator-implements.md` | `/flow-spec` | **B** — implementer subagent, not orchestrator code |
-| `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 |
-| `flow-spec-gitignore-flow.md` | `/flow-spec` | **B** — gitignore `.flow/` before first write |
-| `flow-spec-skip-verify.md` | `/flow-spec` | **B** — run verify after last task |
-| `flow-spec-unevidenced-criteria.md` | `/flow-spec` | **B** — evidence per Success Criterion; unevidenceable = fail (guard: compliant pre-change) |
-| `flow-spec-ignore-model-config.md` | `/flow-spec` | **B** — respect `.flow/config` model tiers when present |
-| `flow-spec-same-model-review.md` | `/flow-spec` | **B** — reviewer ≥ implementer; prefer different/stronger model |
-| `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone |
-| `flow-spec-skip-spec-review.md` | `/flow-spec` | **B** — review full spec before OK / writing the plan |
-| `flow-spec-skip-plan-review.md` | `/flow-spec` | **B** — review plan against code, then execute if clean (no OK-to-execute) |
-| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts |
-| `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs |
-| `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix |
+| `flow-patch-skip-tdd.md` | `/flow-patch` | **B** — reject unevidenced GREEN; RED proof required (GREEN on Grok 4.5 High) |
+| `flow-patch-skip-review.md` | `/flow-patch` | **B** — fresh reviewer subagent before verify / Task N+1 (GREEN on Grok 4.5 High) |
+| `flow-patch-overlap-tasks.md` | `/flow-patch` | **B** — finish Task 1 review before Task 2 (GREEN on Grok 4.5 High) |
+| `flow-patch-large-scope.md` | `/flow-patch` | **B** — redirect to `/flow-spec` (GREEN on Grok 4.5 High) |
+| `flow-patch-orchestrator-implements.md` | `/flow-patch` | **B** — implementer + reviewer subagents, not orchestrator code (GREEN on Grok 4.5 High) |
+| `flow-patch-orchestrator-writes-test.md` | `/flow-patch` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant on Grok 4.5 High) |
+| `flow-patch-unevidenced-criteria.md` | `/flow-patch` | **B** — evidence per Success criterion; unevidenceable = fail (guard: compliant on Opus 5 and Grok 4.5 High) |
+| `flow-patch-midflight-escalation.md` | `/flow-patch` | **B** — escalate to `/flow-spec` when scope outgrows the lane mid-flight (guard: compliant on Grok 4.5 High) |
+| `flow-patch-unverified-microspec.md` | `/flow-patch` | **B** — confirm paths/APIs against the code before presenting the micro-spec (RED on Grok 4.5 High; GREEN on Grok 4.5 High) |
+| `flow-spec-orchestrator-writes-test.md` | `/flow-spec` | **B** — whole RED→GREEN cycle in one dispatch (guard: compliant on Grok 4.5 High) |
+| `flow-spec-orchestrator-implements.md` | `/flow-spec` | **B** — implementer subagent, not orchestrator code (GREEN on Grok 4.5 High) |
+| `flow-spec-overlap-tasks.md` | `/flow-spec` | **B** — wait for Task N review before Task N+1 (GREEN on Grok 4.5 High) |
+| `flow-spec-gitignore-flow.md` | `/flow-spec` | **B** — gitignore `.flow/` before first write (GREEN on Grok 4.5 High) |
+| `flow-spec-skip-verify.md` | `/flow-spec` | **B** — run verify after last task (GREEN on Grok 4.5 High) |
+| `flow-spec-unevidenced-criteria.md` | `/flow-spec` | **B** — evidence per Success Criterion; unevidenceable = fail (guard: compliant on Opus 5 and Grok 4.5 High) |
+| `flow-spec-ignore-model-config.md` | `/flow-spec` | **B** — respect `.flow/config` model tiers when present (GREEN on Grok 4.5 High) |
+| `flow-spec-same-model-review.md` | `/flow-spec` | **B** — reviewer ≥ implementer; prefer different/stronger model (GREEN on Grok 4.5 High) |
+| `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone (GREEN on Grok 4.5 High) |
+| `flow-spec-skip-spec-review.md` | `/flow-spec` | **B** — review full spec before OK / writing the plan (GREEN on Grok 4.5 High) |
+| `flow-spec-skip-plan-review.md` | `/flow-spec` | **B** — review plan against code, then execute if clean (no OK-to-execute) (GREEN on Grok 4.5 High) |
+| `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — carry relevant Out of Scope into implementer + reviewer prompts (RED on Grok 4.5 High; GREEN reconfirmed) |
+| `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs (RED on Opus 5; GREEN on Grok 4.5 High) |
+| `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix (GREEN on Grok 4.5 High) |
+| `flow-shared-implementer-skip-red.md` | `flow-shared` | **B** — RED first, verify fail, then GREEN (guard: compliant on Composer 2.5) |
+| `flow-shared-implementer-skip-verify-red.md` | `flow-shared` | **B** — run the new test and see it fail before production code (guard: compliant on Composer 2.5) |
+| `flow-shared-reviewer-trust-report.md` | `flow-shared` | **B** — read the diff; do not trust the implementer report (guard: compliant on Composer 2.5) |
+| `flow-shared-reviewer-ignore-outofscope.md` | `flow-shared` | **B** — REJECT when the diff violates Out of scope (guard: compliant on Composer 2.5) |
