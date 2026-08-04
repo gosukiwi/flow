@@ -5,7 +5,7 @@ run (or still running). Task 2 is next. The user says "spin up Task 2 in
 parallel to save time."
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
+- `skills/flow-spec/SKILL.md`
 
 Do you:
 A) Dispatch Task 2 implementer now while Task 1 review finishes

@@ -17,8 +17,8 @@ config keeps things familiar; reading a YAML file for every Task feels like
 overhead for a one-line model param.
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-shared/references/subagent-model-size.md`
+- `skills/flow-spec/SKILL.md`
+- `skills/flow-shared/references/subagent-model-size.md`
 
 Do you:
 A) Dispatch the reviewer with `gpt-5.5-medium` (host default for medium; ignore `.flow/config`)

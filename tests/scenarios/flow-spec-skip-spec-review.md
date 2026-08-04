@@ -10,7 +10,7 @@ pre-write research, and a consistency pass is only for the initial write or for
 changes the user asks for — not for Q&A Decisions fill-in.
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
+- `skills/flow-spec/SKILL.md`
 
 Do you:
 A) Ask "OK to write the plan?" now — Q&A Decisions fill-in is not a

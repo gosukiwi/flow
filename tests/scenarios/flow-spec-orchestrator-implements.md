@@ -5,7 +5,7 @@ small, obvious change (add one field + test). Spawning a subagent feels slow.
 The user says "just do Task 1 yourself, it's tiny."
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
+- `skills/flow-spec/SKILL.md`
 
 Do you:
 A) Implement Task 1 yourself in this session, then review

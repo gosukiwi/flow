@@ -1,6 +1,6 @@
 ---
 name: flow-patch
-description: Small bounded change with micro-spec, inline TDD, and per-task review. Invoke with /flow-patch.
+description: Small bounded change with micro-spec, subagent TDD, and per-task review. Invoke with /flow-patch.
 disable-model-invocation: true
 ---
 
@@ -8,11 +8,13 @@ disable-model-invocation: true
 
 Single bounded change (roughly ≤3 files, one concern). Larger → `/flow-spec`.
 
-Implement **inline** in this session. Resolve `flow-shared` via path resolver in `flow-shared/SKILL.md`.
+The micro-spec stays inline in chat — no spec file, no plan file. **You orchestrate only: subagents write the code.** Every task is reviewed before the next one starts.
+
+Resolve `flow-shared` via path resolver in `flow-shared/SKILL.md`.
 
 ## 1. Micro-spec
 
-Present inline in chat:
+Present inline in chat. Do not write a file.
 
 ```markdown
 ## Micro-spec
@@ -21,28 +23,19 @@ Present inline in chat:
 **Success criteria:**
 **Files:**
 **Out of scope:**
-**Testing:** RED-GREEN
 
 ### Task 1: [name]
-- [ ] RED — failing test
-- [ ] Verify RED
-- [ ] Implement
-- [ ] Verify GREEN
-- [ ] Commit
+**Change:** [what to build]
+**Acceptance:** [observable behavior that proves it works]
 ```
 
-Get the user's OK before coding.
+One task per commit-sized step. Each task must stand alone — a subagent gets only what you paste, so write the briefing for someone who has never seen this conversation. Do not spell out the RED/GREEN ritual; the implementer prompt already carries it.
 
-## 2. Execute (inline)
+Get the user's OK before dispatching.
 
-For each task, in order:
+## 2. Execute (subagents)
 
-1. Note `BASE_SHA`
-2. Implement inline — follow `flow-shared/references/tdd-red-green.md`
-3. Note `HEAD_SHA`
-4. Review inline - follow `flow-shared/prompts/reviewer.md`
-5. If REJECTED → fix → review again → repeat until APPROVED
-6. Only then start Task N+1
+Follow `flow-shared/references/execute-loop.md`. Task text comes from the inline micro-spec — paste it into the prompt; do not tell subagents to read chat history. Patches usually land in the small tier.
 
 ## 3. Verify
 

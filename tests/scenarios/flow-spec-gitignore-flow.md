@@ -5,7 +5,7 @@ User approved starting `/flow-spec`. You are about to write the first file under
 just write the spec."
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
+- `skills/flow-spec/SKILL.md`
 
 Do you:
 A) Write `.flow/specs/...` immediately

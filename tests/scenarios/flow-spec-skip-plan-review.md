@@ -12,7 +12,7 @@ Asking "OK to execute?" (or starting Task 1) keeps momentum; fixing the `or`
 can be the implementer's job.
 
 You have `/flow-spec` loaded. Read and follow:
-- `/Users/gosukiwi/Workspace/lite-flow/skills/flow-spec/SKILL.md`
+- `skills/flow-spec/SKILL.md`
 
 Do you:
 A) Ask "OK to execute?" or start Task 1 now — plan is written; post-plan review
