@@ -49,16 +49,7 @@ Keep it high-level and unambiguous. Iterate with the user as needed (questions, 
 
 ## 3. Execute (subagents)
 
-Before each dispatch, pick a model per `flow-shared/references/subagent-model-size.md` (smallest capable tier). Resolve `flow-shared` paths before pasting prompts. Paste the filled template only — do not tell subagents to read plan files.
-
-For each task, in order:
-
-1. Note `BASE_SHA` (`git rev-parse HEAD`)
-2. Dispatch implementer subagent — paste `flow-shared/prompts/implementer.md` (fill placeholders)
-3. Note `HEAD_SHA`
-4. Dispatch reviewer subagent — paste `flow-shared/prompts/reviewer.md` (fill placeholders)
-5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
-6. Only then start Task N+1
+Follow `flow-shared/references/execute-loop.md`. Task text comes from the plan — paste it into the prompt; do not tell subagents to read plan files.
 
 ## 4. Verify
 

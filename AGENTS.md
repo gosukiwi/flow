@@ -28,7 +28,7 @@ skills/
   flow-debug/SKILL.md      # Investigate; RED only; no fix
   flow-shared/             # Shared assets (not invoked directly)
     prompts/               # implementer.md, reviewer.md (prompt bodies)
-    references/            # tdd-red-green.md, subagent-model-size.md
+    references/            # execute-loop.md, tdd-red-green.md, subagent-model-size.md
 
 tests/
   writing-skills.md        # Scenario recipe + baseline catalog
@@ -121,7 +121,7 @@ Every invokable skill under `skills/<name>/`:
 
 1. Frontmatter: `name` matches directory; `description` says when to invoke; `disable-model-invocation: true`
 2. Resolve shared assets via path resolver in `flow-shared/SKILL.md`
-3. Prompt files under `flow-shared/prompts/` are **bodies only** — orchestration (dispatch order, model size) lives in the calling `SKILL.md`
+3. Prompt files under `flow-shared/prompts/` are **bodies only**. Orchestration shared by both lanes lives in `references/execute-loop.md`; only lane-specific framing (where task text comes from, tier hints) lives in the calling `SKILL.md`
 
 ### Invariants (do not break)
 
@@ -129,7 +129,7 @@ Every invokable skill under `skills/<name>/`:
 |------|--------|
 | `/flow-spec` orchestrator does **not** implement production code — subagents do | `flow-spec/SKILL.md` |
 | `/flow-patch` orchestrator does **not** implement or review — subagents do; micro-spec stays inline (no file) | `flow-patch/SKILL.md` |
-| Per-task review before Task N+1 (both lanes) | `flow-spec`, `flow-patch` |
+| Per-task review before Task N+1 (both lanes) | `execute-loop.md` |
 | TDD: no production code without a failing test first | `tdd-red-green.md` |
 | `/flow-debug` does not fix — RED then stop → `/flow-patch` | `flow-debug/SKILL.md` |
 | `.flow/` gitignored before first write; never commit `.flow/` artifacts | `flow-spec/SKILL.md` |

@@ -35,20 +35,7 @@ Get the user's OK before dispatching.
 
 ## 2. Execute (subagents)
 
-"It's only a few lines" is not an exemption. A change small enough to tempt you into typing it yourself is small enough for a small-tier subagent — and the briefing costing more than the diff is not a reason to skip it. Never implement or review in this session, no matter who asks.
-
-Before each dispatch, pick a model per `flow-shared/references/subagent-model-size.md` (smallest capable tier — patches usually land in small). Resolve `flow-shared` paths before pasting prompts. Paste the filled template only — do not tell subagents to read the micro-spec from chat history.
-
-For each task, in order:
-
-1. Note `BASE_SHA` (`git rev-parse HEAD`)
-2. Dispatch implementer subagent — paste `flow-shared/prompts/implementer.md` (fill placeholders)
-3. Note `HEAD_SHA`
-4. Dispatch reviewer subagent — paste `flow-shared/prompts/reviewer.md` (fill placeholders)
-5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
-6. Only then start Task N+1
-
-A green report from the implementer is not review. The reviewer reads the diff.
+Follow `flow-shared/references/execute-loop.md`. Task text comes from the inline micro-spec — paste it into the prompt; do not tell subagents to read chat history. Patches usually land in the small tier.
 
 ## 3. Verify
 

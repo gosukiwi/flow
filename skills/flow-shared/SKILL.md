@@ -16,6 +16,7 @@ disable-model-invocation: true
 
 ## Contents
 
+- `references/execute-loop.md` — per-task dispatch loop (both lanes)
 - `references/tdd-red-green.md` — TDD cycle for implement + patch
 - `references/subagent-model-size.md` — pick a right-sized model per subagent dispatch
 - `prompts/implementer.md` — prompt body for implementer subagents (`/flow-spec`, `/flow-patch`)
