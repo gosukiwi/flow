@@ -100,6 +100,7 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-spec-skip-plan-review.md` | `/flow-spec` | **B** — review plan against code, then execute if clean (no OK-to-execute) (GREEN on Grok 4.5 High) |
 | `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — fill `## Out of scope` in both prompts with task-relevant lines, not `"none"` (field sufficient at Grok 4.5 High; execute-loop paragraph removed as redundant) |
 | `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs (RED on Opus 5; GREEN on Grok 4.5 High) |
+| `flow-spec-spec-lists-files.md` | `/flow-spec` | **B** — high-level spec only; no file paths / type dumps (defer to plan) (RED + GREEN on Grok 4.5 High) |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix (GREEN on Grok 4.5 High) |
 | `flow-debug-guess-root-cause.md` | `/flow-debug` | **B** — confirm the real trigger before writing RED; a test that fails on a guess is not root cause (guard: compliant on Grok 4.5 High) |
 | `flow-shared-implementer-skip-red.md` | `flow-shared` | **B** — RED first, verify fail, then GREEN (guard: compliant on Composer 2.5) |
