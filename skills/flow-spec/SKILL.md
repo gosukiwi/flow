@@ -32,7 +32,7 @@ Write `.flow/specs/YYYY-MM-DD-<topic>.md`:
 ## Design
 ```
 
-Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/fail at Verify). Design is approach and decisions — not file paths or type dumps; exact paths belong in the plan. If the work spans independent subsystems, split it into separate specs — one per subsystem, each shippable on its own. Iterate with the user as needed.
+Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/fail at Verify). Design is approach and decisions — not file paths or type dumps. If the work spans independent subsystems, split it into separate specs — one per subsystem, each shippable on its own. Iterate with the user as needed.
 
 ## 2. Plan
 
