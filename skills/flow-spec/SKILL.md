@@ -30,14 +30,9 @@ Write `.flow/specs/YYYY-MM-DD-<topic>.md`:
 ## Scope
 ## Out of Scope
 ## Design
-## Files
-(paths created or modified)
-## Contracts
-(types/models, persistence, public APIs/events/module boundaries)
-## Testing
 ```
 
-Keep it high-level and unambiguous. If the work spans independent subsystems, split it into separate specs — one per subsystem, each shippable on its own. Iterate with the user as needed.
+Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/fail at Verify). Design is approach and decisions — not file paths or type dumps. If the work spans independent subsystems, split it into separate specs — one per subsystem, each shippable on its own. Iterate with the user as needed.
 
 ## 2. Plan
 
