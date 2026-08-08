@@ -36,8 +36,6 @@ Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/f
 
 ## 2. Plan
 
-No forks. No guessing. Unsettled → read the code or ask the user.
-
 1. Review the full spec for inconsistencies and unresolved ambiguity. Don't guess: read the code to confirm, or ask the user when the code can't settle it. Pre-write research does not replace this pass.
 2. Get the user's OK to write the plan. Do not write the plan until steps 1–2 are done.
 3. Read the TDD guidelines (`flow-shared/references/tdd-red-green.md`), then write `.flow/plans/YYYY-MM-DD-<topic>.md` (same slug). Break the work into sequential tasks a subagent can finish alone. Structure each as RED → GREEN where a test makes sense; follow the guidelines on when a test isn't warranted.
