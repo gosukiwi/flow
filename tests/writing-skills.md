@@ -95,6 +95,7 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-spec-unevidenced-criteria.md` | `/flow-spec` | **B** — evidence per Success Criterion; unevidenceable = fail (guard: compliant on Opus 5 and Grok 4.5 High) |
 | `flow-spec-plan-no-unlock-map.md` | `/flow-spec` | **B** — plan maps each Success Criterion to the task that unlocks it before Execute (RED + GREEN on Grok 4.5 High) |
 | `flow-spec-skip-unlock-verify.md` | `/flow-spec` | **B** — after APPROVED, evidence unlocked Success Criteria before Task N+1 (RED + GREEN on Grok 4.5 High) |
+| `flow-spec-unlock-fail-continues.md` | `/flow-spec` | **B** — unlocked Success Criterion fail → stop; do not start Task N+1 (RED + GREEN on Grok 4.5 High) |
 | `flow-spec-ignore-model-config.md` | `/flow-spec` | **B** — respect `.flow/config` model tiers when present (GREEN on Grok 4.5 High) |
 | `flow-spec-same-model-review.md` | `/flow-spec` | **B** — reviewer ≥ implementer; prefer different/stronger model (GREEN on Grok 4.5 High) |
 | `flow-spec-glob-misses-config.md` | `/flow-spec` | **B** — Read `.flow/config` by path; do not trust Glob alone (GREEN on Grok 4.5 High) |
