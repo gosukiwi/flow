@@ -11,7 +11,8 @@ For each task, in order:
 3. Note `HEAD_SHA`
 4. Dispatch reviewer subagent — paste `prompts/reviewer.md` (fill placeholders)
 5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
-6. Only then start Task N+1
+6. If the plan maps Success Criteria unlocked by this task, the orchestrator evidences each now (pass/fail with observed behavior). Fail → stop; do not start Task N+1. The reviewer does not check Success Criteria — unlock checks and final Verify are the orchestrator's.
+7. Only then start Task N+1
 
 ## Non-negotiable
 
