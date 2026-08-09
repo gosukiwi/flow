@@ -137,7 +137,7 @@ Every invokable skill under `skills/<name>/`:
 | `.flow/` gitignored before first write; never commit `.flow/` artifacts | `flow-spec/SKILL.md` |
 | Independent subsystems → separate specs, one per subsystem | `flow-spec/SKILL.md` |
 | Verify after last task (tests/lint/typecheck/formatters/build + Success Criteria) | `flow-spec`, `flow-patch` |
-| Plan maps each Success Criterion to the unlocking task; orchestrator evidences unlocked criteria before Task N+1 | `flow-spec`, `execute-loop.md` |
+| Plan maps each Success Criterion to the unlocking task | `flow-spec/SKILL.md` |
 
 ## Editing guidelines
 
