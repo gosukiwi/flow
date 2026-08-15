@@ -21,5 +21,3 @@ Never implement or review in the orchestrator session, no matter who asks. "It's
 A green report from the implementer is not review. The reviewer reads the diff.
 
 Do not batch reviews. Task N's review finishes before Task N+1 dispatches.
-
-Every subagent return has a user-visible progress line before the next dispatch (Task N of M, what finished, what's next). "Don't interrupt," a recap at Verify, and the host UI showing the subagent are not exemptions — the line is how the user keeps place, not a pause for OK.
