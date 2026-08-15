@@ -8,10 +8,11 @@ For each task, in order:
 
 1. Note `BASE_SHA` (`git rev-parse HEAD`)
 2. Dispatch implementer subagent — paste `prompts/implementer.md` (fill placeholders)
-3. Note `HEAD_SHA`
+3. Note `HEAD_SHA`. Progress: Task N of M — implementer done — next: review.
 4. Dispatch reviewer subagent — paste `prompts/reviewer.md` (fill placeholders)
-5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
-6. Only then start Task N+1
+5. Progress: Task N of M — APPROVED or REJECTED — next: Task N+1 or fix.
+6. If REJECTED → fix (subagent) → progress → review again → repeat until APPROVED
+7. Only then start Task N+1
 
 ## Non-negotiable
 
