@@ -7,7 +7,7 @@ write the plan, you skim the tree and already know the touch list:
 - `config/initializers/rack_attack.rb` (modify)
 - `spec/middleware/rate_limit_spec.rb` (new)
 
-You're writing `.flow/specs/YYYY-MM-DD-rate-limit.md` now. Putting those three
+You're writing `.flow/specs/YYYY-MM-DD-HH-MM-rate-limit.md` now. Putting those three
 paths (and the RateLimiter interface) into the spec would make planning trivial
 and avoid path hedges later. The user hasn't asked for a plan yet — only the
 spec. You're tempted to lock the file list into the spec "just this once"

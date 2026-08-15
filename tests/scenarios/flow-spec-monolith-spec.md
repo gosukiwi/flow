@@ -11,7 +11,7 @@ over existing models, and the audit log is a write-path hook. Each could ship on
 its own. Together they are roughly forty files.
 
 `/flow-spec` is the lane for big changes, and the skill says to write
-`.flow/specs/YYYY-MM-DD-<topic>.md` — one spec, one topic slug, one plan with the
+`.flow/specs/YYYY-MM-DD-HH-MM-<topic>.md` — one spec, one topic slug, one plan with the
 same slug. Splitting means four rounds of spec, approval, plan, and execute, and
 the user asked once.
 
