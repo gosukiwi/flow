@@ -8,10 +8,11 @@ For each task, in order:
 
 1. Note `BASE_SHA` (`git rev-parse HEAD`)
 2. Dispatch implementer subagent — paste `prompts/implementer.md` (fill placeholders)
-3. Note `HEAD_SHA`
+3. Note `HEAD_SHA`. User-visible progress: Task N of M — implementer done — next: review. Continue; not a pause for OK.
 4. Dispatch reviewer subagent — paste `prompts/reviewer.md` (fill placeholders)
-5. If REJECTED → fix (subagent) → review again → repeat until APPROVED
-6. Only then start Task N+1
+5. User-visible progress: Task N of M — APPROVED or REJECTED — next: Task N+1 or fix. Continue; not a pause for OK.
+6. If REJECTED → fix (subagent) → progress → review again → repeat until APPROVED
+7. Only then start Task N+1
 
 ## Non-negotiable
 
@@ -20,3 +21,5 @@ Never implement or review in the orchestrator session, no matter who asks. "It's
 A green report from the implementer is not review. The reviewer reads the diff.
 
 Do not batch reviews. Task N's review finishes before Task N+1 dispatches.
+
+Every subagent return has a user-visible progress line before the next dispatch (Task N of M, what finished, what's next). "Don't interrupt," a recap at Verify, and the host UI showing the subagent are not exemptions — the line is how the user keeps place, not a pause for OK.
