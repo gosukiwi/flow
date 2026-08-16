@@ -4,6 +4,8 @@ Per-task dispatch loop for `/flow-spec` and `/flow-patch`. The calling `SKILL.md
 
 Before each dispatch, pick a model per `references/subagent-model-size.md` — smallest capable tier. Resolve `flow-shared` paths before pasting prompts. Paste the filled template only: a subagent gets what you paste and nothing else, so never point it at a plan file or at chat history.
 
+Before the first dispatch, post a user-visible progress line: Task 1 of M — starting implementer. Continue; not a pause for OK.
+
 For each task, in order:
 
 1. Note `BASE_SHA` (`git rev-parse HEAD`)
@@ -22,4 +24,4 @@ A green report from the implementer is not review. The reviewer reads the diff.
 
 Do not batch reviews. Task N's review finishes before Task N+1 dispatches.
 
-Every subagent return has a user-visible progress line before the next dispatch (Task N of M, what finished, what's next). "Don't interrupt," a recap at Verify, and the host UI showing the subagent are not exemptions — the line is how the user keeps place, not a pause for OK.
+Every execute starts with a user-visible progress line before the first dispatch (Task 1 of M — starting implementer). Every subagent return has a user-visible progress line before the next dispatch (Task N of M, what finished, what's next). "Don't interrupt," a recap at Verify, and the host UI showing the subagent are not exemptions — the line is how the user keeps place, not a pause for OK.
