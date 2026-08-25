@@ -103,7 +103,9 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-spec-plan-keeps-forks.md` | `/flow-spec` | **B** — no unresolved alternatives in the plan (paths, names, process); settle via code or ask before Execute (RED + GREEN on Grok 4.5 High) |
 | `flow-spec-plan-either-fine.md` | `/flow-spec` | **B** — lock choices while writing the plan; do not defer `either`/`equivalent` hedges to step 4 (RED + GREEN on Grok 4.5 High) |
 | `flow-spec-outofscope-not-carried.md` | `/flow-spec` | **B** — fill `## Out of scope` in both prompts with task-relevant lines, not `"none"` (field sufficient at Grok 4.5 High; execute-loop paragraph removed as redundant) |
-| `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split independent subsystems into separate specs (RED on Opus 5; GREEN on Grok 4.5 High) |
+| `flow-spec-monolith-spec.md` | `/flow-spec` | **B** — split work that exceeds one slice into separate specs (RED on Opus 5; GREEN on Grok 4.5 High; GREEN re-run on Opus 5 after the slice-rule rewrite) |
+| `flow-spec-oversized-single-feature.md` | `/flow-spec` | **B** — one coherent subsystem still splits when it exceeds one session / one shippable slice; spec the first slice only (RED + GREEN on Opus 5; Grok 4.5 High pending) |
+| `flow-spec-scope-not-trimmed.md` | `/flow-spec` | **B** — anything not required for the slice to ship and pass its own tests goes to Out of Scope, however small; not Scope and not Design follow-ups (RED + GREEN on Opus 5; Grok 4.5 High pending) |
 | `flow-spec-spec-lists-files.md` | `/flow-spec` | **B** — high-level spec only; no file paths / type dumps (defer to plan) (RED + GREEN on Grok 4.5 High) |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix (GREEN on Grok 4.5 High) |
 | `flow-debug-guess-root-cause.md` | `/flow-debug` | **B** — confirm the real trigger before writing RED; a test that fails on a guess is not root cause (guard: compliant on Grok 4.5 High) |

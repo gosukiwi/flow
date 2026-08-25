@@ -32,7 +32,13 @@ Write `.flow/specs/YYYY-MM-DD-HH-MM-<topic>.md`:
 ## Design
 ```
 
-Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/fail at Verify). Design is approach and decisions — not file paths or type dumps. If the work spans independent subsystems, split it into separate specs — one per subsystem, each shippable on its own. Iterate with the user as needed.
+Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/fail at Verify). Design is approach and decisions — not file paths or type dumps.
+
+A spec is one slice: small enough for one agent session to hold its spec, plan, and task coordination; shippable on its own; testable on its own. Work exceeding any of these is more than one spec — split it, spec only the first slice, and tell the user the rest follow as their own specs. One tightly-coupled subsystem is not exempt; size and shippability decide, not independence.
+
+Scope holds only what this slice needs to ship and pass its own tests. Adjacent fixes, cleanups, and nice-to-haves in files you happen to be touching go to Out of Scope, however small — proximity is not scope.
+
+Iterate with the user as needed.
 
 ## 2. Plan
 
