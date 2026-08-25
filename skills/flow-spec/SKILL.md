@@ -36,7 +36,7 @@ Keep it high-level and unambiguous. Success Criteria must be falsifiable (pass/f
 
 A spec is one slice: small enough for one agent session to hold its spec, plan, and task coordination; shippable on its own; testable on its own. Work exceeding any of these is more than one spec — split it, spec only the first slice, and tell the user the rest follow as their own specs. One tightly-coupled subsystem is not exempt; size and shippability decide, not independence.
 
-Scope holds only what this slice needs to ship and pass its own tests. Adjacent fixes, cleanups, and nice-to-haves in files you happen to be touching go to Out of Scope, however small — proximity is not scope.
+Scope holds only what this slice needs to ship and pass its own tests. Out of Scope names what a subagent on this slice could reasonably take for its own job: adjacent fixes and cleanups in the files it touches, however small — proximity is not scope — plus any deferred work that borders this slice. Not every deferred slice; only what could be drifted into.
 
 Iterate with the user as needed.
 

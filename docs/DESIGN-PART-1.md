@@ -89,6 +89,59 @@ GREEN re-run and a reworded Baseline row.
 - Escalation to another lane. Cannot ship anyway — there is nothing to escalate to.
 - `flow-patch` and `flow-debug` are untouched.
 
+## Applied: fencing bordering slices
+
+The first Scope rule sent only *adjacent fixes, cleanups, and nice-to-haves* to Out of
+Scope, and the split sentence only said to tell the user about deferred slices in
+conversation. So an implementer on slice 1 had no written boundary against slice 2's
+work, and the reviewer had nothing to enforce.
+
+Current wording:
+
+> Scope holds only what this slice needs to ship and pass its own tests. Out of Scope
+> names what a subagent on this slice could reasonably take for its own job: adjacent
+> fixes and cleanups in the files it touches, however small — proximity is not scope —
+> plus any deferred work that borders this slice. Not every deferred slice; only what
+> could be drifted into.
+
+**This is the case `writing-skills.md:63` exists for.** `flow-spec-bordering-slice-unfenced.md`
+was compliant on Opus 5 twice, by two different routes:
+
+1. First attempt stretched "adjacent … in files you happen to be touching" to cover
+   slice 2, since both sat in the same model files.
+2. Sharpened so the bordering slice shares no files with slice 1, reachable only by
+   reasoning. Still compliant: *"the proximity sentence is a floor, not the section's
+   definition — it says proximity is not sufficient for scope, not that proximity is
+   required for Out of Scope."*
+
+A third sharpening was declined — a user instruction to keep Out of Scope short would
+have manufactured pressure to license a predetermined edit, the mirror of what
+`AGENTS.md:96` forbids. The scenario was registered as a guard and no edit was made.
+
+**Grok 4.5 then REDed it: A.** Reason: *"the skill sends only adjacent fixes,
+cleanups, and nice-to-haves in files this slice actually touches to Out of Scope, and
+slice 2 is later feature work in files slice 1 never opens, already deferred to its own
+spec."* Exactly the gap, at the large tier the rule specifies. Opus 5 had been
+reconstructing what the text failed to say. The edit went in on that evidence, and
+Grok 4.5 returned **B** afterwards.
+
+Two rejected alternatives, recorded so they are not revisited:
+
+- **Listing every deferred slice in Out of Scope** buys no enforcement, because
+  `prompts/implementer.md:15` carries only *task-relevant* lines — a slice five steps
+  away is filtered out and fences nothing. It also reinstates the roadmap by the back
+  door, in a gitignored file, with the rot intact.
+- **Excluding deferred slices entirely** (treating Out of Scope as non-goals only)
+  leaves the gap open. Out of Scope is a fence the reviewer enforces, not a taxonomy.
+
+## Consequence accepted: nothing tracks the deferred slices
+
+After a split, one spec file is written for slice 1. The rest exist only as a sentence
+in the conversation — no file, no queue, no status — and the user may do nothing with
+them. Bordering slices get an incidental trace in slice 1's Out of Scope, but `.flow/`
+is gitignored and disposable. This is the cost of dropping the roadmap, accepted
+knowingly.
+
 ## Considered and dropped
 
 ### `flow-discover` — a knowledge-base lane
