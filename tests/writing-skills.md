@@ -110,6 +110,7 @@ Annotations name the model the run used. A guard row is only as strong as that m
 | `flow-spec-spec-lists-files.md` | `/flow-spec` | **B** — high-level spec only; no file paths / type dumps (defer to plan) (RED + GREEN on Grok 4.5 High) |
 | `flow-debug-fix-instead-of-stop.md` | `/flow-debug` | **B** — RED test + stop; no production fix (GREEN on Grok 4.5 High) |
 | `flow-debug-guess-root-cause.md` | `/flow-debug` | **B** — confirm the real trigger before writing RED; a test that fails on a guess is not root cause (guard: compliant on Grok 4.5 High) |
+| `flow-shared-skip-global-agents.md` | `flow-shared` | **B** — resolve via `~/.agents/skills/flow-shared/` when that is where Global install put the skills (RED + GREEN on Grok 4.5 High) |
 | `flow-shared-implementer-skip-red.md` | `flow-shared` | **B** — RED first, verify fail, then GREEN (guard: compliant on Composer 2.5) |
 | `flow-shared-implementer-skip-verify-red.md` | `flow-shared` | **B** — run the new test and see it fail before production code (guard: compliant on Composer 2.5) |
 | `flow-shared-reviewer-trust-report.md` | `flow-shared` | **B** — read the diff; do not trust the implementer report (guard: compliant on Composer 2.5) |
