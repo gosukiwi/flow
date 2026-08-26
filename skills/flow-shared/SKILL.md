@@ -10,9 +10,12 @@ disable-model-invocation: true
 
 ## Path resolver
 
+Try in order; first that exists wins. User-level `.agents` is the Global install location — not Cursor-only.
+
 1. `.agents/skills/flow-shared/`
 2. `.cursor/skills/flow-shared/`
-3. `~/.cursor/skills/flow-shared/`
+3. `~/.agents/skills/flow-shared/`
+4. `~/.cursor/skills/flow-shared/`
 
 ## Contents
 
