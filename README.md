@@ -77,8 +77,8 @@ models for the different sizes.
 ```yaml
 models:
   small: composer-2.5
-  medium: composer-2.5
-  large: cursor-grok-4.5-xhigh
+  medium: gemini-3.7-flash-high
+  large: cursor-grok-4.6-high
 ```
 
 `.flow/` is gitignored, so this stays local to the project checkout.
